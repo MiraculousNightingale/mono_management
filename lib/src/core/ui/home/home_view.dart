@@ -101,47 +101,51 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('user info'.tr),
-      ),
-      body: controller.progress
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : Container(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  Container(
-                    child: Column(
-                      children: [
-                        ListTile(
-                          title: Text(
-                              "${'id'.tr}: ${controller.userInfo.clientId}"),
-                          focusColor: Colors.black,
-                        ),
-                        ListTile(
-                            title: Text(
-                                "${'full name'.tr}: ${controller.userInfo.name}")),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: _buildAccountList(controller.userInfo.accounts),
-                  )
+    return GetBuilder<HomeController>(
+        builder: (controller) => Scaffold(
+              appBar: AppBar(
+                title: Text('user info'.tr),
+              ),
+              body: controller.progress
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : Container(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        children: [
+                          Container(
+                            child: Column(
+                              children: [
+                                ListTile(
+                                  title: Text(
+                                      "${'id'.tr}: ${controller.userInfo.clientId}"),
+                                  focusColor: Colors.black,
+                                ),
+                                ListTile(
+                                    title: Text(
+                                        "${'full name'.tr}: ${controller.userInfo.name}")),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child:
+                                _buildAccountList(controller.userInfo.accounts),
+                          )
+                        ],
+                      )),
+              bottomNavigationBar: BottomNavigationBar(
+                items: [
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.account_circle), label: 'user info'.tr),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.compare_arrows),
+                      label: 'currency rates'.tr),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.account_balance_wallet),
+                      label: 'expenses'.tr),
                 ],
-              )),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle), label: 'user info'.tr),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.compare_arrows), label: 'currency rates'.tr),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_balance_wallet), label: 'expenses'.tr),
-        ],
-      ),
-    );
+              ),
+            ));
   }
 }
