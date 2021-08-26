@@ -5,6 +5,7 @@ import 'package:mono_management/src/data/model/user_info.dart';
 
 class HomeController extends GetxController {
   UserInfo _userInfo = UserInfo();
+  int _tabIndex = 0;
 
   Future<UserInfo> getUserInfo() async {
     await Future.delayed(Duration(seconds: 2));
@@ -29,7 +30,12 @@ class HomeController extends GetxController {
   }
   bool get progress => _progress;
 
-
   UserInfo get userInfo => _userInfo;
 
+  int get tabIndex => _tabIndex;
+
+  set tabIndex(int value) {
+    _tabIndex = value;
+    update();
+  }
 }
