@@ -8,12 +8,6 @@ import '../../app_pages.dart';
 
 class UserInfoView extends GetView<HomeController> {
   Widget _buildAccountList(List<Account> accounts) {
-    //TODO: Debug stuff, don't forget to remove
-    accounts.add(accounts.first);
-    accounts.add(accounts.first);
-    accounts.add(accounts.first);
-    accounts.add(accounts.first);
-    accounts.add(accounts.first);
 
     return ListView.separated(
         itemBuilder: (context, index) {
