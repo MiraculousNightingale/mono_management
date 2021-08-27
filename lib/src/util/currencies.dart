@@ -1,9 +1,16 @@
 //Order by Most traded currencies: https://en.wikipedia.org/wiki/Template:Most_traded_currencies
+import 'package:collection/collection.dart';
+
 class Currency {
 
-  String fromCode(int code){
-    var currency = currencies.where((element) => element['number']==code).first;
-    return currency['code'];
+  String abbreviationFromCode(int code){
+    var currency = currencies.firstWhereOrNull((element) => element['number']==code);
+    return currency!=null ? currency['code'] : 'NaN';
+  }
+
+  String symbolFromCode(int code){
+    var currency = currencies.firstWhereOrNull((element) => element['number']==code);
+    return currency!=null ? currency['symbol'] : 'NaN';
   }
 
   List<Map<String, dynamic>> currencies = [

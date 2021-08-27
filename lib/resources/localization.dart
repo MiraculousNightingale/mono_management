@@ -19,6 +19,10 @@ class Localization extends Translations {
       'expenses':'Expenses',
       'black': 'Black',
       'white': 'White',
+      'filter': 'Filter',
+      'buy': 'Buy',
+      'sell': 'Sell',
+      'exchange': 'Exchange'
 
     },
     'ua_UA': {
@@ -37,6 +41,10 @@ class Localization extends Translations {
       'expenses':'Виписки',
       'black': 'Чорна',
       'white': 'Біла',
+      'filter': 'Фільтр',
+      'buy': 'Купівля',
+      'sell': 'Продаж',
+      'exchange': 'Обмін'
     }
   };
 }

@@ -43,7 +43,7 @@ class HomeView extends GetView<HomeController> {
                                           fontWeight: FontWeight.bold)),
                                   TextSpan(
                                     text:
-                                        '${Currency().fromCode(accounts[index].currencyCode)}',
+                                        '${Currency().abbreviationFromCode(accounts[index].currencyCode)}',
                                   ),
                                 ])),
                             padding: const EdgeInsets.only(right: 5)),
@@ -182,7 +182,7 @@ class HomeView extends GetView<HomeController> {
     return GetBuilder<HomeController>(
         builder: (controller) => Scaffold(
               appBar: AppBar(
-                title: Text('user info'.tr),
+                title: Text(controller.getCurrentTitle()),
               ),
               body: IndexedStack(
                 index: controller.tabIndex,

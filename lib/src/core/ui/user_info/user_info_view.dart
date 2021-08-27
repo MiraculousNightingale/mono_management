@@ -8,6 +8,7 @@ import '../../app_pages.dart';
 
 class UserInfoView extends GetView<HomeController> {
   Widget _buildAccountList(List<Account> accounts) {
+    //TODO: Debug stuff, don't forget to remove
     accounts.add(accounts.first);
     accounts.add(accounts.first);
     accounts.add(accounts.first);
@@ -41,7 +42,7 @@ class UserInfoView extends GetView<HomeController> {
                                           fontWeight: FontWeight.bold)),
                                   TextSpan(
                                     text:
-                                        '${Currency().fromCode(accounts[index].currencyCode)}',
+                                        '${Currency().abbreviationFromCode(accounts[index].currencyCode)}',
                                   ),
                                 ])),
                             padding: const EdgeInsets.only(right: 5)),
