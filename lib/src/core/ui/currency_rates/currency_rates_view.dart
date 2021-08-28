@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mono_management/src/core/ui/home/home_controller.dart';
+import 'package:mono_management/src/data/model/currency_filter.dart';
 import 'package:mono_management/src/data/model/currency_rate.dart';
 import 'package:mono_management/src/data/model/user_info.dart';
 import 'package:mono_management/src/util/currencies.dart';
@@ -54,7 +55,8 @@ class CurrencyRatesView extends GetView<HomeController> {
                           style: TextStyle(color: Colors.black),
                           children: [
                         TextSpan(
-                            text: ' ${'exchange'.tr}: ${currencyRate.rateCross} ',
+                            text:
+                                ' ${'exchange'.tr}: ${currencyRate.rateCross} ',
                             style: TextStyle(fontWeight: FontWeight.bold)),
                       ])),
                   Icon(Icons.compare_arrows_rounded),
@@ -64,8 +66,46 @@ class CurrencyRatesView extends GetView<HomeController> {
           );
   }
 
-  Widget _buildCurrencyRateList(List<CurrencyRate> currencyRates) {
+  Widget _buildCurrencyFilterList(List<CurrencyFilter> filters) {
+    return ListView.separated(
+        itemBuilder: (context, index) {
+          return Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(17),
+                  color: Colors.black12),
+              child: CheckboxListTile(
+                value: filters[index].show,
+                onChanged: (value) {
+                  filters[index].show = value ?? true;
+                  controller.update();
+                  },
+                title: Text(
+                    '${Currency().nameFromCode(filters[index].currencyRate.currencyCodeA)}'),
+                secondary: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '${Currency().symbolFromCode(filters[index].currencyRate.currencyCodeA)} ${Currency().abbreviationFromCode(filters[index].currencyRate.currencyCodeA)}',
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black54,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                // subtitle: Text('subtitle'),
+                // controlAffinity: ListTileControlAffinity.platform,
+              ));
+        },
+        separatorBuilder: (context, index) {
+          return const SizedBox(
+            height: 10,
+          );
+        },
+        itemCount: filters.length);
+  }
 
+  Widget _buildCurrencyRateList(List<CurrencyRate> currencyRates) {
     return ListView.separated(
         itemBuilder: (context, index) {
           return Container(
@@ -93,7 +133,7 @@ class CurrencyRatesView extends GetView<HomeController> {
                                     TextSpan(
                                         text:
                                             // ' ${currencyRates[index].currencyCodeA} '),
-                                            '  '),
+                                            ' '),
                                     TextSpan(
                                       text:
                                           '${Currency().abbreviationFromCode(currencyRates[index].currencyCodeA)}',
@@ -122,7 +162,7 @@ class CurrencyRatesView extends GetView<HomeController> {
                                     TextSpan(
                                         text:
                                             // ' ${currencyRates[index].currencyCodeA} '),
-                                            '  '),
+                                            ' '),
                                     TextSpan(
                                       text:
                                           '${Currency().abbreviationFromCode(currencyRates[index].currencyCodeB)}',
@@ -161,8 +201,15 @@ class CurrencyRatesView extends GetView<HomeController> {
                       Row(
                         children: [
                           Expanded(
-                            child: OutlinedButton(
-                                onPressed: () => {}, child: Text('filter'.tr)),
+                            child: controller.showCurrencyFilter
+                                ? OutlinedButton(
+                                    onPressed: () =>
+                                        {controller.showCurrencyFilter = false},
+                                    child: Text('back to currency list'.tr))
+                                : OutlinedButton(
+                                    onPressed: () =>
+                                        {controller.showCurrencyFilter = true},
+                                    child: Text('filter'.tr)),
                           )
                         ],
                       ),
@@ -188,7 +235,9 @@ class CurrencyRatesView extends GetView<HomeController> {
                   ),
                 ),
                 Expanded(
-                  child: _buildCurrencyRateList(controller.currencyRates),
+                  child: controller.showCurrencyFilter
+                      ? _buildCurrencyFilterList(controller.currencyFilters)
+                      : _buildCurrencyRateList(controller.getFilteredCurrencyRates()),
                 )
               ],
             ));

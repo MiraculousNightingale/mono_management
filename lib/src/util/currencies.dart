@@ -3,6 +3,11 @@ import 'package:collection/collection.dart';
 
 class Currency {
 
+  String nameFromCode(int code){
+    var currency = currencies.firstWhereOrNull((element) => element['number']==code);
+    return currency!=null ? currency['name'] : 'NaN';
+  }
+
   String abbreviationFromCode(int code){
     var currency = currencies.firstWhereOrNull((element) => element['number']==code);
     return currency!=null ? currency['code'] : 'NaN';

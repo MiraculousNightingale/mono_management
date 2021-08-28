@@ -1,11 +1,14 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:mono_management/src/core/network/dio_manager.dart';
+import 'package:mono_management/src/data/model/currency_filter.dart';
 import 'package:mono_management/src/data/model/currency_rate.dart';
 import 'package:mono_management/src/data/model/statement.dart';
 import 'package:mono_management/src/data/model/user_info.dart';
+import 'package:mono_management/src/util/currencies.dart';
 
 class HomeController extends GetxController {
   Dio _dio = Dio(BaseOptions(
@@ -18,9 +21,13 @@ class HomeController extends GetxController {
       }));
   UserInfo _userInfo = UserInfo();
   List<CurrencyRate> _currencyRates = <CurrencyRate>[];
+  //List<CurrencyRate> _filteredCurrencyRates = <CurrencyRate>[];
   List<Statement> _statements = <Statement>[];
   int _tabIndex = 0;
   String _accountDropDownValue = 'NaN';
+  bool _showCurrencyFilter = false;
+  List<CurrencyFilter> _currencyFilters = [];
+
 
   String getCurrentTitle() {
     final titles = {
@@ -28,7 +35,7 @@ class HomeController extends GetxController {
       1: 'currency rates'.tr,
       2: 'expenses'.tr,
     };
-    return titles[_tabIndex] ?? 'NoTranslation';
+    return titles[_tabIndex] ?? 'NaN';
   }
 
   Future<UserInfo> getUserInfo() async {
@@ -56,6 +63,7 @@ class HomeController extends GetxController {
           rateSell: element["rateSell"] ?? 0.0,
           rateCross: element["rateCross"] ?? 0.0));
     }
+    currencyRates.retainWhere((element) => Currency().abbreviationFromCode(element.currencyCodeA) != 'NaN' && Currency().symbolFromCode(element.currencyCodeA) != 'NaN');
     return currencyRates;
   }
 
@@ -88,11 +96,33 @@ class HomeController extends GetxController {
     return statements;
   }
 
+  List<CurrencyFilter> getCurrencyFilter(List<CurrencyRate> currencyRates){
+    var uniqueCurrencyCodes = Set();
+    currencyRates.retainWhere((element) => uniqueCurrencyCodes.add(element.currencyCodeA));
+    List<CurrencyFilter> filters = [];
+    for(CurrencyRate currencyRate in currencyRates){
+      filters.add(CurrencyFilter(currencyRate, true));
+    }
+    return filters;
+  }
+
+  List<CurrencyRate> getFilteredCurrencyRates(){
+    // List<CurrencyRate> filteredCurrencyRates = <CurrencyRate>[];
+    // for(CurrencyFilter currencyFilter in _currencyFilters){
+    //   if(currencyFilter.show){
+    //     filteredCurrencyRates.add(currencyFilter.currencyRate);
+    //   }
+    // }
+    // filteredCurrencyRates = _currencyFilters.where((e) => e.show).map((e) => e.currencyRate).toList();
+    return _currencyFilters.where((e) => e.show).map((e) => e.currencyRate).toList();
+  }
+
   @override
   void onInit() async {
     super.onInit();
     _userInfo = await getUserInfo();
     _currencyRates = await getCurrencyRates();
+    _currencyFilters = getCurrencyFilter(_currencyRates);
     _statements = await getStatements();
     progress = false;
   }
@@ -124,5 +154,18 @@ class HomeController extends GetxController {
   set accountDropDownValue(String value) {
     _accountDropDownValue = value;
     update();
+  }
+
+  bool get showCurrencyFilter => _showCurrencyFilter;
+
+  set showCurrencyFilter(bool value) {
+    _showCurrencyFilter = value;
+    update();
+  }
+
+  List<CurrencyFilter> get currencyFilters => _currencyFilters;
+
+  set currencyFilters(List<CurrencyFilter> value) {
+    _currencyFilters = value;
   }
 }
