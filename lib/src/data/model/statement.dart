@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+
 Statement statementFromJson(String str) => Statement.fromJson(json.decode(str));
 
 String statementToJson(Statement data) => json.encode(data.toJson());
@@ -46,40 +48,48 @@ class Statement {
   String counterIban;
 
   factory Statement.fromJson(Map<String, dynamic> json) => Statement(
-    id: json["id"],
-    time: json["time"],
-    description: json["description"],
-    comment: json["comment"],
-    mcc: json["mcc"],
-    originalMcc: json["originalMcc"],
-    amount: json["amount"],
-    operationAmount: json["operationAmount"],
-    currencyCode: json["currencyCode"],
-    commissionRate: json["commissionRate"],
-    cashbackAmount: json["cashbackAmount"],
-    balance: json["balance"],
-    hold: json["hold"],
-    receiptId: json["receiptId"],
-    counterEdrpou: json["counterEdrpou"],
-    counterIban: json["counterIban"],
-  );
+        id: json["id"],
+        time: json["time"],
+        description: json["description"],
+        comment: json["comment"],
+        mcc: json["mcc"],
+        originalMcc: json["originalMcc"],
+        amount: json["amount"],
+        operationAmount: json["operationAmount"],
+        currencyCode: json["currencyCode"],
+        commissionRate: json["commissionRate"],
+        cashbackAmount: json["cashbackAmount"],
+        balance: json["balance"],
+        hold: json["hold"],
+        receiptId: json["receiptId"],
+        counterEdrpou: json["counterEdrpou"],
+        counterIban: json["counterIban"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "time": time,
-    "description": description,
-    "comment": comment,
-    "mcc": mcc,
-    "originalMcc": originalMcc,
-    "amount": amount,
-    "operationAmount": operationAmount,
-    "currencyCode": currencyCode,
-    "commissionRate": commissionRate,
-    "cashbackAmount": cashbackAmount,
-    "balance": balance,
-    "hold": hold,
-    "receiptId": receiptId,
-    "counterEdrpou": counterEdrpou,
-    "counterIban": counterIban,
-  };
+        "id": id,
+        "time": time,
+        "description": description,
+        "comment": comment,
+        "mcc": mcc,
+        "originalMcc": originalMcc,
+        "amount": amount,
+        "operationAmount": operationAmount,
+        "currencyCode": currencyCode,
+        "commissionRate": commissionRate,
+        "cashbackAmount": cashbackAmount,
+        "balance": balance,
+        "hold": hold,
+        "receiptId": receiptId,
+        "counterEdrpou": counterEdrpou,
+        "counterIban": counterIban,
+      };
+
+  String getDateInFormat() {
+    return DateFormat.yMd()
+        .format(DateTime.fromMillisecondsSinceEpoch(this.time * 1000));
+  }
+  DateTime getDateInDateTime() {
+    return DateTime.fromMillisecondsSinceEpoch(this.time * 1000);
+  }
 }

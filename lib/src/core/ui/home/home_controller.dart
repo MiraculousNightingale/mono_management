@@ -26,8 +26,16 @@ class HomeController extends GetxController {
   int _tabIndex = 0;
   String _accountDropDownValue = 'NaN';
   bool _showCurrencyFilter = false;
+  bool _showExpenseCharts = false;
   List<CurrencyFilter> _currencyFilters = [];
 
+
+  bool get showExpenseCharts => _showExpenseCharts;
+
+  set showExpenseCharts(bool value) {
+    _showExpenseCharts = value;
+    update();
+  }
 
   String getCurrentTitle() {
     final titles = {
@@ -93,6 +101,7 @@ class HomeController extends GetxController {
         counterEdrpou: element["counterEdrpou"] ?? '',
         counterIban: element["counterIban"] ?? ''));
     }
+    // statements.sort((a,b)=> b.time.compareTo(a.time));
     return statements;
   }
 
