@@ -1,8 +1,8 @@
 import 'currency_rate.dart';
 
 class CurrencyFilter{
-  CurrencyRate currencyRate = CurrencyRate();
+  int currencyCode = 0;
   bool show = true;
 
-  CurrencyFilter(this.currencyRate, this.show);
+  CurrencyFilter(this.currencyCode, this.show);
 }

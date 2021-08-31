@@ -80,12 +80,12 @@ class CurrencyRatesView extends GetView<HomeController> {
                   controller.update();
                   },
                 title: Text(
-                    '${Currency().nameFromCode(filters[index].currencyRate.currencyCodeA)}'),
+                    '${Currency().nameFromCode(filters[index].currencyCode)}'),
                 secondary: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${Currency().symbolFromCode(filters[index].currencyRate.currencyCodeA)} ${Currency().abbreviationFromCode(filters[index].currencyRate.currencyCodeA)}',
+                      '${Currency().symbolFromCode(filters[index].currencyCode)} ${Currency().abbreviationFromCode(filters[index].currencyCode)}',
                       style: TextStyle(
                           fontSize: 18,
                           color: Colors.black54,

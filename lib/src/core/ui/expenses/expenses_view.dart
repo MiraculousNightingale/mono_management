@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:mono_management/src/core/ui/home/home_controller.dart';
+import 'package:mono_management/src/data/model/mcc_filter.dart';
 import 'package:mono_management/src/data/model/statement.dart';
 import 'package:mono_management/src/data/model/user_info.dart';
 import 'package:mono_management/src/util/currencies.dart';
@@ -208,6 +209,45 @@ class ExpensesView extends GetView<HomeController> {
         itemCount: statements.length);
   }
 
+  Widget _buildMccFilterList(List<MccFilter> filters) {
+    return ListView.separated(
+        itemBuilder: (context, index) {
+          return Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(17),
+                  color: Colors.black12),
+              child: CheckboxListTile(
+                value: filters[index].show,
+                onChanged: (value) {
+                  filters[index].show = value ?? true;
+                  controller.update();
+                },
+                title: Text(
+                    '${Mcc().getDescFromCode(filters[index].mcc)}'),
+                // secondary: Column(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     Text(
+                //       '',
+                //       style: TextStyle(
+                //           fontSize: 18,
+                //           color: Colors.black54,
+                //           fontWeight: FontWeight.bold),
+                //     ),
+                //   ],
+                // ),
+                // subtitle: Text('subtitle'),
+                // controlAffinity: ListTileControlAffinity.platform,
+              ));
+        },
+        separatorBuilder: (context, index) {
+          return const SizedBox(
+            height: 10,
+          );
+        },
+        itemCount: filters.length);
+  }
+
   @override
   Widget build(BuildContext context) {
     return controller.progress
@@ -216,7 +256,21 @@ class ExpensesView extends GetView<HomeController> {
           )
         : Container(
             padding: const EdgeInsets.all(20),
-            child: controller.showExpenseCharts
+            child: controller.showMccFilter ?
+                Column(
+                  children: [
+                    Row(children: [
+                      Expanded(
+                        child: OutlinedButton(
+                            onPressed: () =>
+                            {controller.showMccFilter = false},
+                            child: Text('list'.tr)),
+                      )
+                    ],),
+                    Expanded(child: _buildMccFilterList(controller.mccFilters)),
+                  ],
+                )
+            : controller.showExpenseCharts
                 ? Column(
                     children: [
                       Container(
@@ -319,6 +373,12 @@ class ExpensesView extends GetView<HomeController> {
                                 Expanded(
                                   child: OutlinedButton(
                                       onPressed: () =>
+                                      {controller.showMccFilter = true},
+                                      child: Text('type filter'.tr)),
+                                ),
+                                Expanded(
+                                  child: OutlinedButton(
+                                      onPressed: () =>
                                           {controller.showExpenseCharts = true},
                                       child: Text('charts'.tr)),
                                 )
@@ -346,7 +406,7 @@ class ExpensesView extends GetView<HomeController> {
                         ),
                       ),
                       Expanded(
-                        child: _buildStatementList(controller.statements),
+                        child: _buildStatementList(controller.getFilteredStatements()),
                       )
                     ],
                   ));

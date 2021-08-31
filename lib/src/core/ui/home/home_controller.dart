@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:mono_management/src/core/network/dio_manager.dart';
 import 'package:mono_management/src/data/model/currency_filter.dart';
 import 'package:mono_management/src/data/model/currency_rate.dart';
+import 'package:mono_management/src/data/model/mcc_filter.dart';
 import 'package:mono_management/src/data/model/statement.dart';
 import 'package:mono_management/src/data/model/user_info.dart';
 import 'package:mono_management/src/util/currencies.dart';
@@ -26,14 +27,24 @@ class HomeController extends GetxController {
   int _tabIndex = 0;
   String _accountDropDownValue = 'NaN';
   bool _showCurrencyFilter = false;
+  bool _showMccFilter = false;
   bool _showExpenseCharts = false;
   List<CurrencyFilter> _currencyFilters = [];
+  List<MccFilter> _mccFilters = [];
 
 
   bool get showExpenseCharts => _showExpenseCharts;
 
   set showExpenseCharts(bool value) {
     _showExpenseCharts = value;
+    update();
+  }
+
+
+  bool get showMccFilter => _showMccFilter;
+
+  set showMccFilter(bool value) {
+    _showMccFilter = value;
     update();
   }
 
@@ -107,10 +118,24 @@ class HomeController extends GetxController {
 
   List<CurrencyFilter> getCurrencyFilter(List<CurrencyRate> currencyRates){
     var uniqueCurrencyCodes = Set();
-    currencyRates.retainWhere((element) => uniqueCurrencyCodes.add(element.currencyCodeA));
+    List<CurrencyRate> uniqueCurrenciesByCodeA = <CurrencyRate>[];
+    uniqueCurrenciesByCodeA.addAll(currencyRates);
+    uniqueCurrenciesByCodeA.retainWhere((element) => uniqueCurrencyCodes.add(element.currencyCodeA));
     List<CurrencyFilter> filters = [];
-    for(CurrencyRate currencyRate in currencyRates){
-      filters.add(CurrencyFilter(currencyRate, true));
+    for(CurrencyRate currency in uniqueCurrenciesByCodeA){
+      filters.add(CurrencyFilter(currency.currencyCodeA, true));
+    }
+    return filters;
+  }
+
+  List<MccFilter> getMccFilter(List<Statement> statements){
+    var uniqueMcc = Set();
+    List<Statement> uniqueStatementsByMcc = <Statement>[];
+    uniqueStatementsByMcc.addAll(statements);
+    uniqueStatementsByMcc.retainWhere((element) => uniqueMcc.add(element.mcc));
+    List<MccFilter> filters = [];
+    for(Statement statement in uniqueStatementsByMcc){
+      filters.add(MccFilter(statement.mcc, true));
     }
     return filters;
   }
@@ -123,7 +148,11 @@ class HomeController extends GetxController {
     //   }
     // }
     // filteredCurrencyRates = _currencyFilters.where((e) => e.show).map((e) => e.currencyRate).toList();
-    return _currencyFilters.where((e) => e.show).map((e) => e.currencyRate).toList();
+    return _currencyRates.where((currencyRate) => _currencyFilters.any((filter) => filter.currencyCode==currencyRate.currencyCodeA && filter.show)).toList();
+  }
+
+  List<Statement> getFilteredStatements(){
+    return _statements.where((statement) => _mccFilters.any((filter) => filter.mcc==statement.mcc && filter.show)).toList();
   }
 
   @override
@@ -133,6 +162,7 @@ class HomeController extends GetxController {
     _currencyRates = await getCurrencyRates();
     _currencyFilters = getCurrencyFilter(_currencyRates);
     _statements = await getStatements();
+    _mccFilters = getMccFilter(_statements);
     progress = false;
   }
 
@@ -176,5 +206,11 @@ class HomeController extends GetxController {
 
   set currencyFilters(List<CurrencyFilter> value) {
     _currencyFilters = value;
+  }
+
+  List<MccFilter> get mccFilters => _mccFilters;
+
+  set mccFilters(List<MccFilter> value) {
+    _mccFilters = value;
   }
 }
