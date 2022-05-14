@@ -31,6 +31,8 @@ class HomeController extends GetxController {
   bool _showExpenseCharts = false;
   List<CurrencyFilter> _currencyFilters = [];
   List<MccFilter> _mccFilters = [];
+  int _selectedAccountId = 0;
+
 
 
   bool get showExpenseCharts => _showExpenseCharts;
@@ -48,6 +50,11 @@ class HomeController extends GetxController {
     update();
   }
 
+
+  void setSelectedAccount(int id){
+    selectedAccountId = id;
+  }
+
   String getCurrentTitle() {
     final titles = {
       0: 'user info'.tr,
@@ -61,7 +68,7 @@ class HomeController extends GetxController {
     // await Future.delayed(Duration(seconds: 2));
     //var response = await DioManager().get("personal/client-info");
     var jsonString =
-        '{"clientId":"5VrvgtAumT","name":"Прус Богдан","webHookUrl":"","permissions":"psf","accounts":[{"id":"C9lcOBku2a_7pjnxfiL7Bg","sendId":"5VrvgtAumT","currencyCode":980,"cashbackType":"UAH","balance":339535,"creditLimit":0,"maskedPan":["537541******2242"],"type":"black","iban":"UA603220010000026202303328022"},{"id":"C9pjnxku2a_7pjnxfiL7Bg","sendId":"5VrvgtAumT","currencyCode":980,"cashbackType":"UAH","balance":339535,"creditLimit":0,"maskedPan":["537541******2242"],"type":"black","iban":"UA603220010000026202303328022"},{"id":"C9lcOBku2a_C9lcxfiL7Bg","sendId":"5VrvgtAumT","currencyCode":980,"cashbackType":"UAH","balance":339535,"creditLimit":0,"maskedPan":["537541******2242"],"type":"black","iban":"UA603220010000026202303328022"}]}';
+        '{"clientId":"5VrvgtAumT","name":"Прус Богдан","webHookUrl":"","permissions":"psf","accounts":[{"id":"C9lcOBku2a_7pjnxfiL7Bg","sendId":"5VrvgtAumT","currencyCode":980,"cashbackType":"UAH","balance":339535,"creditLimit":0,"maskedPan":["537541******2242"],"type":"black","iban":"UA603220010000026202303328022"},{"id":"890nxfiL7Bg_7pjnxfiL7Bg","sendId":"5VrvgtAumT","currencyCode":980,"cashbackType":"UAH","balance":339535,"creditLimit":0,"maskedPan":["228541******3222"],"type":"black","iban":"UA603220010000026202303328022"},{"id":"FdbCECoOku2a_ChUixkLo7Bg","sendId":"5VrvgtAumT","currencyCode":980,"cashbackType":"UAH","balance":339535,"creditLimit":0,"maskedPan":["898577******9342"],"type":"black","iban":"UA603220010000026202303328022"}]}';
     Map<String, dynamic> response = jsonDecode(jsonString);
     return UserInfo.fromJson(response);
   }
@@ -173,6 +180,7 @@ class HomeController extends GetxController {
     update();
   }
 
+
   bool get progress => _progress;
 
   UserInfo get userInfo => _userInfo;
@@ -182,6 +190,13 @@ class HomeController extends GetxController {
   List<Statement> get statements => _statements;
 
   int get tabIndex => _tabIndex;
+
+  int get selectedAccountId => _selectedAccountId;
+
+  set selectedAccountId(int value){
+    _selectedAccountId = value;
+    update();
+  }
 
   set tabIndex(int value) {
     _tabIndex = value;
