@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mono_management/src/core/app_pages.dart';
+import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/src/core/ui/currency_rates/currency_rates_view.dart';
 import 'package:mono_management/src/core/ui/expenses/expenses_view.dart';
 import 'package:mono_management/src/core/ui/home/home_controller.dart';
 import 'package:mono_management/src/core/ui/user_info/user_info_view.dart';
-import 'package:mono_management/src/data/model/user_info.dart';
-import 'package:mono_management/src/util/currencies.dart';
 
 class HomeView extends GetView<HomeController> {
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
@@ -26,14 +23,15 @@ class HomeView extends GetView<HomeController> {
                 onTap: (index) => controller.tabIndex = index,
                 items: [
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.account_circle), label: 'user info'.tr),
+                      icon: const Icon(Icons.account_circle),
+                      label: Localization.keyUserInfo.tr),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.compare_arrows),
-                    label: 'currency rates'.tr,
+                    icon: const Icon(Icons.compare_arrows),
+                    label: Localization.keyCurrencyRates.tr,
                   ),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.account_balance_wallet),
-                      label: 'expenses'.tr),
+                      icon: const Icon(Icons.account_balance_wallet),
+                      label: Localization.keyExpenses.tr),
                 ],
               ),
             ));

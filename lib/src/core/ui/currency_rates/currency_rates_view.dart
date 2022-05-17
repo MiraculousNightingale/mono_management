@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/resources/test_styles.dart';
 import 'package:mono_management/src/core/ui/home/home_controller.dart';
 import 'package:mono_management/src/data/model/currency_filter.dart';
@@ -21,8 +22,10 @@ class CurrencyRatesView extends GetView<HomeController> {
                           style: TextStyle(color: Colors.black87),
                           children: [
                         TextSpan(
-                            text: ' ${'buy'.tr}: ${currencyRate.rateBuy} ',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                          text:
+                              ' ${Localization.keyBuy.tr}: ${currencyRate.rateBuy} ',
+                          style: TextStyles.black14w400,
+                        ),
                       ])),
                 ],
               ),
@@ -34,7 +37,8 @@ class CurrencyRatesView extends GetView<HomeController> {
                           style: TextStyle(color: Colors.black87),
                           children: [
                         TextSpan(
-                            text: ' ${'sell'.tr}: ${currencyRate.rateSell} ',
+                            text:
+                                ' ${Localization.keySell.tr}: ${currencyRate.rateSell} ',
                             style: GoogleFonts.roboto(
                                 textStyle: TextStyles.black14w600)),
                       ])),
@@ -55,7 +59,8 @@ class CurrencyRatesView extends GetView<HomeController> {
                               textStyle: TextStyles.black14w400),
                           children: [
                         TextSpan(
-                          text: ' ${'exchange'.tr}: ${currencyRate.rateCross} ',
+                          text:
+                              ' ${Localization.keyExchange.tr}: ${currencyRate.rateCross} ',
                           style: GoogleFonts.roboto(
                               textStyle: TextStyles.black14w600),
                         ),
@@ -209,7 +214,7 @@ class CurrencyRatesView extends GetView<HomeController> {
                                 : OutlinedButton(
                                     onPressed: () =>
                                         {controller.showCurrencyFilter = true},
-                                    child: Text('filter'.tr)),
+                                    child: Text(Localization.keyFilter.tr)),
                           )
                         ],
                       ),
