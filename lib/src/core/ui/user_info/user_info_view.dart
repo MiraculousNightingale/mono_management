@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mono_management/resources/localization.dart';
+import 'package:mono_management/resources/test_styles.dart';
 import 'package:mono_management/src/core/ui/home/home_controller.dart';
 import 'package:mono_management/src/data/model/user_info.dart';
 import 'package:mono_management/src/util/currencies.dart';
-
-import '../../app_pages.dart';
 
 class UserInfoView extends GetView<HomeController> {
   Widget _buildAccountList(List<Account> accounts) {
@@ -15,19 +15,22 @@ class UserInfoView extends GetView<HomeController> {
               controller.setSelectedAccount(index);
             },
             child: Container(
-              margin: const EdgeInsets.all(10),
+                margin: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  boxShadow: index == controller.selectedAccountId ? [
-                    const BoxShadow(
-                      color: Colors.green,
-                      offset: const Offset(0,0),
-                      blurRadius: 5,
-                      spreadRadius: 2,
-                    )
-                  ] : null,
-                    borderRadius: BorderRadius.circular(17),
-                    border: Border.all(color: Colors.black),
-                    color: Color.fromARGB(255, 225, 225, 225),),
+                  boxShadow: index == controller.selectedAccountId
+                      ? [
+                          const BoxShadow(
+                            color: Colors.green,
+                            offset: const Offset(0, 0),
+                            blurRadius: 5,
+                            spreadRadius: 2,
+                          )
+                        ]
+                      : null,
+                  borderRadius: BorderRadius.circular(17),
+                  border: Border.all(color: Colors.black),
+                  color: Color.fromARGB(255, 225, 225, 225),
+                ),
                 child: Column(
                   children: [
                     ListTile(
@@ -52,8 +55,8 @@ class UserInfoView extends GetView<HomeController> {
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     TextSpan(
-                                      text:
-                                          Currency.abbreviationFromCode(accounts[index].currencyCode),
+                                      text: Currency.abbreviationFromCode(
+                                          accounts[index].currencyCode),
                                     ),
                                   ]))),
                           Container(
@@ -88,10 +91,12 @@ class UserInfoView extends GetView<HomeController> {
                                 child: Container(
                                     child: RichText(
                                       text: TextSpan(
-                                        style: DefaultTextStyle.of(context).style,
+                                        style:
+                                            DefaultTextStyle.of(context).style,
                                         children: [
                                           TextSpan(
-                                              text: '${'balance'.tr}: ',
+                                              text:
+                                                  '${Localization.keyBalance.tr}: ',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold)),
                                           TextSpan(
@@ -112,12 +117,13 @@ class UserInfoView extends GetView<HomeController> {
                                     padding: const EdgeInsets.only(right: 5),
                                     child: RichText(
                                       text: TextSpan(
-                                        style: DefaultTextStyle.of(context).style,
+                                        style:
+                                            DefaultTextStyle.of(context).style,
                                         children: [
                                           TextSpan(
-                                              text: '${'credit limit'.tr}: ',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold)),
+                                              text:
+                                                  '${Localization.keyCreditLimit.tr}: ',
+                                              style: TextStyles.black14w600),
                                           TextSpan(
                                               text:
                                                   '${accounts[index].creditLimit}')
@@ -135,14 +141,16 @@ class UserInfoView extends GetView<HomeController> {
                                     padding: const EdgeInsets.only(right: 5),
                                     child: RichText(
                                       text: TextSpan(
-                                        style: DefaultTextStyle.of(context).style,
+                                        style:
+                                            DefaultTextStyle.of(context).style,
                                         children: [
                                           TextSpan(
                                               text: '${'type'.tr}: ',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold)),
                                           TextSpan(
-                                              text: '${accounts[index].type.tr}')
+                                              text:
+                                                  '${accounts[index].type.tr}')
                                         ],
                                       ),
                                     )),
@@ -157,7 +165,8 @@ class UserInfoView extends GetView<HomeController> {
                                     padding: const EdgeInsets.only(right: 5),
                                     child: RichText(
                                       text: TextSpan(
-                                        style: DefaultTextStyle.of(context).style,
+                                        style:
+                                            DefaultTextStyle.of(context).style,
                                         children: [
                                           TextSpan(
                                               text: '${'iban'.tr}: ',

@@ -1,13 +1,21 @@
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:mono_management/resources/constansts.dart';
 import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/src/core/app_pages.dart';
 import 'package:mono_management/src/core/network/dio_manager.dart';
 
 void main() {
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString('google_fonts/OFL.txt');
+    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+  });
+
   DioManager.configure();
   runApp(const MyApp());
 }
@@ -45,6 +53,9 @@ class MyApp extends StatelessWidget {
         //     // Notice that the counter didn't reset back to zero; the application
         //     // is not restarted.
         primaryColor: Colors.black,
+        textTheme: GoogleFonts.robotoTextTheme(
+          Theme.of(context).textTheme, // If this is not set, then ThemeData.light().textTheme is used.
+        ),
       ),
     );
   }

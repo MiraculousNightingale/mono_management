@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/src/core/ui/home/home_controller.dart';
 import 'package:mono_management/src/data/model/mcc_filter.dart';
 import 'package:mono_management/src/data/model/statement.dart';
@@ -245,10 +245,10 @@ class ExpensesView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return controller.progress
-        ? Center(
+        ? const Center(
             child: CircularProgressIndicator(),
           )
-        : Container(
+        : Padding(
             padding: const EdgeInsets.all(20),
             child: controller.showMccFilter
                 ? Column(
@@ -259,7 +259,7 @@ class ExpensesView extends GetView<HomeController> {
                             child: OutlinedButton(
                                 onPressed: () =>
                                     {controller.showMccFilter = false},
-                                child: Text('list'.tr)),
+                                child: Text(Localization.keyList.tr)),
                           )
                         ],
                       ),
@@ -278,7 +278,7 @@ class ExpensesView extends GetView<HomeController> {
                                       onPressed: () => {
                                             controller.showExpenseCharts = false
                                           },
-                                      child: Text('list'.tr)),
+                                      child: Text(Localization.keyList.tr)),
                                 )
                               ],
                             ),
@@ -288,7 +288,8 @@ class ExpensesView extends GetView<HomeController> {
                               Expanded(
                                 child: OutlinedButton(
                                     onPressed: () => {},
-                                    child: Text('category chart'.tr)),
+                                    child:
+                                        Text(Localization.keyCategoryChart.tr)),
                               )
                             ],
                           ),
@@ -297,7 +298,8 @@ class ExpensesView extends GetView<HomeController> {
                               child: SfCartesianChart(
                                 primaryXAxis: NumericAxis(),
                                 // primaryYAxis: NumericAxis(),
-                                title: ChartTitle(text: 'balance chart'.tr),
+                                title: ChartTitle(
+                                    text: Localization.keyBalanceChart.tr),
                                 legend: Legend(isVisible: true),
                                 tooltipBehavior: TooltipBehavior(
                                   enable: true,
@@ -308,14 +310,14 @@ class ExpensesView extends GetView<HomeController> {
                                     enablePanning: true),
                                 series: <ChartSeries<Statement, int>>[
                                   LineSeries<Statement, int>(
-                                      name: 'balance'.tr,
+                                      name: Localization.keyBalance.tr,
                                       dataSource: controller.statements,
                                       xValueMapper: (Statement statement, _) =>
                                           statement.time,
                                       yValueMapper: (Statement statement, _) =>
                                           statement.balance),
                                   LineSeries<Statement, int>(
-                                      name: 'amount'.tr,
+                                      name: Localization.keyAmount.tr,
                                       dataSource: controller.statements,
                                       xValueMapper: (Statement statement, _) =>
                                           statement.time,
@@ -353,62 +355,60 @@ class ExpensesView extends GetView<HomeController> {
                       )
                     : Column(
                         children: [
-                          Container(
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: DropdownButton<String>(
-                                        value: controller.accountDropDownValue,
-                                        items: _getAccountDropDownItems(),
-                                        onChanged: (value) {
-                                          controller.accountDropDownValue =
-                                              value ?? 'NaN';
-                                        },
-                                      ),
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: DropdownButton<String>(
+                                      value: controller.accountDropDownValue,
+                                      items: _getAccountDropDownItems(),
+                                      onChanged: (value) {
+                                        controller.accountDropDownValue =
+                                            value ?? 'NaN';
+                                      },
                                     ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: OutlinedButton(
-                                          onPressed: () =>
-                                              {controller.showMccFilter = true},
-                                          child: Text('type filter'.tr)),
-                                    ),
-                                    Expanded(
-                                      child: OutlinedButton(
-                                          onPressed: () => {
-                                                controller.showExpenseCharts =
-                                                    true
-                                              },
-                                          child: Text('charts'.tr)),
-                                    )
-                                  ],
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(),
-                                  padding: const EdgeInsets.all(10),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      RichText(
-                                          text: TextSpan(
-                                              children: [
-                                            TextSpan(text: 'expenses'.tr)
-                                          ],
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 18,
-                                                  fontWeight:
-                                                      FontWeight.bold))),
-                                    ],
                                   ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: OutlinedButton(
+                                        onPressed: () =>
+                                            {controller.showMccFilter = true},
+                                        child: Text('type filter'.tr)),
+                                  ),
+                                  Expanded(
+                                    child: OutlinedButton(
+                                        onPressed: () => {
+                                              controller.showExpenseCharts =
+                                                  true
+                                            },
+                                        child: Text('charts'.tr)),
+                                  )
+                                ],
+                              ),
+                              Container(
+                                decoration: BoxDecoration(),
+                                padding: const EdgeInsets.all(10),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    RichText(
+                                        text: TextSpan(
+                                            children: [
+                                          TextSpan(
+                                              text: Localization.keyExpenses.tr)
+                                        ],
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold))),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                           Expanded(
                             child: _buildStatementList(
