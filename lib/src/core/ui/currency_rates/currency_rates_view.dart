@@ -3,21 +3,17 @@ import 'package:get/get.dart';
 import 'package:mono_management/src/core/ui/home/home_controller.dart';
 import 'package:mono_management/src/data/model/currency_filter.dart';
 import 'package:mono_management/src/data/model/currency_rate.dart';
-import 'package:mono_management/src/data/model/user_info.dart';
 import 'package:mono_management/src/util/currencies.dart';
-
-import '../../app_pages.dart';
 
 class CurrencyRatesView extends GetView<HomeController> {
   Widget _showExhangeRate(CurrencyRate currencyRate) {
     return currencyRate.rateCross == 0.0
         ? Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.arrow_back_rounded),
+                  const Icon(Icons.arrow_back_rounded),
                   RichText(
                       text: TextSpan(
                           style: TextStyle(color: Colors.black87),
@@ -49,7 +45,7 @@ class CurrencyRatesView extends GetView<HomeController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.compare_arrows_rounded),
+                  const Icon(Icons.compare_arrows_rounded),
                   RichText(
                       text: TextSpan(
                           style: TextStyle(color: Colors.black),
@@ -78,14 +74,13 @@ class CurrencyRatesView extends GetView<HomeController> {
                 onChanged: (value) {
                   filters[index].show = value ?? true;
                   controller.update();
-                  },
-                title: Text(
-                    '${Currency().nameFromCode(filters[index].currencyCode)}'),
+                },
+                title: Text(Currency.nameFromCode(filters[index].currencyCode)),
                 secondary: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${Currency().symbolFromCode(filters[index].currencyCode)} ${Currency().abbreviationFromCode(filters[index].currencyCode)}',
+                      '${Currency.symbolFromCode(filters[index].currencyCode)} ${Currency.abbreviationFromCode(filters[index].currencyCode)}',
                       style: TextStyle(
                           fontSize: 18,
                           color: Colors.black54,
@@ -126,8 +121,8 @@ class CurrencyRatesView extends GetView<HomeController> {
                                           color: Colors.black54, fontSize: 18),
                                       children: [
                                     TextSpan(
-                                        text:
-                                            '${Currency().symbolFromCode(currencyRates[index].currencyCodeA)}',
+                                        text: Currency.symbolFromCode(
+                                            currencyRates[index].currencyCodeA),
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     TextSpan(
@@ -135,8 +130,8 @@ class CurrencyRatesView extends GetView<HomeController> {
                                             // ' ${currencyRates[index].currencyCodeA} '),
                                             ' '),
                                     TextSpan(
-                                      text:
-                                          '${Currency().abbreviationFromCode(currencyRates[index].currencyCodeA)}',
+                                      text: Currency.abbreviationFromCode(
+                                          currencyRates[index].currencyCodeA),
                                     ),
                                   ])),
                             ],
@@ -155,8 +150,8 @@ class CurrencyRatesView extends GetView<HomeController> {
                                           color: Colors.black54, fontSize: 18),
                                       children: [
                                     TextSpan(
-                                        text:
-                                            '${Currency().symbolFromCode(currencyRates[index].currencyCodeB)}',
+                                        text: Currency.symbolFromCode(
+                                            currencyRates[index].currencyCodeB),
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     TextSpan(
@@ -164,8 +159,8 @@ class CurrencyRatesView extends GetView<HomeController> {
                                             // ' ${currencyRates[index].currencyCodeA} '),
                                             ' '),
                                     TextSpan(
-                                      text:
-                                          '${Currency().abbreviationFromCode(currencyRates[index].currencyCodeB)}',
+                                      text: Currency.abbreviationFromCode(
+                                          currencyRates[index].currencyCodeB),
                                     ),
                                   ])),
                             ],
@@ -237,7 +232,8 @@ class CurrencyRatesView extends GetView<HomeController> {
                 Expanded(
                   child: controller.showCurrencyFilter
                       ? _buildCurrencyFilterList(controller.currencyFilters)
-                      : _buildCurrencyRateList(controller.getFilteredCurrencyRates()),
+                      : _buildCurrencyRateList(
+                          controller.getFilteredCurrencyRates()),
                 )
               ],
             ));

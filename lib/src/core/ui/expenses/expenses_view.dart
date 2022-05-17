@@ -1,5 +1,3 @@
-import 'dart:ffi';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -60,11 +58,10 @@ class ExpensesView extends GetView<HomeController> {
                                                   children: [
                                                 TextSpan(
                                                     text:
-                                                        '${Currency().abbreviationFromCode(statements[index].currencyCode)}',
+                                                        '${Currency.abbreviationFromCode(statements[index].currencyCode)}',
                                                     style: TextStyle(
                                                         fontWeight:
-                                                        FontWeight.bold
-                                                        )),
+                                                            FontWeight.bold)),
                                               ])),
                                         ],
                                       ),
@@ -81,14 +78,13 @@ class ExpensesView extends GetView<HomeController> {
                                                       color: Colors.black87,
                                                       fontSize: 14),
                                                   children: [
-                                                    TextSpan(
-                                                        text:
+                                                TextSpan(
+                                                    text:
                                                         '${Mcc().getDescFromCode(statements[index].mcc)}',
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                          FontWeight.bold
-                                                        )),
-                                                  ])),
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                              ])),
                                         ],
                                       ),
                                     ),
@@ -112,8 +108,7 @@ class ExpensesView extends GetView<HomeController> {
                                                                     1000)),
                                                     style: TextStyle(
                                                         fontWeight:
-                                                            FontWeight.bold
-                                                        )),
+                                                            FontWeight.bold)),
                                               ])),
                                         ],
                                       ),
@@ -222,8 +217,7 @@ class ExpensesView extends GetView<HomeController> {
                   filters[index].show = value ?? true;
                   controller.update();
                 },
-                title: Text(
-                    '${Mcc().getDescFromCode(filters[index].mcc)}'),
+                title: Text('${Mcc().getDescFromCode(filters[index].mcc)}'),
                 // secondary: Column(
                 //   mainAxisAlignment: MainAxisAlignment.center,
                 //   children: [
@@ -256,159 +250,171 @@ class ExpensesView extends GetView<HomeController> {
           )
         : Container(
             padding: const EdgeInsets.all(20),
-            child: controller.showMccFilter ?
-                Column(
-                  children: [
-                    Row(children: [
-                      Expanded(
-                        child: OutlinedButton(
-                            onPressed: () =>
-                            {controller.showMccFilter = false},
-                            child: Text('list'.tr)),
-                      )
-                    ],),
-                    Expanded(child: _buildMccFilterList(controller.mccFilters)),
-                  ],
-                )
-            : controller.showExpenseCharts
+            child: controller.showMccFilter
                 ? Column(
                     children: [
-                      Container(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: OutlinedButton(
-                                  onPressed: () =>
-                                      {controller.showExpenseCharts = false},
-                                  child: Text('list'.tr)),
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: OutlinedButton(
-                                  onPressed: () => {},
-                                  child: Text('category chart'.tr)),
-                            )
-                          ],
-                        ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: OutlinedButton(
+                                onPressed: () =>
+                                    {controller.showMccFilter = false},
+                                child: Text('list'.tr)),
+                          )
+                        ],
                       ),
                       Expanded(
-                        child: Container(
-                          child: SfCartesianChart(
-                            primaryXAxis: NumericAxis(),
-                            // primaryYAxis: NumericAxis(),
-                            title: ChartTitle(text: 'balance chart'.tr),
-                            legend: Legend(isVisible: true),
-                            tooltipBehavior: TooltipBehavior(
-                              enable: true,
-                            ),
-                            zoomPanBehavior: ZoomPanBehavior(enablePinching: true, enableDoubleTapZooming: true, enablePanning: true),
-                            series: <ChartSeries<Statement, int>>[
-                              LineSeries<Statement, int>(
-                                  name: 'balance'.tr,
-                                  dataSource: controller.statements,
-                                  xValueMapper: (Statement statement, _) =>
-                                      statement.time,
-                                  yValueMapper: (Statement statement, _) =>
-                                      statement.balance),
-                              LineSeries<Statement, int>(
-                                  name: 'amount'.tr,
-                                  dataSource: controller.statements,
-                                  xValueMapper: (Statement statement, _) =>
-                                      statement.time,
-                                  yValueMapper: (Statement statement, _) =>
-                                      statement.amount),
-                            ],
-                            axisLabelFormatter: (AxisLabelRenderDetails args) {
-                              late String text;
-                              if (args.axisName == 'primaryXAxis') {
-                                text = DateFormat.yMd().format(
-                                    DateTime.fromMillisecondsSinceEpoch(
-                                        args.value.toInt() * 1000));
-                              } else {
-                                text = '${args.value / 100}';
-                              }
-                              return ChartAxisLabel(text, args.textStyle);
-                            },
-                            onTooltipRender: (TooltipArgs args) {
-                              args.text = 'NaN';
-                              var dataPoints = args.dataPoints;
-                              if (dataPoints != null && dataPoints.isNotEmpty) {
-                                CartesianChartPoint point = dataPoints
-                                    .elementAt(args.pointIndex?.toInt() ?? 0);
-                                args.text =
-                                    '${DateFormat.yMd().format(DateTime.fromMillisecondsSinceEpoch(point.x * 1000))} : ${point.y / 100}';
-                              }
-                            },
-                          ),
-                        ),
-                      ),
+                          child: _buildMccFilterList(controller.mccFilters)),
                     ],
                   )
-                : Column(
-                    children: [
-                      Container(
-                        child: Column(
-                          children: [
-                            Row(
+                : controller.showExpenseCharts
+                    ? Column(
+                        children: [
+                          Container(
+                            child: Row(
                               children: [
                                 Expanded(
-                                  child: DropdownButton<String>(
-                                    value: controller.accountDropDownValue,
-                                    items: _getAccountDropDownItems(),
-                                    onChanged: (value) {
-                                      controller.accountDropDownValue =
-                                          value ?? 'NaN';
-                                    },
+                                  child: OutlinedButton(
+                                      onPressed: () => {
+                                            controller.showExpenseCharts = false
+                                          },
+                                      child: Text('list'.tr)),
+                                )
+                              ],
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: OutlinedButton(
+                                    onPressed: () => {},
+                                    child: Text('category chart'.tr)),
+                              )
+                            ],
+                          ),
+                          Expanded(
+                            child: Container(
+                              child: SfCartesianChart(
+                                primaryXAxis: NumericAxis(),
+                                // primaryYAxis: NumericAxis(),
+                                title: ChartTitle(text: 'balance chart'.tr),
+                                legend: Legend(isVisible: true),
+                                tooltipBehavior: TooltipBehavior(
+                                  enable: true,
+                                ),
+                                zoomPanBehavior: ZoomPanBehavior(
+                                    enablePinching: true,
+                                    enableDoubleTapZooming: true,
+                                    enablePanning: true),
+                                series: <ChartSeries<Statement, int>>[
+                                  LineSeries<Statement, int>(
+                                      name: 'balance'.tr,
+                                      dataSource: controller.statements,
+                                      xValueMapper: (Statement statement, _) =>
+                                          statement.time,
+                                      yValueMapper: (Statement statement, _) =>
+                                          statement.balance),
+                                  LineSeries<Statement, int>(
+                                      name: 'amount'.tr,
+                                      dataSource: controller.statements,
+                                      xValueMapper: (Statement statement, _) =>
+                                          statement.time,
+                                      yValueMapper: (Statement statement, _) =>
+                                          statement.amount),
+                                ],
+                                axisLabelFormatter:
+                                    (AxisLabelRenderDetails args) {
+                                  late String text;
+                                  if (args.axisName == 'primaryXAxis') {
+                                    text = DateFormat.yMd().format(
+                                        DateTime.fromMillisecondsSinceEpoch(
+                                            args.value.toInt() * 1000));
+                                  } else {
+                                    text = '${args.value / 100}';
+                                  }
+                                  return ChartAxisLabel(text, args.textStyle);
+                                },
+                                onTooltipRender: (TooltipArgs args) {
+                                  args.text = 'NaN';
+                                  var dataPoints = args.dataPoints;
+                                  if (dataPoints != null &&
+                                      dataPoints.isNotEmpty) {
+                                    CartesianChartPoint point =
+                                        dataPoints.elementAt(
+                                            args.pointIndex?.toInt() ?? 0);
+                                    args.text =
+                                        '${DateFormat.yMd().format(DateTime.fromMillisecondsSinceEpoch(point.x * 1000))} : ${point.y / 100}';
+                                  }
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    : Column(
+                        children: [
+                          Container(
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: DropdownButton<String>(
+                                        value: controller.accountDropDownValue,
+                                        items: _getAccountDropDownItems(),
+                                        onChanged: (value) {
+                                          controller.accountDropDownValue =
+                                              value ?? 'NaN';
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: OutlinedButton(
+                                          onPressed: () =>
+                                              {controller.showMccFilter = true},
+                                          child: Text('type filter'.tr)),
+                                    ),
+                                    Expanded(
+                                      child: OutlinedButton(
+                                          onPressed: () => {
+                                                controller.showExpenseCharts =
+                                                    true
+                                              },
+                                          child: Text('charts'.tr)),
+                                    )
+                                  ],
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(),
+                                  padding: const EdgeInsets.all(10),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      RichText(
+                                          text: TextSpan(
+                                              children: [
+                                            TextSpan(text: 'expenses'.tr)
+                                          ],
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18,
+                                                  fontWeight:
+                                                      FontWeight.bold))),
+                                    ],
                                   ),
                                 ),
                               ],
                             ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: OutlinedButton(
-                                      onPressed: () =>
-                                      {controller.showMccFilter = true},
-                                      child: Text('type filter'.tr)),
-                                ),
-                                Expanded(
-                                  child: OutlinedButton(
-                                      onPressed: () =>
-                                          {controller.showExpenseCharts = true},
-                                      child: Text('charts'.tr)),
-                                )
-                              ],
-                            ),
-                            Container(
-                              decoration: BoxDecoration(),
-                              padding: const EdgeInsets.all(10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  RichText(
-                                      text: TextSpan(
-                                          children: [
-                                        TextSpan(text: 'expenses'.tr)
-                                      ],
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold))),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: _buildStatementList(controller.getFilteredStatements()),
-                      )
-                    ],
-                  ));
+                          ),
+                          Expanded(
+                            child: _buildStatementList(
+                                controller.getFilteredStatements()),
+                          )
+                        ],
+                      ));
   }
 }

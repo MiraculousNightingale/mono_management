@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 
 class Localization extends Translations {
   @override
-  Map<String, Map<String, String>> get keys => {
+  Map<String, Map<String, String>> get keys => const {
         'en_US': {
           'penis': 'Penis',
           'ass': 'Ass',
@@ -34,7 +34,7 @@ class Localization extends Translations {
           'ass': 'Срака',
           'user info': 'Персональні дані',
           'id': 'ID',
-          'full name': 'Повне ім\'я',
+          'full name': "Повне ім'я",
           'currency code': 'Валюта',
           'cashback type': 'Тип кешбеку',
           'balance': 'Баланс',

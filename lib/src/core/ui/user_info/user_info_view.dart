@@ -42,6 +42,7 @@ class UserInfoView extends GetView<HomeController> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
+                              padding: const EdgeInsets.only(right: 5),
                               child: RichText(
                                   text: TextSpan(
                                       style: TextStyle(color: Colors.black54),
@@ -52,11 +53,11 @@ class UserInfoView extends GetView<HomeController> {
                                             fontWeight: FontWeight.bold)),
                                     TextSpan(
                                       text:
-                                          '${Currency().abbreviationFromCode(accounts[index].currencyCode)}',
+                                          Currency.abbreviationFromCode(accounts[index].currencyCode),
                                     ),
-                                  ])),
-                              padding: const EdgeInsets.only(right: 5)),
+                                  ]))),
                           Container(
+                              padding: const EdgeInsets.only(right: 5),
                               child: RichText(
                                   text: TextSpan(
                                       style: TextStyle(color: Colors.black54),
@@ -68,8 +69,7 @@ class UserInfoView extends GetView<HomeController> {
                                     TextSpan(
                                       text: '${accounts[index].cashbackType}',
                                     ),
-                                  ])),
-                              padding: const EdgeInsets.only(right: 5)),
+                                  ]))),
                         ],
                       ),
                       leading: Icon(
@@ -82,6 +82,7 @@ class UserInfoView extends GetView<HomeController> {
                       child: Column(
                         children: [
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Expanded(
                                 child: Container(
@@ -102,13 +103,13 @@ class UserInfoView extends GetView<HomeController> {
                                     padding: const EdgeInsets.only(right: 5)),
                               ),
                             ],
-                            mainAxisAlignment: MainAxisAlignment.center,
                           ),
                           const SizedBox(height: 10),
                           Row(
                             children: [
                               Expanded(
                                 child: Container(
+                                    padding: const EdgeInsets.only(right: 5),
                                     child: RichText(
                                       text: TextSpan(
                                         style: DefaultTextStyle.of(context).style,
@@ -122,8 +123,7 @@ class UserInfoView extends GetView<HomeController> {
                                                   '${accounts[index].creditLimit}')
                                         ],
                                       ),
-                                    ),
-                                    padding: const EdgeInsets.only(right: 5)),
+                                    )),
                               ),
                             ],
                           ),
@@ -132,6 +132,7 @@ class UserInfoView extends GetView<HomeController> {
                             children: [
                               Expanded(
                                 child: Container(
+                                    padding: const EdgeInsets.only(right: 5),
                                     child: RichText(
                                       text: TextSpan(
                                         style: DefaultTextStyle.of(context).style,
@@ -144,8 +145,7 @@ class UserInfoView extends GetView<HomeController> {
                                               text: '${accounts[index].type.tr}')
                                         ],
                                       ),
-                                    ),
-                                    padding: const EdgeInsets.only(right: 5)),
+                                    )),
                               ),
                             ],
                           ),
@@ -154,6 +154,7 @@ class UserInfoView extends GetView<HomeController> {
                             children: [
                               Expanded(
                                 child: Container(
+                                    padding: const EdgeInsets.only(right: 5),
                                     child: RichText(
                                       text: TextSpan(
                                         style: DefaultTextStyle.of(context).style,
@@ -166,8 +167,7 @@ class UserInfoView extends GetView<HomeController> {
                                               text: '${accounts[index].iban}')
                                         ],
                                       ),
-                                    ),
-                                    padding: const EdgeInsets.only(right: 5)),
+                                    )),
                               ),
                             ],
                           ),

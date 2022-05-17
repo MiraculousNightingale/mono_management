@@ -1,13 +1,15 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mono_management/resources/constansts.dart';
 import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/src/core/app_pages.dart';
 import 'package:mono_management/src/core/network/dio_manager.dart';
-import 'package:mono_management/src/core/ui/home/home_view.dart';
 
 void main() {
   DioManager.configure();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -17,11 +19,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+              textScaleFactor: 1, devicePixelRatio: window.devicePixelRatio),
+          child: child ?? const Offstage(),
+        );
+      },
+      transitionDuration: AppPages.transitionDuration,
       debugShowCheckedModeBanner: false,
-      title: 'MonoManagement',
       translations: Localization(),
-      locale: Locale('ua', 'UA'),
-      fallbackLocale: Locale('en', 'US'),
+      locale: const Locale('ua', 'UA'),
+      fallbackLocale: const Locale('en', 'US'),
+      title: applicationTitle,
+      initialRoute: AppPages.INITIAL,
+      getPages: AppPages.routes,
       theme: ThemeData(
         //     // This is the theme of your application.
         //     //
@@ -34,8 +46,6 @@ class MyApp extends StatelessWidget {
         //     // is not restarted.
         primaryColor: Colors.black,
       ),
-      initialRoute: AppPages.INITIAL,
-      getPages: AppPages.routes,
     );
   }
 }

@@ -76,8 +76,8 @@ class HomeController extends GetxController {
           rateCross: element["rateCross"] ?? 0.0));
     }
     currencyRates.retainWhere((element) =>
-        Currency().abbreviationFromCode(element.currencyCodeA) != 'NaN' &&
-        Currency().symbolFromCode(element.currencyCodeA) != 'NaN');
+        Currency.abbreviationFromCode(element.currencyCodeA) != 'NaN' &&
+        Currency.symbolFromCode(element.currencyCodeA) != 'NaN');
     return currencyRates;
   }
 

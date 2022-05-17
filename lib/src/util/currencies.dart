@@ -1,24 +1,26 @@
 //Order by Most traded currencies: https://en.wikipedia.org/wiki/Template:Most_traded_currencies
 import 'package:collection/collection.dart';
 
-class Currency {
-
-  String nameFromCode(int code){
-    var currency = currencies.firstWhereOrNull((element) => element['number']==code);
-    return currency!=null ? currency['name'] : 'NaN';
+abstract class Currency {
+  static String nameFromCode(int code) {
+    final Map<String, dynamic>? currency =
+        currencies.firstWhereOrNull((element) => element['number'] == code);
+    return currency != null ? currency['name'] : 'NaN';
   }
 
-  String abbreviationFromCode(int code){
-    var currency = currencies.firstWhereOrNull((element) => element['number']==code);
-    return currency!=null ? currency['code'] : 'NaN';
+  static String abbreviationFromCode(int code) {
+    final Map<String, dynamic>? currency =
+        currencies.firstWhereOrNull((element) => element['number'] == code);
+    return currency != null ? currency['code'] : 'NaN';
   }
 
-  String symbolFromCode(int code){
-    var currency = currencies.firstWhereOrNull((element) => element['number']==code);
-    return currency!=null ? currency['symbol'] : 'NaN';
+  static String symbolFromCode(int code) {
+    final Map<String, dynamic>? currency =
+        currencies.firstWhereOrNull((element) => element['number'] == code);
+    return currency != null ? currency['symbol'] : 'NaN';
   }
 
-  List<Map<String, dynamic>> currencies = [
+  static const List<Map<String, dynamic>> currencies = [
     {
       "code": "USD",
       "name": "United States Dollar",
