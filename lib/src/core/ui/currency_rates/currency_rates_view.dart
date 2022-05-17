@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:mono_management/resources/test_styles.dart';
 import 'package:mono_management/src/core/ui/home/home_controller.dart';
 import 'package:mono_management/src/data/model/currency_filter.dart';
 import 'package:mono_management/src/data/model/currency_rate.dart';
@@ -33,9 +35,10 @@ class CurrencyRatesView extends GetView<HomeController> {
                           children: [
                         TextSpan(
                             text: ' ${'sell'.tr}: ${currencyRate.rateSell} ',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                            style: GoogleFonts.roboto(
+                                textStyle: TextStyles.black14w600)),
                       ])),
-                  Icon(Icons.arrow_forward_rounded),
+                  const Icon(Icons.arrow_forward_rounded),
                 ],
               ),
             ],
@@ -48,14 +51,16 @@ class CurrencyRatesView extends GetView<HomeController> {
                   const Icon(Icons.compare_arrows_rounded),
                   RichText(
                       text: TextSpan(
-                          style: TextStyle(color: Colors.black),
+                          style: GoogleFonts.roboto(
+                              textStyle: TextStyles.black14w400),
                           children: [
                         TextSpan(
-                            text:
-                                ' ${'exchange'.tr}: ${currencyRate.rateCross} ',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                          text: ' ${'exchange'.tr}: ${currencyRate.rateCross} ',
+                          style: GoogleFonts.roboto(
+                              textStyle: TextStyles.black14w600),
+                        ),
                       ])),
-                  Icon(Icons.compare_arrows_rounded),
+                  const Icon(Icons.compare_arrows_rounded),
                 ],
               ),
             ],
