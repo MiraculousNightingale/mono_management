@@ -5,9 +5,6 @@ gradle-wrapper.jar
 /gradlew.bat
 /local.properties
 GeneratedPluginRegistrant.java
-firebase_options.dart
-google-services.json
-firebase_app_id_file.json
 
 
 # Remember to never publicly share your keystore.
