@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mono_management/src/data/model/currency_filter.dart';
 import 'package:mono_management/src/data/model/currency_rate.dart';
@@ -76,7 +77,7 @@ class HomeController extends GetxController {
           rateCross: element["rateCross"] ?? 0.0));
     }
     currencyRates.retainWhere((element) =>
-        Currency.abbreviationFromCode(element.currencyCodeA) != 'NaN' &&
+    Currency.abbreviationFromCode(element.currencyCodeA) != 'NaN' &&
         Currency.symbolFromCode(element.currencyCodeA) != 'NaN');
     return currencyRates;
   }
@@ -116,7 +117,7 @@ class HomeController extends GetxController {
     List<CurrencyRate> uniqueCurrenciesByCodeA = <CurrencyRate>[];
     uniqueCurrenciesByCodeA.addAll(currencyRates);
     uniqueCurrenciesByCodeA.retainWhere(
-        (element) => uniqueCurrencyCodes.add(element.currencyCodeA));
+            (element) => uniqueCurrencyCodes.add(element.currencyCodeA));
     List<CurrencyFilter> filters = [];
     for (CurrencyRate currency in uniqueCurrenciesByCodeA) {
       filters.add(CurrencyFilter(currency.currencyCodeA, true));
@@ -145,14 +146,16 @@ class HomeController extends GetxController {
     // }
     // filteredCurrencyRates = _currencyFilters.where((e) => e.show).map((e) => e.currencyRate).toList();
     return _currencyRates
-        .where((currencyRate) => _currencyFilters.any((filter) =>
-            filter.currencyCode == currencyRate.currencyCodeA && filter.show))
+        .where((currencyRate) =>
+        _currencyFilters.any((filter) =>
+        filter.currencyCode == currencyRate.currencyCodeA && filter.show))
         .toList();
   }
 
   List<Statement> getFilteredStatements() {
     return _statements
-        .where((statement) => _mccFilters
+        .where((statement) =>
+        _mccFilters
             .any((filter) => filter.mcc == statement.mcc && filter.show))
         .toList();
   }
@@ -167,6 +170,12 @@ class HomeController extends GetxController {
     _mccFilters = getMccFilter(_statements);
     progress = false;
   }
+
+  void onClose() {
+
+  }
+
+  final TextEditingController currencyNameFilter = TextEditingController();
 
   bool _progress = true;
 
@@ -211,7 +220,23 @@ class HomeController extends GetxController {
     update();
   }
 
-  List<CurrencyFilter> get currencyFilters => _currencyFilters;
+  String _currencyFilterSearch = '';
+
+  String get currencyFilterSearch => _currencyFilterSearch;
+
+  set currencyFilterSearch(String value){
+    _currencyFilterSearch = value;
+    update();
+  }
+
+
+  List<CurrencyFilter> get currencyFilters {
+    return _currencyFilters.where((element) =>
+    Currency.abbreviationFromCode(element.currencyCode).toLowerCase().contains(
+        currencyFilterSearch.toLowerCase()) ||
+        Currency.nameFromCode(element.currencyCode).toLowerCase().contains(
+            currencyFilterSearch.toLowerCase())).toList();
+  }
 
   set currencyFilters(List<CurrencyFilter> value) {
     _currencyFilters = value;

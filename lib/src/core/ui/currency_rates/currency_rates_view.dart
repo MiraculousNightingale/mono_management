@@ -19,7 +19,7 @@ class CurrencyRatesView extends GetView<HomeController> {
                   const Icon(Icons.arrow_back_rounded),
                   RichText(
                       text: TextSpan(
-                          style: TextStyle(color: Colors.black87),
+                          style: const TextStyle(color: Colors.black87),
                           children: [
                         TextSpan(
                           text:
@@ -34,7 +34,7 @@ class CurrencyRatesView extends GetView<HomeController> {
                 children: [
                   RichText(
                       text: TextSpan(
-                          style: TextStyle(color: Colors.black87),
+                          style: const TextStyle(color: Colors.black87),
                           children: [
                         TextSpan(
                             text:
@@ -72,180 +72,215 @@ class CurrencyRatesView extends GetView<HomeController> {
           );
   }
 
-  Widget _buildCurrencyFilterList(List<CurrencyFilter> filters) {
-    return ListView.separated(
-        itemBuilder: (context, index) {
-          return Container(
-              decoration: BoxDecoration(
+  Widget _buildCurrencyFilterPage(List<CurrencyFilter> filters) {
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.separated(
+            itemBuilder: (context, index) {
+              return Container(
+                decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(17),
-                  color: Colors.black12),
-              child: CheckboxListTile(
-                value: filters[index].show,
-                onChanged: (value) {
-                  filters[index].show = value ?? true;
-                  controller.update();
-                },
-                title: Text(Currency.nameFromCode(filters[index].currencyCode)),
-                secondary: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '${Currency.symbolFromCode(filters[index].currencyCode)} ${Currency.abbreviationFromCode(filters[index].currencyCode)}',
-                      style: TextStyle(
+                  color: Colors.black12,
+                ),
+                child: CheckboxListTile(
+                  value: filters[index].show,
+                  onChanged: (value) {
+                    filters[index].show = value ?? true;
+                    controller.update();
+                  },
+                  title:
+                      Text(Currency.nameFromCode(filters[index].currencyCode)),
+                  secondary: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '${Currency.symbolFromCode(filters[index].currencyCode)} ${Currency.abbreviationFromCode(filters[index].currencyCode)}',
+                        style: const TextStyle(
                           fontSize: 18,
                           color: Colors.black54,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  // subtitle: Text('subtitle'),
+                  // controlAffinity: ListTileControlAffinity.platform,
                 ),
-                // subtitle: Text('subtitle'),
-                // controlAffinity: ListTileControlAffinity.platform,
-              ));
-        },
-        separatorBuilder: (context, index) {
-          return const SizedBox(
-            height: 10,
-          );
-        },
-        itemCount: filters.length);
+              );
+            },
+            separatorBuilder: (context, index) {
+              return const SizedBox(
+                height: 10,
+              );
+            },
+            itemCount: filters.length,
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        SizedBox(
+          height: 45,
+          child: TextField(
+            controller: controller.currencyNameFilter,
+            onChanged: (value) {
+              controller.currencyFilterSearch = value;
+            },
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Currency name',
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _buildCurrencyRateList(List<CurrencyRate> currencyRates) {
     return ListView.separated(
-        itemBuilder: (context, index) {
-          return Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(17),
-                  color: Colors.black12),
-              child: Column(
-                children: [
-                  ListTile(
-                    title: Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            children: [
-                              RichText(
-                                  text: TextSpan(
-                                      style: TextStyle(
-                                          color: Colors.black54, fontSize: 18),
-                                      children: [
-                                    TextSpan(
-                                        text: Currency.symbolFromCode(
-                                            currencyRates[index].currencyCodeA),
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                    TextSpan(
-                                        text:
-                                            // ' ${currencyRates[index].currencyCodeA} '),
-                                            ' '),
-                                    TextSpan(
-                                      text: Currency.abbreviationFromCode(
-                                          currencyRates[index].currencyCodeA),
-                                    ),
-                                  ])),
-                            ],
+      itemBuilder: (context, index) {
+        return Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(17), color: Colors.black12),
+          child: Column(
+            children: [
+              ListTile(
+                title: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          RichText(
+                            text: TextSpan(
+                              style: const TextStyle(
+                                  color: Colors.black54, fontSize: 18),
+                              children: [
+                                TextSpan(
+                                  text: Currency.symbolFromCode(
+                                    currencyRates[index].currencyCodeA,
+                                  ),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const TextSpan(
+                                    text:
+                                        // ' ${currencyRates[index].currencyCodeA} '),
+                                        ' '),
+                                TextSpan(
+                                  text: Currency.abbreviationFromCode(
+                                      currencyRates[index].currencyCodeA),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: _showExhangeRate(currencyRates[index]),
-                        ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              RichText(
-                                  text: TextSpan(
-                                      style: TextStyle(
-                                          color: Colors.black54, fontSize: 18),
-                                      children: [
-                                    TextSpan(
-                                        text: Currency.symbolFromCode(
-                                            currencyRates[index].currencyCodeB),
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                    TextSpan(
-                                        text:
-                                            // ' ${currencyRates[index].currencyCodeA} '),
-                                            ' '),
-                                    TextSpan(
-                                      text: Currency.abbreviationFromCode(
-                                          currencyRates[index].currencyCodeB),
-                                    ),
-                                  ])),
-                            ],
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ));
-        },
-        separatorBuilder: (context, index) {
-          return const SizedBox(
-            height: 10,
-          );
-        },
-        itemCount: currencyRates.length);
+                    Expanded(
+                      flex: 2,
+                      child: _showExhangeRate(currencyRates[index]),
+                    ),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          RichText(
+                            text: TextSpan(
+                              style: const TextStyle(
+                                  color: Colors.black54, fontSize: 18),
+                              children: [
+                                TextSpan(
+                                    text: Currency.symbolFromCode(
+                                        currencyRates[index].currencyCodeB),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold)),
+                                const TextSpan(
+                                    text:
+                                        // ' ${currencyRates[index].currencyCodeA} '),
+                                        ' '),
+                                TextSpan(
+                                  text: Currency.abbreviationFromCode(
+                                      currencyRates[index].currencyCodeB),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+      separatorBuilder: (context, index) {
+        return const SizedBox(
+          height: 10,
+        );
+      },
+      itemCount: currencyRates.length,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return controller.progress
-        ? Center(
+        ? const Center(
             child: CircularProgressIndicator(),
           )
         : Container(
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-                Container(
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: controller.showCurrencyFilter
-                                ? OutlinedButton(
-                                    onPressed: () =>
-                                        {controller.showCurrencyFilter = false},
-                                    child: Text('back to currency list'.tr))
-                                : OutlinedButton(
-                                    onPressed: () =>
-                                        {controller.showCurrencyFilter = true},
-                                    child: Text(Localization.keyFilter.tr)),
-                          )
-                        ],
-                      ),
-                      Container(
-                        decoration: BoxDecoration(),
-                        padding: const EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            RichText(
-                                text: TextSpan(
-                                    children: [
-                                  TextSpan(text: 'currency rates'.tr)
-                                ],
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold))),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // Column(
+                //   children: [
+                //     Container(
+                //       decoration: const BoxDecoration(),
+                //       padding: const EdgeInsets.all(10),
+                //       child: Row(
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           RichText(
+                //             text: TextSpan(
+                //               children: [TextSpan(text: 'currency rates'.tr)],
+                //               style: const TextStyle(
+                //                 color: Colors.black,
+                //                 fontSize: 18,
+                //                 fontWeight: FontWeight.bold,
+                //               ),
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 Expanded(
                   child: controller.showCurrencyFilter
-                      ? _buildCurrencyFilterList(controller.currencyFilters)
+                      ? _buildCurrencyFilterPage(controller.currencyFilters)
                       : _buildCurrencyRateList(
                           controller.getFilteredCurrencyRates()),
-                )
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: controller.showCurrencyFilter
+                          ? OutlinedButton(
+                              onPressed: () =>
+                                  {controller.showCurrencyFilter = false},
+                              child: Text('back to currency list'.tr))
+                          : OutlinedButton(
+                              onPressed: () =>
+                                  {controller.showCurrencyFilter = true},
+                              child: Text(Localization.keyFilter.tr)),
+                    ),
+                  ],
+                ),
               ],
-            ));
+            ),
+          );
   }
 }
