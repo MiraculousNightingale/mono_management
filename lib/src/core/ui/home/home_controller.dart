@@ -229,6 +229,14 @@ class HomeController extends GetxController {
     update();
   }
 
+  bool _showStatementFilter = false;
+
+  bool get showStatementFilter => _showStatementFilter;
+
+  set showStatementFilter(bool value) {
+    _showStatementFilter = value;
+    update();
+  }
 
   List<CurrencyFilter> get currencyFilters {
     return _currencyFilters.where((element) =>

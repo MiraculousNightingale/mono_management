@@ -16,7 +16,7 @@ class Localization extends Translations {
   static const keyType = 'type';
   static const keyIban = 'iban';
   static const keyCurrencyRates = 'currency rates';
-  static const keyExpenses = 'expenses';
+  static const keyStatements = 'statements';
   static const keyBlack = 'black';
   static const keyWhite = 'white';
   static const keyFilter = 'filter';
@@ -28,6 +28,20 @@ class Localization extends Translations {
   static const keyCategoryChart = 'category chart';
   static const keyBalanceChart = 'balance chart';
   static const keyAmount = 'amount';
+  static const keyBack = 'back';
+  static const keyNone = 'none';
+  static const keyAll = 'all';
+  static const keyCurrencySearch = 'currency search';
+  static const keyMccFilter = 'mcc filter';
+  static const keyNameSearch = 'name search';
+  static const keyDescriptionSearch = 'description search';
+  static const keyFrom = 'from';
+  static const keyTo = 'to';
+  static const keySelect = 'select';
+  static const keyDate = 'date';
+  static const keyExpenses = 'expenses';
+  static const keyIncomes = 'incomes';
+
 
   @override
   Map<String, Map<String, String>> get keys => const {
@@ -44,7 +58,7 @@ class Localization extends Translations {
           keyType: 'Type',
           keyIban: 'IBAN',
           keyCurrencyRates: 'Currency rates',
-          keyExpenses: 'Expenses',
+          keyStatements: 'Statements',
           keyBlack: 'Black',
           keyWhite: 'White',
           keyFilter: 'Filter',
@@ -56,6 +70,19 @@ class Localization extends Translations {
           keyCategoryChart: 'Category Chart',
           keyBalanceChart: 'Balance Chart',
           keyAmount: 'Amount',
+          keyBack: 'Back',
+          keyNone: 'None',
+          keyAll: 'All',
+          keyCurrencySearch: 'Currency Search',
+          keyMccFilter: 'MCC Filter',
+          keyNameSearch: 'Name Search',
+          keyDescriptionSearch: 'Description Search',
+          keyFrom: 'From',
+          keyTo: 'To',
+          keySelect: 'Select',
+          keyDate: 'Date',
+          keyExpenses: 'Expenses',
+          keyIncomes: 'Incomes',
         },
         keyCountryUA: {
           keyPenis: 'Пісюн',
@@ -70,7 +97,7 @@ class Localization extends Translations {
           keyType: 'Тип',
           keyIban: 'IBAN',
           keyCurrencyRates: 'Курси валют',
-          keyExpenses: 'Виписки',
+          keyStatements: 'Виписки',
           keyBlack: 'Чорна',
           keyWhite: 'Біла',
           keyFilter: 'Фільтр',
@@ -82,6 +109,19 @@ class Localization extends Translations {
           keyCategoryChart: 'Графік по категоріям',
           keyBalanceChart: 'Графік по балансу',
           keyAmount: 'Сума',
+          keyBack: 'Назад',
+          keyNone: 'Жоден',
+          keyAll: 'Всі',
+          keyCurrencySearch: 'Пошук Валюти',
+          keyMccFilter: 'Фільтр MCC',
+          keyNameSearch: 'Пошук по назві',
+          keyDescriptionSearch: 'Пошук по опису',
+          keyFrom: 'Від',
+          keyTo: 'До',
+          keySelect: 'Обрати',
+          keyDate: 'Дата',
+          keyExpenses: 'Витрати',
+          keyIncomes: 'Надходження',
         }
       };
 }

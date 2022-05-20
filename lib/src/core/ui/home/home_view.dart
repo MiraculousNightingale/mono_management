@@ -18,7 +18,10 @@ class HomeView extends GetView<HomeController> {
     return GetBuilder<HomeController>(
         builder: (controller) => Scaffold(
               appBar: AppBar(
-                title: Text(controller.getCurrentTitle()),
+                title: Text(
+                  controller.getCurrentTitle(),
+                ),
+                backgroundColor: Colors.black,
               ),
               drawer: NavigationDrawer(),
               body: IndexedStack(
@@ -38,7 +41,7 @@ class HomeView extends GetView<HomeController> {
                   ),
                   BottomNavigationBarItem(
                       icon: const Icon(Icons.account_balance_wallet),
-                      label: Localization.keyExpenses.tr),
+                      label: Localization.keyStatements.tr),
                 ],
               ),
             ));
