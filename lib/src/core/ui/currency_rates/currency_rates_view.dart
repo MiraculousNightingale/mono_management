@@ -127,9 +127,9 @@ class CurrencyRatesView extends GetView<HomeController> {
             onChanged: (value) {
               controller.currencyFilterSearch = value;
             },
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Currency name',
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              labelText: Localization.keyCurrencySearch.tr,
             ),
           ),
         ),
@@ -268,10 +268,31 @@ class CurrencyRatesView extends GetView<HomeController> {
                   children: [
                     Expanded(
                       child: controller.showCurrencyFilter
-                          ? OutlinedButton(
-                              onPressed: () =>
-                                  {controller.showCurrencyFilter = false},
-                              child: Text('back to currency list'.tr))
+                          ? Row(
+                              children: [
+                                Expanded(
+                                  child: OutlinedButton(
+                                    onPressed: () =>
+                                        {controller.showCurrencyFilter = false},
+                                    child: Text(Localization.keyBack.tr),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: OutlinedButton(
+                                    onPressed: () =>
+                                    {},
+                                    child: Text('none'.tr),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: OutlinedButton(
+                                    onPressed: () =>
+                                    {},
+                                    child: Text('all'.tr),
+                                  ),
+                                ),
+                              ],
+                            )
                           : OutlinedButton(
                               onPressed: () =>
                                   {controller.showCurrencyFilter = true},

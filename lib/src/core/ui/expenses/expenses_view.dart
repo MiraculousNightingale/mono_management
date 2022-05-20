@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:mono_management/resources/localization.dart';
+import 'package:mono_management/src/core/ui/expenses/expenses_filter_page.dart';
 import 'package:mono_management/src/core/ui/home/home_controller.dart';
 import 'package:mono_management/src/data/model/mcc_filter.dart';
 import 'package:mono_management/src/data/model/statement.dart';
@@ -11,20 +12,22 @@ import 'package:mono_management/src/util/mcc.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ExpensesView extends GetView<HomeController> {
-  List<DropdownMenuItem<String>> _getAccountDropDownItems() {
-    List<DropdownMenuItem<String>> items = <DropdownMenuItem<String>>[];
-    items.add(DropdownMenuItem<String>(
-      child: Text('select account'.tr),
-      value: 'NaN',
-    ));
-    for (Account account in controller.userInfo.accounts) {
-      items.add(DropdownMenuItem<String>(
-        child: Text('${account.maskedPan}'),
-        value: account.id,
-      ));
-    }
-    return items;
-  }
+  const ExpensesView({Key? key}) : super(key: key);
+
+  // List<DropdownMenuItem<String>> _getAccountDropDownItems() {
+  //   List<DropdownMenuItem<String>> items = <DropdownMenuItem<String>>[];
+  //   items.add(DropdownMenuItem<String>(
+  //     child: Text('select account'.tr),
+  //     value: 'NaN',
+  //   ));
+  //   for (Account account in controller.userInfo.accounts) {
+  //     items.add(DropdownMenuItem<String>(
+  //       child: Text('${account.maskedPan}'),
+  //       value: account.id,
+  //     ));
+  //   }
+  //   return items;
+  // }
 
   Widget _buildStatementList(List<Statement> statements) {
     return ListView.separated(
@@ -52,14 +55,14 @@ class ExpensesView extends GetView<HomeController> {
                                         children: [
                                           RichText(
                                               text: TextSpan(
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: Colors.black54,
                                                       fontSize: 14),
                                                   children: [
                                                 TextSpan(
                                                     text:
                                                         '${Currency.abbreviationFromCode(statements[index].currencyCode)}',
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold)),
                                               ])),
@@ -74,14 +77,14 @@ class ExpensesView extends GetView<HomeController> {
                                         children: [
                                           RichText(
                                               text: TextSpan(
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: Colors.black87,
                                                       fontSize: 14),
                                                   children: [
                                                 TextSpan(
                                                     text:
                                                         '${Mcc().getDescFromCode(statements[index].mcc)}',
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold)),
                                               ])),
@@ -95,7 +98,7 @@ class ExpensesView extends GetView<HomeController> {
                                         children: [
                                           RichText(
                                               text: TextSpan(
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: Colors.black54,
                                                       fontSize: 14),
                                                   children: [
@@ -106,7 +109,7 @@ class ExpensesView extends GetView<HomeController> {
                                                                 statements[index]
                                                                         .time *
                                                                     1000)),
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold)),
                                               ])),
@@ -125,12 +128,12 @@ class ExpensesView extends GetView<HomeController> {
                               padding: const EdgeInsets.all(5),
                               child: RichText(
                                   text: TextSpan(
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.black87, fontSize: 18),
                                       children: [
                                     TextSpan(
                                         text: statements[index].description,
-                                        style: TextStyle()),
+                                        style: const TextStyle()),
                                   ])),
                             ),
                           ],
@@ -144,7 +147,7 @@ class ExpensesView extends GetView<HomeController> {
                                   children: [
                                     RichText(
                                         text: TextSpan(
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 color: Colors.black54,
                                                 fontSize: 18),
                                             children: [
@@ -163,7 +166,7 @@ class ExpensesView extends GetView<HomeController> {
                                   ],
                                 ),
                               ),
-                              Expanded(
+                              const Expanded(
                                 // flex: 2,
                                 child: Icon(Icons.double_arrow_rounded),
                               ),
@@ -172,7 +175,7 @@ class ExpensesView extends GetView<HomeController> {
                                   children: [
                                     RichText(
                                         text: TextSpan(
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 18),
                                             children: [
@@ -180,7 +183,7 @@ class ExpensesView extends GetView<HomeController> {
                                               text: (statements[index].balance /
                                                       100)
                                                   .toString(),
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                               )),
                                         ])),
@@ -204,44 +207,6 @@ class ExpensesView extends GetView<HomeController> {
         itemCount: statements.length);
   }
 
-  Widget _buildMccFilterList(List<MccFilter> filters) {
-    return ListView.separated(
-        itemBuilder: (context, index) {
-          return Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(17),
-                  color: Colors.black12),
-              child: CheckboxListTile(
-                value: filters[index].show,
-                onChanged: (value) {
-                  filters[index].show = value ?? true;
-                  controller.update();
-                },
-                title: Text('${Mcc().getDescFromCode(filters[index].mcc)}'),
-                // secondary: Column(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Text(
-                //       '',
-                //       style: TextStyle(
-                //           fontSize: 18,
-                //           color: Colors.black54,
-                //           fontWeight: FontWeight.bold),
-                //     ),
-                //   ],
-                // ),
-                // subtitle: Text('subtitle'),
-                // controlAffinity: ListTileControlAffinity.platform,
-              ));
-        },
-        separatorBuilder: (context, index) {
-          return const SizedBox(
-            height: 10,
-          );
-        },
-        itemCount: filters.length);
-  }
-
   @override
   Widget build(BuildContext context) {
     return controller.progress
@@ -250,49 +215,11 @@ class ExpensesView extends GetView<HomeController> {
           )
         : Padding(
             padding: const EdgeInsets.all(20),
-            child: controller.showMccFilter
-                ? Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: OutlinedButton(
-                                onPressed: () =>
-                                    {controller.showMccFilter = false},
-                                child: Text(Localization.keyList.tr)),
-                          )
-                        ],
-                      ),
-                      Expanded(
-                          child: _buildMccFilterList(controller.mccFilters)),
-                    ],
-                  )
+            child: controller.showStatementFilter
+                ? ExpensesFilterPage()
                 : controller.showExpenseCharts
                     ? Column(
                         children: [
-                          Container(
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: OutlinedButton(
-                                      onPressed: () => {
-                                            controller.showExpenseCharts = false
-                                          },
-                                      child: Text(Localization.keyList.tr)),
-                                )
-                              ],
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: OutlinedButton(
-                                    onPressed: () => {},
-                                    child:
-                                        Text(Localization.keyCategoryChart.tr)),
-                              )
-                            ],
-                          ),
                           Expanded(
                             child: Container(
                               child: SfCartesianChart(
@@ -351,69 +278,113 @@ class ExpensesView extends GetView<HomeController> {
                               ),
                             ),
                           ),
+                          Container(
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: OutlinedButton(
+                                      onPressed: () => {
+                                            controller.showExpenseCharts = false
+                                          },
+                                      child: Text(Localization.keyList.tr)),
+                                )
+                              ],
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: OutlinedButton(
+                                    onPressed: () => {},
+                                    child:
+                                        Text(Localization.keyCategoryChart.tr)),
+                              )
+                            ],
+                          ),
                         ],
                       )
                     : Column(
                         children: [
+                          Expanded(
+                            child: _buildStatementList(
+                              controller.getFilteredStatements(),
+                            ),
+                          ),
                           Column(
                             children: [
+                              // Row(
+                              //   children: [
+                              //     Expanded(
+                              //       child: DropdownButton<String>(
+                              //         value: controller.accountDropDownValue,
+                              //         items: _getAccountDropDownItems(),
+                              //         onChanged: (value) {
+                              //           controller.accountDropDownValue =
+                              //               value ?? 'NaN';
+                              //         },
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
+                                height: 45,
+                                child: TextField(
+                                  controller: controller.currencyNameFilter,
+                                  onChanged: (value) {
+                                    controller.currencyFilterSearch = value;
+                                  },
+                                  decoration: InputDecoration(
+                                    border: const OutlineInputBorder(),
+                                    labelText: Localization.keyDescriptionSearch.tr,
+                                  ),
+                                ),
+                              ),
                               Row(
                                 children: [
                                   Expanded(
-                                    child: DropdownButton<String>(
-                                      value: controller.accountDropDownValue,
-                                      items: _getAccountDropDownItems(),
-                                      onChanged: (value) {
-                                        controller.accountDropDownValue =
-                                            value ?? 'NaN';
-                                      },
+                                    child: OutlinedButton(
+                                      onPressed: () =>
+                                          {controller.showStatementFilter = true},
+                                      child: Text(Localization.keyFilter.tr),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: OutlinedButton(
+                                      onPressed: () =>
+                                          {controller.showExpenseCharts = true},
+                                      child: Text('charts'.tr),
                                     ),
                                   ),
                                 ],
                               ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: OutlinedButton(
-                                        onPressed: () =>
-                                            {controller.showMccFilter = true},
-                                        child: Text('type filter'.tr)),
-                                  ),
-                                  Expanded(
-                                    child: OutlinedButton(
-                                        onPressed: () => {
-                                              controller.showExpenseCharts =
-                                                  true
-                                            },
-                                        child: Text('charts'.tr)),
-                                  )
-                                ],
-                              ),
-                              Container(
-                                decoration: BoxDecoration(),
-                                padding: const EdgeInsets.all(10),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    RichText(
-                                        text: TextSpan(
-                                            children: [
-                                          TextSpan(
-                                              text: Localization.keyExpenses.tr)
-                                        ],
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold))),
-                                  ],
-                                ),
-                              ),
+                              // Container(
+                              //   decoration: const BoxDecoration(),
+                              //   padding: const EdgeInsets.all(10),
+                              //   child: Row(
+                              //     mainAxisAlignment: MainAxisAlignment.center,
+                              //     children: [
+                              //       RichText(
+                              //         text: TextSpan(
+                              //           children: [
+                              //             TextSpan(
+                              //               text: Localization.keyExpenses.tr,
+                              //             )
+                              //           ],
+                              //           style: const TextStyle(
+                              //             color: Colors.black,
+                              //             fontSize: 18,
+                              //             fontWeight: FontWeight.bold,
+                              //           ),
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
                             ],
                           ),
-                          Expanded(
-                            child: _buildStatementList(
-                                controller.getFilteredStatements()),
-                          )
                         ],
                       ));
   }
