@@ -23,7 +23,9 @@ class HomeView extends GetView<HomeController> {
                 ),
                 backgroundColor: Colors.black,
               ),
-              drawer: NavigationDrawer(),
+              drawer: NavigationDrawer(
+                userInfo: controller.userInfo,
+              ),
               body: IndexedStack(
                 index: controller.tabIndex,
                 children: [UserInfoView(), CurrencyRatesView(), ExpensesView()],

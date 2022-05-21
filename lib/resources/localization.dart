@@ -41,6 +41,10 @@ class Localization extends Translations {
   static const keyDate = 'date';
   static const keyExpenses = 'expenses';
   static const keyIncomes = 'incomes';
+  static const keyLineChart = 'line chart';
+  static const keyPieChart = 'pie chart';
+  static const keyBarChart = 'bar chart';
+  static const keyMainPage = 'main page';
 
 
   @override
@@ -83,6 +87,10 @@ class Localization extends Translations {
           keyDate: 'Date',
           keyExpenses: 'Expenses',
           keyIncomes: 'Incomes',
+          keyLineChart: 'Line Chart',
+          keyPieChart: 'Pie Chart',
+          keyBarChart: 'Bar Chart',
+          keyMainPage: 'Main Page',
         },
         keyCountryUA: {
           keyPenis: 'Пісюн',
@@ -122,6 +130,10 @@ class Localization extends Translations {
           keyDate: 'Дата',
           keyExpenses: 'Витрати',
           keyIncomes: 'Надходження',
+          keyLineChart: 'Лінійна діаграма',
+          keyPieChart: 'Кругова діаграма',
+          keyBarChart: 'Стовпцева діаграма',
+          keyMainPage: 'Головна сторінка',
         }
       };
 }

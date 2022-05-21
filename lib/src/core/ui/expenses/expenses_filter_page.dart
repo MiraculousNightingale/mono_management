@@ -23,7 +23,7 @@ class ExpensesFilterPage extends GetView<HomeController> {
                   filters[index].show = value ?? true;
                   controller.update();
                 },
-                title: Text(Mcc().getDescFromCode(filters[index].mcc)),
+                title: Text(Mcc.getDescFromCode(filters[index].mcc)),
                 // secondary: Column(
                 //   mainAxisAlignment: MainAxisAlignment.center,
                 //   children: [

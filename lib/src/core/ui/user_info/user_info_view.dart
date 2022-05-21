@@ -203,7 +203,7 @@ class UserInfoView extends GetView<HomeController> {
             child: CircularProgressIndicator(),
           )
         : Container(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(0),
             child: Column(
               children: [
                 Container(

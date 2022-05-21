@@ -2,12 +2,14 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:mono_management/src/core/ui/charts/pie_chart.dart';
 import 'package:mono_management/src/data/model/currency_filter.dart';
 import 'package:mono_management/src/data/model/currency_rate.dart';
 import 'package:mono_management/src/data/model/mcc_filter.dart';
 import 'package:mono_management/src/data/model/statement.dart';
 import 'package:mono_management/src/data/model/user_info.dart';
 import 'package:mono_management/src/util/currencies.dart';
+import 'package:mono_management/src/util/mcc.dart';
 
 class HomeController extends GetxController {
   UserInfo _userInfo = UserInfo();
@@ -77,7 +79,7 @@ class HomeController extends GetxController {
           rateCross: element["rateCross"] ?? 0.0));
     }
     currencyRates.retainWhere((element) =>
-    Currency.abbreviationFromCode(element.currencyCodeA) != 'NaN' &&
+        Currency.abbreviationFromCode(element.currencyCodeA) != 'NaN' &&
         Currency.symbolFromCode(element.currencyCodeA) != 'NaN');
     return currencyRates;
   }
@@ -117,7 +119,7 @@ class HomeController extends GetxController {
     List<CurrencyRate> uniqueCurrenciesByCodeA = <CurrencyRate>[];
     uniqueCurrenciesByCodeA.addAll(currencyRates);
     uniqueCurrenciesByCodeA.retainWhere(
-            (element) => uniqueCurrencyCodes.add(element.currencyCodeA));
+        (element) => uniqueCurrencyCodes.add(element.currencyCodeA));
     List<CurrencyFilter> filters = [];
     for (CurrencyRate currency in uniqueCurrenciesByCodeA) {
       filters.add(CurrencyFilter(currency.currencyCodeA, true));
@@ -146,16 +148,14 @@ class HomeController extends GetxController {
     // }
     // filteredCurrencyRates = _currencyFilters.where((e) => e.show).map((e) => e.currencyRate).toList();
     return _currencyRates
-        .where((currencyRate) =>
-        _currencyFilters.any((filter) =>
-        filter.currencyCode == currencyRate.currencyCodeA && filter.show))
+        .where((currencyRate) => _currencyFilters.any((filter) =>
+            filter.currencyCode == currencyRate.currencyCodeA && filter.show))
         .toList();
   }
 
   List<Statement> getFilteredStatements() {
     return _statements
-        .where((statement) =>
-        _mccFilters
+        .where((statement) => _mccFilters
             .any((filter) => filter.mcc == statement.mcc && filter.show))
         .toList();
   }
@@ -171,9 +171,7 @@ class HomeController extends GetxController {
     progress = false;
   }
 
-  void onClose() {
-
-  }
+  void onClose() {}
 
   final TextEditingController currencyNameFilter = TextEditingController();
 
@@ -224,7 +222,7 @@ class HomeController extends GetxController {
 
   String get currencyFilterSearch => _currencyFilterSearch;
 
-  set currencyFilterSearch(String value){
+  set currencyFilterSearch(String value) {
     _currencyFilterSearch = value;
     update();
   }
@@ -238,12 +236,34 @@ class HomeController extends GetxController {
     update();
   }
 
+  List<PieChartStatement> get pieChartStatementData {
+    final Map<int, int> result = {};
+    for (final statement in statements) {
+      if(statement.amount < 0) {
+        if (result.containsKey(statement.mcc)) {
+          result.update(
+              statement.mcc, (value) =>
+          result[statement.mcc]! + statement.amount);
+        } else {
+          result.addAll({statement.mcc: statement.amount});
+        }
+      }
+    }
+    final List<PieChartStatement> sortedResult = result.entries.map((e) => PieChartStatement.fromMapEntry(e)).toList();
+    sortedResult.sort((a, b) => b.amount.compareTo(a.amount));
+    return sortedResult;
+  }
+
   List<CurrencyFilter> get currencyFilters {
-    return _currencyFilters.where((element) =>
-    Currency.abbreviationFromCode(element.currencyCode).toLowerCase().contains(
-        currencyFilterSearch.toLowerCase()) ||
-        Currency.nameFromCode(element.currencyCode).toLowerCase().contains(
-            currencyFilterSearch.toLowerCase())).toList();
+    return _currencyFilters
+        .where((element) =>
+            Currency.abbreviationFromCode(element.currencyCode)
+                .toLowerCase()
+                .contains(currencyFilterSearch.toLowerCase()) ||
+            Currency.nameFromCode(element.currencyCode)
+                .toLowerCase()
+                .contains(currencyFilterSearch.toLowerCase()))
+        .toList();
   }
 
   set currencyFilters(List<CurrencyFilter> value) {

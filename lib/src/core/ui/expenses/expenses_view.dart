@@ -33,171 +33,184 @@ class ExpensesView extends GetView<HomeController> {
     return ListView.separated(
         itemBuilder: (context, index) {
           return Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(17),
-                  color: Colors.black12),
-              child: Column(
-                children: [
-                  ListTile(
-                    title: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                padding: const EdgeInsets.all(5),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Column(
-                                        // crossAxisAlignment:
-                                        //     CrossAxisAlignment.start,
-                                        children: [
-                                          RichText(
-                                              text: TextSpan(
-                                                  style: const TextStyle(
-                                                      color: Colors.black54,
-                                                      fontSize: 14),
-                                                  children: [
-                                                TextSpan(
-                                                    text:
-                                                        '${Currency.abbreviationFromCode(statements[index].currencyCode)}',
-                                                    style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              ])),
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 2,
-                                      child: Column(
-                                        // crossAxisAlignment:
-                                        //     CrossAxisAlignment.start,
-                                        children: [
-                                          RichText(
-                                              text: TextSpan(
-                                                  style: const TextStyle(
-                                                      color: Colors.black87,
-                                                      fontSize: 14),
-                                                  children: [
-                                                TextSpan(
-                                                    text:
-                                                        '${Mcc().getDescFromCode(statements[index].mcc)}',
-                                                    style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              ])),
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Column(
-                                        // crossAxisAlignment:
-                                        //     CrossAxisAlignment.end,
-                                        children: [
-                                          RichText(
-                                              text: TextSpan(
-                                                  style: const TextStyle(
-                                                      color: Colors.black54,
-                                                      fontSize: 14),
-                                                  children: [
-                                                TextSpan(
-                                                    text: DateFormat.yMd()
-                                                        .format(DateTime
-                                                            .fromMillisecondsSinceEpoch(
-                                                                statements[index]
-                                                                        .time *
-                                                                    1000)),
-                                                    style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                              ])),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(17), color: Colors.black12),
+            child: Column(
+              children: [
+                ListTile(
+                  title: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
                               padding: const EdgeInsets.all(5),
-                              child: RichText(
-                                  text: TextSpan(
-                                      style: const TextStyle(
-                                          color: Colors.black87, fontSize: 18),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      // crossAxisAlignment:
+                                      //     CrossAxisAlignment.start,
                                       children: [
-                                    TextSpan(
-                                        text: statements[index].description,
-                                        style: const TextStyle()),
-                                  ])),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(5),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    RichText(
-                                        text: TextSpan(
+                                        RichText(
+                                          text: TextSpan(
                                             style: const TextStyle(
                                                 color: Colors.black54,
-                                                fontSize: 18),
+                                                fontSize: 14),
                                             children: [
-                                          TextSpan(
-                                              text: (statements[index].amount /
-                                                      100)
-                                                  .toString(),
-                                              style: TextStyle(
-                                                color:
-                                                    statements[index].amount > 0
-                                                        ? Colors.green
-                                                        : Colors.red,
-                                                fontWeight: FontWeight.bold,
-                                              )),
-                                        ])),
-                                  ],
-                                ),
-                              ),
-                              const Expanded(
-                                // flex: 2,
-                                child: Icon(Icons.double_arrow_rounded),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    RichText(
-                                        text: TextSpan(
+                                              TextSpan(
+                                                text:
+                                                    '${Currency.abbreviationFromCode(statements[index].currencyCode)}',
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Column(
+                                      // crossAxisAlignment:
+                                      //     CrossAxisAlignment.start,
+                                      children: [
+                                        RichText(
+                                          text: TextSpan(
                                             style: const TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 18),
+                                                color: Colors.black87,
+                                                fontSize: 14),
                                             children: [
-                                          TextSpan(
-                                              text: (statements[index].balance /
-                                                      100)
-                                                  .toString(),
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                              )),
-                                        ])),
-                                  ],
-                                ),
+                                              TextSpan(
+                                                text:
+                                                    '${Mcc.getDescFromCode(statements[index].mcc)}',
+                                                style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      // crossAxisAlignment:
+                                      //     CrossAxisAlignment.end,
+                                      children: [
+                                        RichText(
+                                          text: TextSpan(
+                                            style: const TextStyle(
+                                                color: Colors.black54,
+                                                fontSize: 14),
+                                            children: [
+                                              TextSpan(
+                                                  text: DateFormat.yMd().format(
+                                                    DateTime
+                                                        .fromMillisecondsSinceEpoch(
+                                                            statements[index]
+                                                                    .time *
+                                                                1000),
+                                                  ),
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(5),
+                            child: RichText(
+                              text: TextSpan(
+                                style: const TextStyle(
+                                    color: Colors.black87, fontSize: 18),
+                                children: [
+                                  TextSpan(
+                                      text: statements[index].description,
+                                      style: const TextStyle()),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(5),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                      style: const TextStyle(
+                                          color: Colors.black54, fontSize: 18),
+                                      children: [
+                                        TextSpan(
+                                          text: (statements[index].amount / 100)
+                                              .toString(),
+                                          style: TextStyle(
+                                            color: statements[index].amount > 0
+                                                ? Colors.green
+                                                : Colors.red,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Expanded(
+                              // flex: 2,
+                              child: Icon(Icons.double_arrow_rounded),
+                            ),
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  RichText(
+                                    text: TextSpan(
+                                      style: const TextStyle(
+                                          color: Colors.black, fontSize: 18),
+                                      children: [
+                                        TextSpan(
+                                          text:
+                                              (statements[index].balance / 100)
+                                                  .toString(),
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ));
+                ),
+              ],
+            ),
+          );
         },
         separatorBuilder: (context, index) {
           return const SizedBox(
@@ -217,93 +230,7 @@ class ExpensesView extends GetView<HomeController> {
             padding: const EdgeInsets.all(20),
             child: controller.showStatementFilter
                 ? ExpensesFilterPage()
-                : controller.showExpenseCharts
-                    ? Column(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              child: SfCartesianChart(
-                                primaryXAxis: NumericAxis(),
-                                // primaryYAxis: NumericAxis(),
-                                title: ChartTitle(
-                                    text: Localization.keyBalanceChart.tr),
-                                legend: Legend(isVisible: true),
-                                tooltipBehavior: TooltipBehavior(
-                                  enable: true,
-                                ),
-                                zoomPanBehavior: ZoomPanBehavior(
-                                    enablePinching: true,
-                                    enableDoubleTapZooming: true,
-                                    enablePanning: true),
-                                series: <ChartSeries<Statement, int>>[
-                                  LineSeries<Statement, int>(
-                                      name: Localization.keyBalance.tr,
-                                      dataSource: controller.statements,
-                                      xValueMapper: (Statement statement, _) =>
-                                          statement.time,
-                                      yValueMapper: (Statement statement, _) =>
-                                          statement.balance),
-                                  LineSeries<Statement, int>(
-                                      name: Localization.keyAmount.tr,
-                                      dataSource: controller.statements,
-                                      xValueMapper: (Statement statement, _) =>
-                                          statement.time,
-                                      yValueMapper: (Statement statement, _) =>
-                                          statement.amount),
-                                ],
-                                axisLabelFormatter:
-                                    (AxisLabelRenderDetails args) {
-                                  late String text;
-                                  if (args.axisName == 'primaryXAxis') {
-                                    text = DateFormat.yMd().format(
-                                        DateTime.fromMillisecondsSinceEpoch(
-                                            args.value.toInt() * 1000));
-                                  } else {
-                                    text = '${args.value / 100}';
-                                  }
-                                  return ChartAxisLabel(text, args.textStyle);
-                                },
-                                onTooltipRender: (TooltipArgs args) {
-                                  args.text = 'NaN';
-                                  var dataPoints = args.dataPoints;
-                                  if (dataPoints != null &&
-                                      dataPoints.isNotEmpty) {
-                                    CartesianChartPoint point =
-                                        dataPoints.elementAt(
-                                            args.pointIndex?.toInt() ?? 0);
-                                    args.text =
-                                        '${DateFormat.yMd().format(DateTime.fromMillisecondsSinceEpoch(point.x * 1000))} : ${point.y / 100}';
-                                  }
-                                },
-                              ),
-                            ),
-                          ),
-                          Container(
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: OutlinedButton(
-                                      onPressed: () => {
-                                            controller.showExpenseCharts = false
-                                          },
-                                      child: Text(Localization.keyList.tr)),
-                                )
-                              ],
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: OutlinedButton(
-                                    onPressed: () => {},
-                                    child:
-                                        Text(Localization.keyCategoryChart.tr)),
-                              )
-                            ],
-                          ),
-                        ],
-                      )
-                    : Column(
+                : Column(
                         children: [
                           Expanded(
                             child: _buildStatementList(
@@ -338,7 +265,8 @@ class ExpensesView extends GetView<HomeController> {
                                   },
                                   decoration: InputDecoration(
                                     border: const OutlineInputBorder(),
-                                    labelText: Localization.keyDescriptionSearch.tr,
+                                    labelText:
+                                        Localization.keyDescriptionSearch.tr,
                                   ),
                                 ),
                               ),
@@ -346,16 +274,10 @@ class ExpensesView extends GetView<HomeController> {
                                 children: [
                                   Expanded(
                                     child: OutlinedButton(
-                                      onPressed: () =>
-                                          {controller.showStatementFilter = true},
+                                      onPressed: () => {
+                                        controller.showStatementFilter = true
+                                      },
                                       child: Text(Localization.keyFilter.tr),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: OutlinedButton(
-                                      onPressed: () =>
-                                          {controller.showExpenseCharts = true},
-                                      child: Text('charts'.tr),
                                     ),
                                   ),
                                 ],
@@ -386,6 +308,7 @@ class ExpensesView extends GetView<HomeController> {
                             ],
                           ),
                         ],
-                      ));
+                      ),
+          );
   }
 }
