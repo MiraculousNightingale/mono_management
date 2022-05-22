@@ -239,19 +239,25 @@ class HomeController extends GetxController {
   List<PieChartStatement> get pieChartStatementData {
     final Map<int, int> result = {};
     for (final statement in statements) {
-      if(statement.amount < 0) {
+      if (statement.amount < 0) {
         if (result.containsKey(statement.mcc)) {
-          result.update(
-              statement.mcc, (value) =>
-          result[statement.mcc]! + statement.amount);
+          result.update(statement.mcc,
+              (value) => result[statement.mcc]! + statement.amount);
         } else {
           result.addAll({statement.mcc: statement.amount});
         }
       }
     }
-    final List<PieChartStatement> sortedResult = result.entries.map((e) => PieChartStatement.fromMapEntry(e)).toList();
+    final List<PieChartStatement> sortedResult =
+        result.entries.map((e) => PieChartStatement.fromMapEntry(e)).toList();
     sortedResult.sort((a, b) => b.amount.compareTo(a.amount));
     return sortedResult;
+  }
+
+  int get last7DaysChange {
+    return statements
+        .where((element) => element.time > statements.last.time - 604800000)
+        .fold(0, (previousValue, element) => previousValue + element.amount);
   }
 
   List<CurrencyFilter> get currencyFilters {
