@@ -62,7 +62,7 @@ class ExpensesFilterPage extends GetView<HomeController> {
             },
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
-              labelText: Localization.keyNameSearch.tr,
+              labelText: Localization.nameSearch.tr,
             ),
           ),
         ),
@@ -71,7 +71,7 @@ class ExpensesFilterPage extends GetView<HomeController> {
             Expanded(
               child: OutlinedButton(
                   onPressed: () => {controller.showMccFilter = false},
-                  child: Text(Localization.keyBack.tr)),
+                  child: Text(Localization.back.tr)),
             )
           ],
         ),
@@ -94,7 +94,7 @@ class ExpensesFilterPage extends GetView<HomeController> {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 7),
                             child: Text(
-                              Localization.keyDate.tr,
+                              Localization.date.tr,
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
@@ -113,7 +113,7 @@ class ExpensesFilterPage extends GetView<HomeController> {
                                     onChanged: (value) {},
                                     decoration: InputDecoration(
                                       border: const OutlineInputBorder(),
-                                      labelText: Localization.keyFrom.tr,
+                                      labelText: Localization.from.tr,
                                     ),
                                   ),
                                 ),
@@ -123,7 +123,7 @@ class ExpensesFilterPage extends GetView<HomeController> {
                                 Expanded(
                                   child: ElevatedButton(
                                     onPressed: () {},
-                                    child: Text(Localization.keySelect.tr),
+                                    child: Text(Localization.select.tr),
                                   ),
                                 ),
                               ],
@@ -143,7 +143,7 @@ class ExpensesFilterPage extends GetView<HomeController> {
                                     onChanged: (value) {},
                                     decoration: InputDecoration(
                                       border: const OutlineInputBorder(),
-                                      labelText: Localization.keyTo.tr,
+                                      labelText: Localization.to.tr,
                                     ),
                                   ),
                                 ),
@@ -153,7 +153,7 @@ class ExpensesFilterPage extends GetView<HomeController> {
                                 Expanded(
                                   child: ElevatedButton(
                                     onPressed: () {},
-                                    child: Text(Localization.keySelect.tr),
+                                    child: Text(Localization.select.tr),
                                   ),
                                 ),
                               ],
@@ -165,7 +165,7 @@ class ExpensesFilterPage extends GetView<HomeController> {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 7),
                             child: Text(
-                              Localization.keyType.tr,
+                              Localization.type.tr,
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
@@ -184,7 +184,7 @@ class ExpensesFilterPage extends GetView<HomeController> {
                                       primary: Colors.green,
                                       textStyle: const TextStyle(fontSize: 12),
                                     ),
-                                    child: Text(Localization.keyIncomes.tr),
+                                    child: Text(Localization.incomes.tr),
                                   ),
                                 ),
                                 const SizedBox(
@@ -196,7 +196,7 @@ class ExpensesFilterPage extends GetView<HomeController> {
                                     style: ElevatedButton.styleFrom(
                                       primary: Colors.red,
                                     ),
-                                    child: Text(Localization.keyExpenses.tr),
+                                    child: Text(Localization.expenses.tr),
                                   ),
                                 ),
                                 const SizedBox(
@@ -208,7 +208,7 @@ class ExpensesFilterPage extends GetView<HomeController> {
                                       primary: Colors.grey,
                                     ),
                                     onPressed: () {},
-                                    child: Text(Localization.keyAll.tr),
+                                    child: Text(Localization.all.tr),
                                   ),
                                 ),
                               ],
@@ -225,7 +225,7 @@ class ExpensesFilterPage extends GetView<HomeController> {
                   Expanded(
                     child: ElevatedButton (
                         onPressed: () => {controller.showMccFilter = true},
-                        child: Text(Localization.keyMccFilter.tr)),
+                        child: Text(Localization.mccFilter.tr)),
                   )
                 ],
               ),
@@ -235,7 +235,7 @@ class ExpensesFilterPage extends GetView<HomeController> {
                     child: OutlinedButton(
                         onPressed: () =>
                             {controller.showStatementFilter = false},
-                        child: Text(Localization.keyBack.tr)),
+                        child: Text(Localization.back.tr)),
                   )
                 ],
               ),

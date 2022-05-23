@@ -7,11 +7,12 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mono_management/firebase_options.dart';
-import 'package:mono_management/resources/constansts.dart';
+import 'package:mono_management/resources/colors.dart';
+import 'package:mono_management/resources/constants.dart';
 import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/src/core/app_pages.dart';
-import 'package:mono_management/src/core/data/repositories/flutterfire/flutterfire_repository.dart';
-import 'package:mono_management/src/core/data/repositories/flutterfire/flutterfire_repository_impl.dart';
+import 'package:mono_management/src/core/data/repositories/flutterfire/firebase_auth_repository.dart';
+import 'package:mono_management/src/core/data/repositories/flutterfire/firebase_auth_repository_impl.dart';
 import 'package:mono_management/src/core/network/dio_manager.dart';
 
 Future<void> main() async {
@@ -30,7 +31,10 @@ Future<void> main() async {
 }
 
 void _dependencies() {
-  Get.lazyPut<FlutterFireRepository>(() => FlutterFireRepositoryImpl());
+  Get.lazyPut<FirebaseAuthRepository>(
+    () => FirebaseAuthRepositoryImpl(),
+    fenix: true,
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -66,8 +70,30 @@ class MyApp extends StatelessWidget {
         //     // Notice that the counter didn't reset back to zero; the application
         //     // is not restarted.
         primaryColor: Colors.black,
+        hoverColor: colorAccent,
+        bannerTheme: MaterialBannerThemeData(
+          backgroundColor: colorAccent,
+          contentTextStyle: GoogleFonts.roboto(),
+        ),
+        // buttonTheme: const ButtonThemeData(
+        //   buttonColor: Colors.red,
+        //   colorScheme: ColorScheme(
+        //     error: colorError,
+        //     onError: colorError,
+        //     background: colorAccent,
+        //     onPrimary: colorAccent,
+        //     secondary: colorAccent,
+        //     brightness: Brightness.dark,
+        //     primary: colorAccent,
+        //     onSecondary: colorAccent,
+        //     onSurface: colorAccent,
+        //     onBackground: colorAccent,
+        //     surface: colorAccent,
+        //   ),
+        // ),
         textTheme: GoogleFonts.robotoTextTheme(
-          Theme.of(context).textTheme, // If this is not set, then ThemeData.light().textTheme is used.
+          Theme.of(context)
+              .textTheme, // If this is not set, then ThemeData.light().textTheme is used.
         ),
       ),
     );

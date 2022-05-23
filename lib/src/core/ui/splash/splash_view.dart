@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 import 'package:mono_management/resources/colors.dart';
-import 'package:mono_management/resources/constansts.dart';
+import 'package:mono_management/resources/constants.dart';
 
 import 'splash_controller.dart';
 

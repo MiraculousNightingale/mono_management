@@ -25,7 +25,7 @@ class CurrencyRatesView extends GetView<HomeController> {
                           children: [
                         TextSpan(
                           text:
-                              ' ${Localization.keyBuy.tr}: ${currencyRate.rateBuy} ',
+                              ' ${Localization.buy.tr}: ${currencyRate.rateBuy} ',
                           style: TextStyles.black14w400,
                         ),
                       ])),
@@ -40,7 +40,7 @@ class CurrencyRatesView extends GetView<HomeController> {
                           children: [
                         TextSpan(
                             text:
-                                ' ${Localization.keySell.tr}: ${currencyRate.rateSell} ',
+                                ' ${Localization.sell.tr}: ${currencyRate.rateSell} ',
                             style: GoogleFonts.roboto(
                                 textStyle: TextStyles.black14w600)),
                       ])),
@@ -62,7 +62,7 @@ class CurrencyRatesView extends GetView<HomeController> {
                           children: [
                         TextSpan(
                           text:
-                              ' ${Localization.keyExchange.tr}: ${currencyRate.rateCross} ',
+                              ' ${Localization.exchange.tr}: ${currencyRate.rateCross} ',
                           style: GoogleFonts.roboto(
                               textStyle: TextStyles.black14w600),
                         ),
@@ -131,7 +131,7 @@ class CurrencyRatesView extends GetView<HomeController> {
             },
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
-              labelText: Localization.keyCurrencySearch.tr,
+              labelText: Localization.currencySearch.tr,
             ),
           ),
         ),
@@ -276,7 +276,7 @@ class CurrencyRatesView extends GetView<HomeController> {
                                   child: OutlinedButton(
                                     onPressed: () =>
                                         {controller.showCurrencyFilter = false},
-                                    child: Text(Localization.keyBack.tr),
+                                    child: Text(Localization.back.tr),
                                   ),
                                 ),
                                 Expanded(
@@ -298,7 +298,7 @@ class CurrencyRatesView extends GetView<HomeController> {
                           : OutlinedButton(
                               onPressed: () =>
                                   {controller.showCurrencyFilter = true},
-                              child: Text(Localization.keyFilter.tr)),
+                              child: Text(Localization.filter.tr)),
                     ),
                   ],
                 ),

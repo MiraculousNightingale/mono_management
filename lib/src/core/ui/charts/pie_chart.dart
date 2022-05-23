@@ -15,7 +15,7 @@ class PieChartView extends GetView<HomeController> {
     return GetBuilder<HomeController>(
       builder: (controller) => Scaffold(
         appBar: AppBar(
-          title: Text(Localization.keyLineChart.tr),
+          title: Text(Localization.lineChart.tr),
           backgroundColor: Colors.black,
         ),
         drawer: NavigationDrawer(
@@ -101,7 +101,7 @@ class PieChartView extends GetView<HomeController> {
                   Expanded(
                     child: OutlinedButton(
                         onPressed: () => {Get.toNamed(Routes.homeRoute)},
-                        child: Text(Localization.keyBack.tr)),
+                        child: Text(Localization.back.tr)),
                   )
                 ],
               ),

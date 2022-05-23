@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/src/core/app_pages.dart';
+import 'package:mono_management/src/core/data/repositories/flutterfire/firebase_auth_repository.dart';
 import 'package:mono_management/src/data/model/user_info.dart';
 
 class NavigationDrawer extends StatelessWidget {
@@ -17,7 +18,7 @@ class NavigationDrawer extends StatelessWidget {
           _buildDrawerHeader(userInfo),
           //TODO: add secondary color in params
           _buildDrawerTile(
-            text: Localization.keyMainPage.tr,
+            text: Localization.mainPage.tr,
             icon: Icons.house_rounded,
             textIconColor: Colors.black,
             tileColor: Colors.white,
@@ -27,7 +28,7 @@ class NavigationDrawer extends StatelessWidget {
             pressed: Get.currentRoute == Routes.homeRoute,
           ),
           _buildDrawerTile(
-            text: Localization.keyLineChart.tr,
+            text: Localization.lineChart.tr,
             icon: Icons.show_chart,
             textIconColor: Colors.black,
             tileColor: Colors.white,
@@ -37,7 +38,7 @@ class NavigationDrawer extends StatelessWidget {
             pressed: Get.currentRoute == Routes.lineChartRoute,
           ),
           _buildDrawerTile(
-            text: Localization.keyPieChart.tr,
+            text: Localization.pieChart.tr,
             icon: Icons.pie_chart,
             textIconColor: Colors.black,
             tileColor: Colors.white,
@@ -47,7 +48,7 @@ class NavigationDrawer extends StatelessWidget {
             pressed: Get.currentRoute == Routes.pieChartRoute,
           ),
           _buildDrawerTile(
-            text: Localization.keyBarChart.tr,
+            text: Localization.barChart.tr,
             icon: Icons.bar_chart,
             textIconColor: Colors.black,
             tileColor: Colors.white,
@@ -62,16 +63,31 @@ class NavigationDrawer extends StatelessWidget {
   }
 
   Widget _buildDrawerHeader(UserInfo userInfo) {
-    return UserAccountsDrawerHeader(
-      decoration: BoxDecoration(
-        color: Colors.grey[900],
-      ),
-      accountName: Text(userInfo.name),
-      accountEmail: const Text('bohdanprus@gmail.com'),
-      currentAccountPicture: const CircleAvatar(
-        child: Text('БП'),
-        // backgroundColor: Colors.blue,
-      ),
+    return Stack(
+      children: [
+        UserAccountsDrawerHeader(
+          decoration: BoxDecoration(
+            color: Colors.grey[900],
+          ),
+          accountName: Text(userInfo.name),
+          accountEmail: const Text('bohdanprus@gmail.com'),
+          currentAccountPicture: const CircleAvatar(
+            child: Text('БП'),
+            // backgroundColor: Colors.blue,
+          ),
+        ),
+        Positioned(
+          right: 5,
+          top: 20,
+          child: IconButton(
+            onPressed: Get.find<FirebaseAuthRepository>().signOut,
+            icon: const Icon(
+              Icons.logout,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
     );
   }
 

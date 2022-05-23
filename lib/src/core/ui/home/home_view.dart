@@ -33,14 +33,14 @@ class HomeView extends GetView<HomeController> {
                 items: [
                   BottomNavigationBarItem(
                       icon: const Icon(Icons.account_circle),
-                      label: Localization.keyUserInfo.tr),
+                      label: Localization.userInfo.tr),
                   BottomNavigationBarItem(
                     icon: const Icon(Icons.compare_arrows),
-                    label: Localization.keyCurrencyRates.tr,
+                    label: Localization.currencyRates.tr,
                   ),
                   BottomNavigationBarItem(
                       icon: const Icon(Icons.account_balance_wallet),
-                      label: Localization.keyStatements.tr),
+                      label: Localization.statements.tr),
                 ],
               ),
             ));

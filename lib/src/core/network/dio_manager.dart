@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mono_management/resources/constansts.dart';
+import 'package:mono_management/resources/constants.dart';
 import 'package:mono_management/src/core/network/token_inteceptor.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 

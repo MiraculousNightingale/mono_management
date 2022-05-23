@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:mono_management/resources/constansts.dart';
+import 'package:mono_management/resources/constants.dart';
 
 class TokenInterceptor extends InterceptorsWrapper {
   Dio? previous;

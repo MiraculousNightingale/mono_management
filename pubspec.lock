@@ -183,7 +183,7 @@ packages:
       name: get
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.3.8"
+    version: "4.6.5"
   google_fonts:
     dependency: "direct main"
     description:
@@ -377,14 +377,14 @@ packages:
       name: syncfusion_flutter_charts
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "19.2.57"
+    version: "20.1.56"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "19.2.57"
+    version: "20.1.56"
   term_glyph:
     dependency: transitive
     description:

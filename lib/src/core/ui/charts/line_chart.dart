@@ -16,7 +16,7 @@ class LineChartView extends GetView<HomeController>{
     return GetBuilder<HomeController>(
       builder: (controller) => Scaffold(
         appBar: AppBar(
-          title: Text(Localization.keyLineChart.tr),
+          title: Text(Localization.lineChart.tr),
           backgroundColor: Colors.black,
         ),
         drawer: NavigationDrawer(
@@ -30,7 +30,7 @@ class LineChartView extends GetView<HomeController>{
                 child: SfCartesianChart(
                   primaryXAxis: NumericAxis(),
                   // primaryYAxis: NumericAxis(),
-                  title: ChartTitle(text: Localization.keyBalanceChart.tr),
+                  title: ChartTitle(text: Localization.balanceChart.tr),
                   legend: Legend(isVisible: true),
                   tooltipBehavior: TooltipBehavior(
                     enable: true,
@@ -41,31 +41,31 @@ class LineChartView extends GetView<HomeController>{
                       enablePanning: true),
                   series: <ChartSeries<Statement, int>>[
                     LineSeries<Statement, int>(
-                        name: Localization.keyBalance.tr,
+                        name: Localization.balance.tr,
                         dataSource: controller.statements,
                         xValueMapper: (Statement statement, _) =>
                             statement.time,
                         yValueMapper: (Statement statement, _) =>
                             statement.balance),
                     LineSeries<Statement, int>(
-                        name: Localization.keyAmount.tr,
+                        name: Localization.amount.tr,
                         dataSource: controller.statements,
                         xValueMapper: (Statement statement, _) =>
                             statement.time,
                         yValueMapper: (Statement statement, _) =>
                             statement.amount),
                   ],
-                  axisLabelFormatter: (AxisLabelRenderDetails args) {
-                    late String text;
-                    if (args.axisName == 'primaryXAxis') {
-                      text = DateFormat.yMd().format(
-                          DateTime.fromMillisecondsSinceEpoch(
-                              args.value.toInt() * 1000));
-                    } else {
-                      text = '${args.value / 100}';
-                    }
-                    return ChartAxisLabel(text, args.textStyle);
-                  },
+                  // axisLabelFormatter: (AxisLabelRenderDetails args) {
+                  //   late String text;
+                  //   if (args.axisName == 'primaryXAxis') {
+                  //     text = DateFormat.yMd().format(
+                  //         DateTime.fromMillisecondsSinceEpoch(
+                  //             args.value.toInt() * 1000));
+                  //   } else {
+                  //     text = '${args.value / 100}';
+                  //   }
+                  //   return ChartAxisLabel(text, args.textStyle);
+                  // },
                   onTooltipRender: (TooltipArgs args) {
                     args.text = 'NaN';
                     final List<dynamic>? dataPoints = args.dataPoints;
@@ -83,7 +83,7 @@ class LineChartView extends GetView<HomeController>{
                   Expanded(
                     child: OutlinedButton(
                         onPressed: () => {Get.toNamed(Routes.homeRoute)},
-                        child: Text(Localization.keyBack.tr)),
+                        child: Text(Localization.back.tr)),
                   )
                 ],
               ),

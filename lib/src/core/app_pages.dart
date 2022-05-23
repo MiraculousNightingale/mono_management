@@ -6,8 +6,10 @@ import 'package:mono_management/src/core/ui/currency_rates/currency_rates_contro
 import 'package:mono_management/src/core/ui/currency_rates/currency_rates_view.dart';
 import 'package:mono_management/src/core/ui/home/home_controller.dart';
 import 'package:mono_management/src/core/ui/home/home_view.dart';
-import 'package:mono_management/src/core/ui/login/login_controller.dart';
-import 'package:mono_management/src/core/ui/login/login_view.dart';
+import 'package:mono_management/src/core/ui/login/login/login_controller.dart';
+import 'package:mono_management/src/core/ui/login/login/login_view.dart';
+import 'package:mono_management/src/core/ui/login/register/registration_controller.dart';
+import 'package:mono_management/src/core/ui/login/register/registration_view.dart';
 import 'package:mono_management/src/core/ui/splash/splash_controller.dart';
 import 'package:mono_management/src/core/ui/splash/splash_view.dart';
 
@@ -30,6 +32,13 @@ class AppPages {
       page: () => const LoginView(),
       binding: BindingsBuilder.put(
         () => LoginController(),
+      ),
+    ),
+    GetPage(
+      name: Routes.registrationRoute,
+      page: () => const RegistrationView(),
+      binding: BindingsBuilder.put(
+        () => RegistrationController(),
       ),
     ),
     GetPage(

@@ -222,7 +222,7 @@ class UserInfoView extends GetView<HomeController> {
                       ListTile(
                         title: RichText(
                           text: TextSpan(
-                            text: '${Localization.keyFullName.tr}: ',
+                            text: '${Localization.fullName.tr}: ',
                             style: const TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,

@@ -265,7 +265,7 @@ class ExpensesView extends GetView<HomeController> {
                                   decoration: InputDecoration(
                                     border: const OutlineInputBorder(),
                                     labelText:
-                                        Localization.keyDescriptionSearch.tr,
+                                        Localization.descriptionSearch.tr,
                                   ),
                                 ),
                               ),
@@ -276,7 +276,7 @@ class ExpensesView extends GetView<HomeController> {
                                       onPressed: () => {
                                         controller.showStatementFilter = true
                                       },
-                                      child: Text(Localization.keyFilter.tr),
+                                      child: Text(Localization.filter.tr),
                                     ),
                                   ),
                                 ],
