@@ -22,9 +22,9 @@ class NavigationDrawer extends StatelessWidget {
             textIconColor: Colors.black,
             tileColor: Colors.white,
             onTap: () {
-              Get.toNamed(Routes.honeRoute);
+              Get.toNamed(Routes.homeRoute);
             },
-            pressed: Get.currentRoute == Routes.honeRoute,
+            pressed: Get.currentRoute == Routes.homeRoute,
           ),
           _buildDrawerTile(
             text: Localization.keyLineChart.tr,

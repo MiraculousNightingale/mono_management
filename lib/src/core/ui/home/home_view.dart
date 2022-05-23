@@ -25,11 +25,7 @@ class HomeView extends GetView<HomeController> {
               ),
               body: IndexedStack(
                 index: controller.tabIndex,
-                children: const [
-                  UserInfoView(),
-                  CurrencyRatesView(),
-                  ExpensesView()
-                ],
+                children: [UserInfoView(), CurrencyRatesView(), ExpensesView()],
               ),
               bottomNavigationBar: BottomNavigationBar(
                 currentIndex: controller.tabIndex,

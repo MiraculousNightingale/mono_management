@@ -5,11 +5,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:mono_management/firebase_options.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mono_management/firebase_options.dart';
 import 'package:mono_management/resources/constansts.dart';
 import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/src/core/app_pages.dart';
+import 'package:mono_management/src/core/data/repositories/flutterfire/flutterfire_repository.dart';
+import 'package:mono_management/src/core/data/repositories/flutterfire/flutterfire_repository_impl.dart';
 import 'package:mono_management/src/core/network/dio_manager.dart';
 
 Future<void> main() async {
@@ -23,7 +25,12 @@ Future<void> main() async {
   });
 
   DioManager.configure();
+  _dependencies();
   runApp(const MyApp());
+}
+
+void _dependencies() {
+  Get.lazyPut<FlutterFireRepository>(() => FlutterFireRepositoryImpl());
 }
 
 class MyApp extends StatelessWidget {

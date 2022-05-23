@@ -112,7 +112,7 @@ class BarChartView extends GetView<HomeController> {
                 children: [
                   Expanded(
                     child: OutlinedButton(
-                        onPressed: () => {Get.toNamed(Routes.honeRoute)},
+                        onPressed: () => {Get.toNamed(Routes.homeRoute)},
                         child: Text(Localization.keyBack.tr)),
                   )
                 ],

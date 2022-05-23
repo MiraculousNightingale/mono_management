@@ -1,4 +1,5 @@
 const applicationTitle = 'MonoManagement';
+const applicationName = 'Mono Management';
 const Duration defaultTimeout = Duration(seconds: 20);
 const int apiConnectTimeout = 20000;
 const int apiSendTimeout = 20000;
