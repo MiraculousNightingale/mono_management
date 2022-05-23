@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'dart:convert';
 
 CurrencyRate currencyRateFromJson(String str) => CurrencyRate.fromJson(json.decode(str));

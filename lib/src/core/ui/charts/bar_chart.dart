@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/src/core/app_pages.dart';
-import 'package:mono_management/src/core/ui/charts/pie_chart.dart';
 import 'package:mono_management/src/core/ui/common/navigation_drawer.dart';
 import 'package:mono_management/src/core/ui/home/home_controller.dart';
-import 'package:mono_management/src/data/model/statement.dart';
-import 'package:mono_management/src/util/mcc.dart';
+import 'package:mono_management/src/data/model/pie_chart_statement.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class BarChartView extends GetView<HomeController> {
@@ -115,7 +112,7 @@ class BarChartView extends GetView<HomeController> {
                 children: [
                   Expanded(
                     child: OutlinedButton(
-                        onPressed: () => {Get.toNamed(Routes.HOME)},
+                        onPressed: () => {Get.toNamed(Routes.honeRoute)},
                         child: Text(Localization.keyBack.tr)),
                   )
                 ],

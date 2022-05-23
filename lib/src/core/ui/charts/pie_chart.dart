@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/src/core/app_pages.dart';
 import 'package:mono_management/src/core/ui/common/navigation_drawer.dart';
 import 'package:mono_management/src/core/ui/home/home_controller.dart';
-import 'package:mono_management/src/data/model/statement.dart';
-import 'package:mono_management/src/util/mcc.dart';
+import 'package:mono_management/src/data/model/pie_chart_statement.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'dart:math' as math;
 
 class PieChartView extends GetView<HomeController> {
   const PieChartView({Key? key}) : super(key: key);
@@ -41,7 +38,8 @@ class PieChartView extends GetView<HomeController> {
                           element.mccDesc,
                       yValueMapper: (PieChartStatement element, _) =>
                           element.amount,
-                      dataLabelSettings: DataLabelSettings(isVisible: true),
+                      dataLabelSettings:
+                          const DataLabelSettings(isVisible: true),
                     ),
                   ],
                   // primaryXAxis: NumericAxis(),
@@ -102,7 +100,7 @@ class PieChartView extends GetView<HomeController> {
                 children: [
                   Expanded(
                     child: OutlinedButton(
-                        onPressed: () => {Get.toNamed(Routes.HOME)},
+                        onPressed: () => {Get.toNamed(Routes.honeRoute)},
                         child: Text(Localization.keyBack.tr)),
                   )
                 ],
@@ -113,20 +111,4 @@ class PieChartView extends GetView<HomeController> {
       ),
     );
   }
-}
-
-class PieChartStatement {
-  PieChartStatement(this.mcc, this.mccDesc, this.amount);
-
-  final String mccDesc;
-  final int amount;
-  final int mcc;
-  final Color color = Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
-
-  factory PieChartStatement.fromMapEntry(MapEntry mapEntry) =>
-      PieChartStatement(
-        mapEntry.key,
-        Mcc.getDescFromCode(mapEntry.key),
-        ((mapEntry.value / 100).toInt()).abs(),
-      );
 }

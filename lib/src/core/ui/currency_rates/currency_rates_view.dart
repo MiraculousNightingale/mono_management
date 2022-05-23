@@ -9,7 +9,9 @@ import 'package:mono_management/src/data/model/currency_rate.dart';
 import 'package:mono_management/src/util/currencies.dart';
 
 class CurrencyRatesView extends GetView<HomeController> {
-  Widget _showExhangeRate(CurrencyRate currencyRate) {
+  const CurrencyRatesView({Key? key}) : super(key: key);
+
+  Widget _showExchangeRate(CurrencyRate currencyRate) {
     return currencyRate.rateCross == 0.0
         ? Column(
             children: [
@@ -180,7 +182,7 @@ class CurrencyRatesView extends GetView<HomeController> {
                     ),
                     Expanded(
                       flex: 2,
-                      child: _showExhangeRate(currencyRates[index]),
+                      child: _showExchangeRate(currencyRates[index]),
                     ),
                     Expanded(
                       child: Column(

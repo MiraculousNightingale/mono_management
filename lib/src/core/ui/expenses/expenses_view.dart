@@ -4,12 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/src/core/ui/expenses/expenses_filter_page.dart';
 import 'package:mono_management/src/core/ui/home/home_controller.dart';
-import 'package:mono_management/src/data/model/mcc_filter.dart';
 import 'package:mono_management/src/data/model/statement.dart';
-import 'package:mono_management/src/data/model/user_info.dart';
 import 'package:mono_management/src/util/currencies.dart';
 import 'package:mono_management/src/util/mcc.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 class ExpensesView extends GetView<HomeController> {
   const ExpensesView({Key? key}) : super(key: key);
@@ -59,8 +56,10 @@ class ExpensesView extends GetView<HomeController> {
                                                 fontSize: 14),
                                             children: [
                                               TextSpan(
-                                                text:
-                                                    '${Currency.abbreviationFromCode(statements[index].currencyCode)}',
+                                                text: Currency
+                                                    .abbreviationFromCode(
+                                                        statements[index]
+                                                            .currencyCode),
                                                 style: const TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -84,8 +83,8 @@ class ExpensesView extends GetView<HomeController> {
                                                 fontSize: 14),
                                             children: [
                                               TextSpan(
-                                                text:
-                                                    '${Mcc.getDescFromCode(statements[index].mcc)}',
+                                                text: Mcc.getDescFromCode(
+                                                    statements[index].mcc),
                                                 style: const TextStyle(
                                                     fontWeight:
                                                         FontWeight.bold),
@@ -229,18 +228,18 @@ class ExpensesView extends GetView<HomeController> {
         : Padding(
             padding: const EdgeInsets.all(20),
             child: controller.showStatementFilter
-                ? ExpensesFilterPage()
+                ? const ExpensesFilterPage()
                 : Column(
+                    children: [
+                      Expanded(
+                        child: _buildStatementList(
+                          controller.getFilteredStatements(),
+                        ),
+                      ),
+                      Column(
                         children: [
-                          Expanded(
-                            child: _buildStatementList(
-                              controller.getFilteredStatements(),
-                            ),
-                          ),
-                          Column(
-                            children: [
-                              // Row(
-                              //   children: [
+                          // Row(
+                          //   children: [
                               //     Expanded(
                               //       child: DropdownButton<String>(
                               //         value: controller.accountDropDownValue,

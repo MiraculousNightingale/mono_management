@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
       locale: const Locale('ua', 'UA'),
       fallbackLocale: const Locale('en', 'US'),
       title: applicationTitle,
-      initialRoute: AppPages.INITIAL,
+      initialRoute: AppPages.initialRoute,
       getPages: AppPages.routes,
       theme: ThemeData(
         //     // This is the theme of your application.

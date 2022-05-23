@@ -33,7 +33,7 @@ class DioManager {
       ///     DateTime.now().timeZoneOffset.inMilliseconds;
       handler.next(options);
     }));
-    singleton.dio..interceptors.add(TokenInterceptor(singleton.dio));
+    singleton.dio.interceptors.add(TokenInterceptor(singleton.dio));
     if (!kReleaseMode) {
       singleton.dio.interceptors
           .add(PrettyDioLogger(requestBody: true, requestHeader: true));

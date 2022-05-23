@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Mcc{
 
   //TODO: Implement translation to current locale

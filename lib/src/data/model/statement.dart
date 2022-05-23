@@ -87,9 +87,9 @@ class Statement {
 
   String getDateInFormat() {
     return DateFormat.yMd()
-        .format(DateTime.fromMillisecondsSinceEpoch(this.time * 1000));
+        .format(DateTime.fromMillisecondsSinceEpoch(time * 1000));
   }
   DateTime getDateInDateTime() {
-    return DateTime.fromMillisecondsSinceEpoch(this.time * 1000);
+    return DateTime.fromMillisecondsSinceEpoch(time * 1000);
   }
 }

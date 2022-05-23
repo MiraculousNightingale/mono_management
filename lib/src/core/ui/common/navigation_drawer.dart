@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mono_management/resources/localization.dart';
@@ -23,9 +22,9 @@ class NavigationDrawer extends StatelessWidget {
             textIconColor: Colors.black,
             tileColor: Colors.white,
             onTap: () {
-              Get.toNamed(Routes.HOME);
+              Get.toNamed(Routes.honeRoute);
             },
-            pressed: Get.currentRoute == Routes.HOME,
+            pressed: Get.currentRoute == Routes.honeRoute,
           ),
           _buildDrawerTile(
             text: Localization.keyLineChart.tr,
@@ -33,9 +32,9 @@ class NavigationDrawer extends StatelessWidget {
             textIconColor: Colors.black,
             tileColor: Colors.white,
             onTap: () {
-              Get.toNamed(Routes.LINE_CHART);
+              Get.toNamed(Routes.lineChartRoute);
             },
-            pressed: Get.currentRoute == Routes.LINE_CHART,
+            pressed: Get.currentRoute == Routes.lineChartRoute,
           ),
           _buildDrawerTile(
             text: Localization.keyPieChart.tr,
@@ -43,9 +42,9 @@ class NavigationDrawer extends StatelessWidget {
             textIconColor: Colors.black,
             tileColor: Colors.white,
             onTap: () {
-              Get.toNamed(Routes.PIE_CHART);
+              Get.toNamed(Routes.pieChartRoute);
             },
-            pressed: Get.currentRoute == Routes.PIE_CHART,
+            pressed: Get.currentRoute == Routes.pieChartRoute,
           ),
           _buildDrawerTile(
             text: Localization.keyBarChart.tr,
@@ -53,9 +52,9 @@ class NavigationDrawer extends StatelessWidget {
             textIconColor: Colors.black,
             tileColor: Colors.white,
             onTap: () {
-              Get.toNamed(Routes.BAR_CHART);
+              Get.toNamed(Routes.barChartRote);
             },
-            pressed: Get.currentRoute == Routes.BAR_CHART,
+            pressed: Get.currentRoute == Routes.barChartRote,
           ),
         ],
       ),
@@ -73,7 +72,6 @@ class NavigationDrawer extends StatelessWidget {
         child: Text('БП'),
         // backgroundColor: Colors.blue,
       ),
-      currentAccountPictureSize: Size.square(72),
     );
   }
 

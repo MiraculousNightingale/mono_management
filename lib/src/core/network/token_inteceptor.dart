@@ -5,18 +5,15 @@ import 'package:mono_management/resources/constansts.dart';
 class TokenInterceptor extends InterceptorsWrapper {
   Dio? previous;
 
-  TokenInterceptor(previous) {
-    this.previous = previous;
-  }
+  TokenInterceptor(this.previous);
 
   @override
-  void onRequest(RequestOptions options,
-      RequestInterceptorHandler requestInterceptorHandler) {
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     debugPrint('Request token: $accessToken');
 
     ///Todo: read access token from SecurePreferences
     options.headers["X-Token"] = accessToken;
-    return requestInterceptorHandler.next(options);
+    return handler.next(options);
   }
 
   @override

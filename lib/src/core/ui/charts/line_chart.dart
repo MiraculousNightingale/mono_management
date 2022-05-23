@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:mono_management/resources/localization.dart';
@@ -28,70 +27,62 @@ class LineChartView extends GetView<HomeController>{
           child: Column(
             children: [
               Expanded(
-                child: Container(
-                  child: SfCartesianChart(
-                    primaryXAxis: NumericAxis(),
-                    // primaryYAxis: NumericAxis(),
-                    title: ChartTitle(
-                        text: Localization.keyBalanceChart.tr),
-                    legend: Legend(isVisible: true),
-                    tooltipBehavior: TooltipBehavior(
-                      enable: true,
-                    ),
-                    zoomPanBehavior: ZoomPanBehavior(
-                        enablePinching: true,
-                        enableDoubleTapZooming: true,
-                        enablePanning: true),
-                    series: <ChartSeries<Statement, int>>[
-                      LineSeries<Statement, int>(
-                          name: Localization.keyBalance.tr,
-                          dataSource: controller.statements,
-                          xValueMapper: (Statement statement, _) =>
-                          statement.time,
-                          yValueMapper: (Statement statement, _) =>
-                          statement.balance),
-                      LineSeries<Statement, int>(
-                          name: Localization.keyAmount.tr,
-                          dataSource: controller.statements,
-                          xValueMapper: (Statement statement, _) =>
-                          statement.time,
-                          yValueMapper: (Statement statement, _) =>
-                          statement.amount),
-                    ],
-                    axisLabelFormatter:
-                        (AxisLabelRenderDetails args) {
-                      late String text;
-                      if (args.axisName == 'primaryXAxis') {
-                        text = DateFormat.yMd().format(
-                            DateTime.fromMillisecondsSinceEpoch(
-                                args.value.toInt() * 1000));
-                      } else {
-                        text = '${args.value / 100}';
-                      }
-                      return ChartAxisLabel(text, args.textStyle);
-                    },
-                    onTooltipRender: (TooltipArgs args) {
-                      args.text = 'NaN';
-                      var dataPoints = args.dataPoints;
-                      if (dataPoints != null &&
-                          dataPoints.isNotEmpty) {
-                        CartesianChartPoint point =
-                        dataPoints.elementAt(
-                            args.pointIndex?.toInt() ?? 0);
-                        args.text =
-                        '${DateFormat.yMd().format(DateTime.fromMillisecondsSinceEpoch(point.x * 1000))} : ${point.y / 100}';
-                      }
-                    },
+                child: SfCartesianChart(
+                  primaryXAxis: NumericAxis(),
+                  // primaryYAxis: NumericAxis(),
+                  title: ChartTitle(text: Localization.keyBalanceChart.tr),
+                  legend: Legend(isVisible: true),
+                  tooltipBehavior: TooltipBehavior(
+                    enable: true,
                   ),
+                  zoomPanBehavior: ZoomPanBehavior(
+                      enablePinching: true,
+                      enableDoubleTapZooming: true,
+                      enablePanning: true),
+                  series: <ChartSeries<Statement, int>>[
+                    LineSeries<Statement, int>(
+                        name: Localization.keyBalance.tr,
+                        dataSource: controller.statements,
+                        xValueMapper: (Statement statement, _) =>
+                            statement.time,
+                        yValueMapper: (Statement statement, _) =>
+                            statement.balance),
+                    LineSeries<Statement, int>(
+                        name: Localization.keyAmount.tr,
+                        dataSource: controller.statements,
+                        xValueMapper: (Statement statement, _) =>
+                            statement.time,
+                        yValueMapper: (Statement statement, _) =>
+                            statement.amount),
+                  ],
+                  axisLabelFormatter: (AxisLabelRenderDetails args) {
+                    late String text;
+                    if (args.axisName == 'primaryXAxis') {
+                      text = DateFormat.yMd().format(
+                          DateTime.fromMillisecondsSinceEpoch(
+                              args.value.toInt() * 1000));
+                    } else {
+                      text = '${args.value / 100}';
+                    }
+                    return ChartAxisLabel(text, args.textStyle);
+                  },
+                  onTooltipRender: (TooltipArgs args) {
+                    args.text = 'NaN';
+                    final List<dynamic>? dataPoints = args.dataPoints;
+                    if (dataPoints != null && dataPoints.isNotEmpty) {
+                      final CartesianChartPoint point =
+                          dataPoints.elementAt(args.pointIndex?.toInt() ?? 0);
+                      args.text =
+                          '${DateFormat.yMd().format(DateTime.fromMillisecondsSinceEpoch(point.x * 1000))} : ${point.y / 100}';
+                    }
+                  },
                 ),
               ),
               Row(
                 children: [
                   Expanded(
                     child: OutlinedButton(
-                        onPressed: () => {
-                          Get.toNamed(Routes.HOME)
-                        },
+                        onPressed: () => {Get.toNamed(Routes.honeRoute)},
                         child: Text(Localization.keyBack.tr)),
                   )
                 ],

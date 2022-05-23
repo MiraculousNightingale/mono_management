@@ -11,42 +11,42 @@ part 'app_routes.dart';
 
 class AppPages {
   static const Duration transitionDuration = Duration(milliseconds: 350);
-  static const INITIAL = Routes.HOME;
+  static const initialRoute = Routes.honeRoute;
 
   static final routes = [
     GetPage(
-      name: Routes.HOME,
-      page: () => HomeView(),
+      name: Routes.honeRoute,
+      page: () => const HomeView(),
       binding: BindingsBuilder.put(
         () => HomeController(),
       ),
     ),
     GetPage(
-      name: Routes.CURRENCY_RATES,
-      page: () => CurrencyRatesView(),
+      name: Routes.currencyRatesRoute,
+      page: () => const CurrencyRatesView(),
       binding: BindingsBuilder.put(
         () => CurrencyRatesController(),
       ),
     ),
     GetPage(
-      name: Routes.LINE_CHART,
-      page: () => LineChartView(),
+      name: Routes.lineChartRoute,
+      page: () => const LineChartView(),
       binding: BindingsBuilder.put(
         () => HomeController(),
       ),
     ),
     // TODO: change to a separate controller
     GetPage(
-      name: Routes.PIE_CHART,
-      page: () => PieChartView(),
+      name: Routes.pieChartRoute,
+      page: () => const PieChartView(),
       binding: BindingsBuilder.put(
         () => HomeController(),
       ),
     ),
     // TODO: change to a separate controller
     GetPage(
-      name: Routes.BAR_CHART,
-      page: () => BarChartView(),
+      name: Routes.barChartRote,
+      page: () => const BarChartView(),
       binding: BindingsBuilder.put(
         () => HomeController(),
       ),
