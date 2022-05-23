@@ -50,6 +50,14 @@ class SplashView extends GetView<SplashController> {
               ),
             ),
             const SizedBox(
+              height: 10,
+            ),
+            Text(
+              '$applicationTitle\n${controller.getVersion()}',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.roboto(),
+            ),
+            const SizedBox(
               height: 20,
             ),
           ],

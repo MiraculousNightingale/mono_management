@@ -18,6 +18,7 @@ class LoginView extends GetView<LoginController> {
   Widget build(BuildContext context) {
     return GetBuilder<LoginController>(
       builder: (controller) => Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

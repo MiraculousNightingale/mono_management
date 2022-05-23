@@ -18,6 +18,7 @@ class RegistrationView extends GetView<RegistrationController> {
   Widget build(BuildContext context) {
     return GetBuilder<RegistrationController>(
       builder: (controller) => Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

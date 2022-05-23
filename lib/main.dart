@@ -1,40 +1,17 @@
 import 'dart:ui';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mono_management/firebase_options.dart';
 import 'package:mono_management/resources/colors.dart';
 import 'package:mono_management/resources/constants.dart';
 import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/src/core/app_pages.dart';
-import 'package:mono_management/src/core/data/repositories/flutterfire/firebase_auth_repository.dart';
-import 'package:mono_management/src/core/data/repositories/flutterfire/firebase_auth_repository_impl.dart';
-import 'package:mono_management/src/core/network/dio_manager.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  LicenseRegistry.addLicense(() async* {
-    final license = await rootBundle.loadString('google_fonts/OFL.txt');
-    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
-  });
-
-  DioManager.configure();
-  _dependencies();
   runApp(const MyApp());
-}
-
-void _dependencies() {
-  Get.lazyPut<FirebaseAuthRepository>(
-    () => FirebaseAuthRepositoryImpl(),
-    fenix: true,
-  );
 }
 
 class MyApp extends StatelessWidget {
