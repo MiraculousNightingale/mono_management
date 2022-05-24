@@ -61,6 +61,7 @@ class LoginView extends GetView<LoginController> {
                         errorBorder: UiUtils.loginTextFieldErrorBorder,
                         fillColor: colorAccent,
                         focusColor: colorAccent,
+                        errorText: controller.passwordError,
                         hintText: Localization.enterPassword.tr,
                         suffixIcon: IconButton(
                           onPressed: () {
@@ -80,7 +81,7 @@ class LoginView extends GetView<LoginController> {
                                 ),
                         ),
                       ),
-                      onChanged: controller.onFieldChanged,
+                      onChanged: controller.onPasswordFieldChanged,
                     ),
                     const SizedBox(
                       height: 10,

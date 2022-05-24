@@ -64,6 +64,10 @@ class Localization extends Translations {
   static const yes = 'yes';
   static const no = 'no';
   static const logoutQuestion = 'logout question';
+  static const wrongPassword = 'wrong password';
+  static const unexpectedError = 'unexpected error';
+  static const error = 'error';
+  static const ok = 'ok';
 
   @override
   Map<String, Map<String, String>> get keys => const {
@@ -128,6 +132,10 @@ class Localization extends Translations {
           yes: 'Yes',
           no: 'No',
           logoutQuestion: 'Are you sure you want to log out of your account?',
+          wrongPassword: 'Wrong password',
+          unexpectedError: 'Unexpected error occurred',
+          error: 'error',
+          ok: 'Ok',
         },
         countryUA: {
           penis: 'Пісюн',
@@ -191,6 +199,10 @@ class Localization extends Translations {
           yes: 'Так',
           no: 'Ні',
           logoutQuestion: 'Ви дійсно хочете вийти з облікового запису?',
+          wrongPassword: 'Неправильний пароль',
+          unexpectedError: 'Сталася неочікувана помилка',
+          error: 'Помилка',
+          ok: 'Ok',
         }
       };
 }
