@@ -35,6 +35,7 @@ class BarChartView extends GetView<HomeController> {
                   tooltipBehavior: TooltipBehavior(enable: true),
                   series: [
                     StackedColumnSeries<PieChartStatement, String>(
+                      name: Localization.expenses.tr,
                       dataSource: controller.pieChartStatementData,
                       xValueMapper: (PieChartStatement element, _) =>
                           element.mccDesc,

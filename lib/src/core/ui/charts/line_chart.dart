@@ -28,7 +28,12 @@ class LineChartView extends GetView<HomeController>{
             children: [
               Expanded(
                 child: SfCartesianChart(
-                  primaryXAxis: NumericAxis(),
+                  primaryXAxis: DateTimeAxis(
+                    dateFormat: DateFormat.yMd(),
+                  ),
+                  primaryYAxis: NumericAxis(
+
+                  ),
                   // primaryYAxis: NumericAxis(),
                   title: ChartTitle(text: Localization.balanceChart.tr),
                   legend: Legend(isVisible: true),
@@ -39,22 +44,23 @@ class LineChartView extends GetView<HomeController>{
                       enablePinching: true,
                       enableDoubleTapZooming: true,
                       enablePanning: true),
-                  series: <ChartSeries<Statement, int>>[
-                    LineSeries<Statement, int>(
+                  series: <ChartSeries<Statement, DateTime>>[
+                    LineSeries<Statement, DateTime>(
                         name: Localization.balance.tr,
                         dataSource: controller.statements,
                         xValueMapper: (Statement statement, _) =>
-                            statement.time,
+                            DateTime.fromMillisecondsSinceEpoch(statement.time * 1000),
                         yValueMapper: (Statement statement, _) =>
-                            statement.balance),
-                    LineSeries<Statement, int>(
+                            (statement.balance/100).round()),
+                    LineSeries<Statement, DateTime>(
                         name: Localization.amount.tr,
                         dataSource: controller.statements,
                         xValueMapper: (Statement statement, _) =>
-                            statement.time,
+                            DateTime.fromMillisecondsSinceEpoch(statement.time * 1000),
                         yValueMapper: (Statement statement, _) =>
-                            statement.amount),
+                            (statement.amount/100).round()),
                   ],
+
                   // axisLabelFormatter: (AxisLabelRenderDetails args) {
                   //   late String text;
                   //   if (args.axisName == 'primaryXAxis') {
