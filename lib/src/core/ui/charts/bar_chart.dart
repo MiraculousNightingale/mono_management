@@ -15,7 +15,7 @@ class BarChartView extends GetView<HomeController> {
     return GetBuilder<HomeController>(
       builder: (controller) => Scaffold(
         appBar: AppBar(
-          title: Text(Localization.lineChart.tr),
+          title: Text(Localization.barChart.tr),
           backgroundColor: Colors.black,
         ),
         drawer: NavigationDrawer(

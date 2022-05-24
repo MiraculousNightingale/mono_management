@@ -15,7 +15,7 @@ class PieChartView extends GetView<HomeController> {
     return GetBuilder<HomeController>(
       builder: (controller) => Scaffold(
         appBar: AppBar(
-          title: Text(Localization.lineChart.tr),
+          title: Text(Localization.pieChart.tr),
           backgroundColor: Colors.black,
         ),
         drawer: NavigationDrawer(
