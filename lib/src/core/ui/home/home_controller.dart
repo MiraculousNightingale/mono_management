@@ -271,6 +271,7 @@ class HomeController extends GetxController {
 
   set currencyFilters(List<CurrencyFilter> value) {
     _currencyFilters = value;
+    update();
   }
 
   List<MccFilter> get mccFilters => _mccFilters;

@@ -11,6 +11,85 @@ import 'package:mono_management/src/util/mcc.dart';
 class ExpensesView extends GetView<HomeController> {
   const ExpensesView({Key? key}) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+    return controller.progress
+        ? const Center(
+            child: CircularProgressIndicator(),
+          )
+        : Padding(
+            padding: const EdgeInsets.all(20),
+            child: controller.showStatementFilter
+                ? ExpensesFilterPage(
+                    controller: controller,
+                  )
+                : Column(
+                    children: [
+                      Expanded(
+                        child: _buildStatementList(
+                          controller.getFilteredStatements(),
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          SizedBox(
+                            height: 45,
+                            child: TextField(
+                              controller: controller.currencyNameFilter,
+                              onChanged: (value) {
+                                controller.currencyFilterSearch = value;
+                              },
+                              decoration: InputDecoration(
+                                border: const OutlineInputBorder(),
+                                labelText: Localization.descriptionSearch.tr,
+                              ),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: OutlinedButton(
+                                  onPressed: () {
+                                    controller.showStatementFilter = true;
+                                  },
+                                  child: Text(Localization.filter.tr),
+                                ),
+                              ),
+                            ],
+                          ),
+                          // Container(
+                          //   decoration: const BoxDecoration(),
+                          //   padding: const EdgeInsets.all(10),
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.center,
+                          //     children: [
+                          //       RichText(
+                          //         text: TextSpan(
+                          //           children: [
+                          //             TextSpan(
+                          //               text: Localization.keyExpenses.tr,
+                          //             )
+                          //           ],
+                          //           style: const TextStyle(
+                          //             color: Colors.black,
+                          //             fontSize: 18,
+                          //             fontWeight: FontWeight.bold,
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
+                        ],
+                      ),
+                    ],
+                  ),
+          );
+  }
+
   // List<DropdownMenuItem<String>> _getAccountDropDownItems() {
   //   List<DropdownMenuItem<String>> items = <DropdownMenuItem<String>>[];
   //   items.add(DropdownMenuItem<String>(
@@ -217,97 +296,5 @@ class ExpensesView extends GetView<HomeController> {
           );
         },
         itemCount: statements.length);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return controller.progress
-        ? const Center(
-            child: CircularProgressIndicator(),
-          )
-        : Padding(
-            padding: const EdgeInsets.all(20),
-            child: controller.showStatementFilter
-                ? const ExpensesFilterPage()
-                : Column(
-                    children: [
-                      Expanded(
-                        child: _buildStatementList(
-                          controller.getFilteredStatements(),
-                        ),
-                      ),
-                      Column(
-                        children: [
-                          // Row(
-                          //   children: [
-                              //     Expanded(
-                              //       child: DropdownButton<String>(
-                              //         value: controller.accountDropDownValue,
-                              //         items: _getAccountDropDownItems(),
-                              //         onChanged: (value) {
-                              //           controller.accountDropDownValue =
-                              //               value ?? 'NaN';
-                              //         },
-                              //       ),
-                              //     ),
-                              //   ],
-                              // ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              SizedBox(
-                                height: 45,
-                                child: TextField(
-                                  controller: controller.currencyNameFilter,
-                                  onChanged: (value) {
-                                    controller.currencyFilterSearch = value;
-                                  },
-                                  decoration: InputDecoration(
-                                    border: const OutlineInputBorder(),
-                                    labelText:
-                                        Localization.descriptionSearch.tr,
-                                  ),
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: OutlinedButton(
-                                      onPressed: () => {
-                                        controller.showStatementFilter = true
-                                      },
-                                      child: Text(Localization.filter.tr),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              // Container(
-                              //   decoration: const BoxDecoration(),
-                              //   padding: const EdgeInsets.all(10),
-                              //   child: Row(
-                              //     mainAxisAlignment: MainAxisAlignment.center,
-                              //     children: [
-                              //       RichText(
-                              //         text: TextSpan(
-                              //           children: [
-                              //             TextSpan(
-                              //               text: Localization.keyExpenses.tr,
-                              //             )
-                              //           ],
-                              //           style: const TextStyle(
-                              //             color: Colors.black,
-                              //             fontSize: 18,
-                              //             fontWeight: FontWeight.bold,
-                              //           ),
-                              //         ),
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
-                            ],
-                          ),
-                        ],
-                      ),
-          );
   }
 }

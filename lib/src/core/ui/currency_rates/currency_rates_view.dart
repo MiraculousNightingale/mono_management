@@ -11,6 +11,63 @@ import 'package:mono_management/src/util/currencies.dart';
 class CurrencyRatesView extends GetView<HomeController> {
   const CurrencyRatesView({Key? key}) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+    return controller.progress
+        ? const Center(
+      child: CircularProgressIndicator(),
+    )
+        : Container(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          Expanded(
+            child: controller.showCurrencyFilter
+                ? _buildCurrencyFilterPage(controller.currencyFilters)
+                : _buildCurrencyRateList(
+                controller.getFilteredCurrencyRates()),
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: controller.showCurrencyFilter
+                    ? Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton(
+                        onPressed: () =>
+                        {controller.showCurrencyFilter = false},
+                        child: Text(Localization.back.tr),
+                      ),
+                    ),
+                    Expanded(
+                      child: OutlinedButton(
+                        onPressed: () =>
+                        {},
+                        child: Text('none'.tr),
+                      ),
+                    ),
+                    Expanded(
+                      child: OutlinedButton(
+                        onPressed: () =>
+                        {},
+                        child: Text('all'.tr),
+                      ),
+                    ),
+                  ],
+                )
+                    : OutlinedButton(
+                    onPressed: () =>
+                    {controller.showCurrencyFilter = true},
+                    child: Text(Localization.filter.tr)),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _showExchangeRate(CurrencyRate currencyRate) {
     return currencyRate.rateCross == 0.0
         ? Column(
@@ -227,83 +284,4 @@ class CurrencyRatesView extends GetView<HomeController> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return controller.progress
-        ? const Center(
-            child: CircularProgressIndicator(),
-          )
-        : Container(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                // Column(
-                //   children: [
-                //     Container(
-                //       decoration: const BoxDecoration(),
-                //       padding: const EdgeInsets.all(10),
-                //       child: Row(
-                //         mainAxisAlignment: MainAxisAlignment.center,
-                //         children: [
-                //           RichText(
-                //             text: TextSpan(
-                //               children: [TextSpan(text: 'currency rates'.tr)],
-                //               style: const TextStyle(
-                //                 color: Colors.black,
-                //                 fontSize: 18,
-                //                 fontWeight: FontWeight.bold,
-                //               ),
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                Expanded(
-                  child: controller.showCurrencyFilter
-                      ? _buildCurrencyFilterPage(controller.currencyFilters)
-                      : _buildCurrencyRateList(
-                          controller.getFilteredCurrencyRates()),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: controller.showCurrencyFilter
-                          ? Row(
-                              children: [
-                                Expanded(
-                                  child: OutlinedButton(
-                                    onPressed: () =>
-                                        {controller.showCurrencyFilter = false},
-                                    child: Text(Localization.back.tr),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: OutlinedButton(
-                                    onPressed: () =>
-                                    {},
-                                    child: Text('none'.tr),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: OutlinedButton(
-                                    onPressed: () =>
-                                    {},
-                                    child: Text('all'.tr),
-                                  ),
-                                ),
-                              ],
-                            )
-                          : OutlinedButton(
-                              onPressed: () =>
-                                  {controller.showCurrencyFilter = true},
-                              child: Text(Localization.filter.tr)),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          );
-  }
 }
