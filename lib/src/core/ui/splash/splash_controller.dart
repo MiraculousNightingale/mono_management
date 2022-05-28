@@ -51,7 +51,9 @@ class SplashController extends GetxController {
     if (firebaseAuthRepository.getFirebaseUser() == null) {
       Get.offNamed(Routes.loginRoute);
     } else {
-      Get.offNamed(Routes.homeRoute);
+      //TODO: change back to homeRoute if I come up with some home page.
+      // Get.offNamed(Routes.homeRoute);
+      Get.offNamed(Routes.userInfoRoute);
     }
   }
 

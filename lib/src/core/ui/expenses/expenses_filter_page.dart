@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mono_management/resources/localization.dart';
+import 'package:mono_management/src/core/ui/expenses/expenses_controller.dart';
 import 'package:mono_management/src/core/ui/home/home_controller.dart';
 import 'package:mono_management/src/data/model/mcc_filter.dart';
 import 'package:mono_management/src/util/mcc.dart';
 
 class ExpensesFilterPage extends StatelessWidget {
   const ExpensesFilterPage({required this.controller, Key? key}) : super(key: key);
-  final HomeController controller;
+  final ExpensesController controller;
 
   @override
   Widget build(BuildContext context) {

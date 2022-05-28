@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/src/core/app_pages.dart';
+import 'package:mono_management/src/core/ui/charts/chart_controller.dart';
 import 'package:mono_management/src/core/ui/common/navigation_drawer.dart';
 import 'package:mono_management/src/core/ui/home/home_controller.dart';
 import 'package:mono_management/src/data/model/pie_chart_statement.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class BarChartView extends GetView<HomeController> {
+class BarChartView extends GetView<ChartController> {
   const BarChartView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<HomeController>(
+    return GetBuilder<ChartController>(
       builder: (controller) => Scaffold(
         appBar: AppBar(
           title: Text(Localization.barChart.tr),

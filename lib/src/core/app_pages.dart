@@ -1,9 +1,12 @@
 import 'package:get/get.dart';
 import 'package:mono_management/src/core/ui/charts/bar_chart.dart';
+import 'package:mono_management/src/core/ui/charts/chart_controller.dart';
 import 'package:mono_management/src/core/ui/charts/line_chart.dart';
 import 'package:mono_management/src/core/ui/charts/pie_chart.dart';
 import 'package:mono_management/src/core/ui/currency_rates/currency_rates_controller.dart';
 import 'package:mono_management/src/core/ui/currency_rates/currency_rates_view.dart';
+import 'package:mono_management/src/core/ui/expenses/expenses_controller.dart';
+import 'package:mono_management/src/core/ui/expenses/expenses_view.dart';
 import 'package:mono_management/src/core/ui/home/home_controller.dart';
 import 'package:mono_management/src/core/ui/home/home_view.dart';
 import 'package:mono_management/src/core/ui/login/login/login_controller.dart';
@@ -12,6 +15,8 @@ import 'package:mono_management/src/core/ui/login/register/registration_controll
 import 'package:mono_management/src/core/ui/login/register/registration_view.dart';
 import 'package:mono_management/src/core/ui/splash/splash_controller.dart';
 import 'package:mono_management/src/core/ui/splash/splash_view.dart';
+import 'package:mono_management/src/core/ui/user_info/user_info_controller.dart';
+import 'package:mono_management/src/core/ui/user_info/user_info_view.dart';
 
 part 'app_routes.dart';
 
@@ -49,17 +54,34 @@ class AppPages {
       ),
     ),
     GetPage(
+      name: Routes.userInfoRoute,
+      page: () => const UserInfoView(),
+      binding: BindingsBuilder.put(
+            () => UserInfoController(),
+      ),
+      transitionDuration: Duration.zero,
+    ),
+    GetPage(
       name: Routes.currencyRatesRoute,
       page: () => const CurrencyRatesView(),
       binding: BindingsBuilder.put(
         () => CurrencyRatesController(),
       ),
+      transitionDuration: Duration.zero,
+    ),
+    GetPage(
+      name: Routes.statementsRoute,
+      page: () => const ExpensesView(),
+      binding: BindingsBuilder.put(
+            () => ExpensesController(),
+      ),
+      transitionDuration: Duration.zero,
     ),
     GetPage(
       name: Routes.lineChartRoute,
       page: () => const LineChartView(),
       binding: BindingsBuilder.put(
-        () => HomeController(),
+        () => ChartController(),
       ),
     ),
     // TODO: change to a separate controller
@@ -67,7 +89,7 @@ class AppPages {
       name: Routes.pieChartRoute,
       page: () => const PieChartView(),
       binding: BindingsBuilder.put(
-        () => HomeController(),
+        () => ChartController(),
       ),
     ),
     // TODO: change to a separate controller
@@ -75,7 +97,7 @@ class AppPages {
       name: Routes.barChartRote,
       page: () => const BarChartView(),
       binding: BindingsBuilder.put(
-        () => HomeController(),
+        () => ChartController(),
       ),
     ),
     // TODO: change to a separate controller

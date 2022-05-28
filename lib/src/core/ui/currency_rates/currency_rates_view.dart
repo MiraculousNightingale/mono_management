@@ -3,68 +3,99 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/resources/test_styles.dart';
+import 'package:mono_management/src/core/app_pages.dart';
+import 'package:mono_management/src/core/ui/common/botnavbar.dart';
+import 'package:mono_management/src/core/ui/common/navigation_drawer.dart';
+import 'package:mono_management/src/core/ui/currency_rates/currency_rates_controller.dart';
 import 'package:mono_management/src/core/ui/home/home_controller.dart';
 import 'package:mono_management/src/data/model/currency_filter.dart';
 import 'package:mono_management/src/data/model/currency_rate.dart';
 import 'package:mono_management/src/util/currencies.dart';
 
-class CurrencyRatesView extends GetView<HomeController> {
+class CurrencyRatesView extends GetView<CurrencyRatesController> {
   const CurrencyRatesView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return controller.progress
-        ? const Center(
-      child: CircularProgressIndicator(),
-    )
-        : Container(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        children: [
-          Expanded(
-            child: controller.showCurrencyFilter
-                ? _buildCurrencyFilterPage(controller.currencyFilters)
-                : _buildCurrencyRateList(
-                controller.getFilteredCurrencyRates()),
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: controller.showCurrencyFilter
-                    ? Row(
+    return GetBuilder<CurrencyRatesController>(
+      //TODO: Remove async data load
+      builder: (controller) => controller.progress
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  controller.getCurrentTitle(),
+                ),
+                backgroundColor: Colors.black,
+              ),
+              drawer: NavigationDrawer(
+                userInfo: controller.userInfo,
+              ),
+              body: Container(
+                padding: const EdgeInsets.all(20),
+                child: Column(
                   children: [
                     Expanded(
-                      child: OutlinedButton(
-                        onPressed: () =>
-                        {controller.showCurrencyFilter = false},
-                        child: Text(Localization.back.tr),
-                      ),
+                      child: controller.showCurrencyFilter
+                          ? _buildCurrencyFilterPage(
+                              controller.currencyFilters,
+                            )
+                          : _buildCurrencyRateList(
+                              controller.getFilteredCurrencyRates(),
+                            ),
                     ),
-                    Expanded(
-                      child: OutlinedButton(
-                        onPressed: () =>
-                        {},
-                        child: Text('none'.tr),
-                      ),
-                    ),
-                    Expanded(
-                      child: OutlinedButton(
-                        onPressed: () =>
-                        {},
-                        child: Text('all'.tr),
-                      ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: controller.showCurrencyFilter
+                              ? Row(
+                                  children: [
+                                    Expanded(
+                                      child: OutlinedButton(
+                                        onPressed: () => {
+                                          controller.showCurrencyFilter = false
+                                        },
+                                        child: Text(Localization.back.tr),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: OutlinedButton(
+                                        onPressed: () => {
+                                          controller
+                                              .setCurrencyFiltersVisibility(
+                                                  false)
+                                        },
+                                        child: Text('none'.tr),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: OutlinedButton(
+                                        onPressed: () => {
+                                          controller
+                                              .setCurrencyFiltersVisibility(
+                                                  true)
+                                        },
+                                        child: Text('all'.tr),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : OutlinedButton(
+                                  onPressed: () =>
+                                      {controller.showCurrencyFilter = true},
+                                  child: Text(Localization.filter.tr)),
+                        ),
+                      ],
                     ),
                   ],
-                )
-                    : OutlinedButton(
-                    onPressed: () =>
-                    {controller.showCurrencyFilter = true},
-                    child: Text(Localization.filter.tr)),
+                ),
               ),
-            ],
-          ),
-        ],
-      ),
+              bottomNavigationBar: const BotNavBar(
+                currentIndex: 1,
+              ),
+            ),
     );
   }
 
@@ -92,15 +123,17 @@ class CurrencyRatesView extends GetView<HomeController> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   RichText(
-                      text: TextSpan(
-                          style: const TextStyle(color: Colors.black87),
-                          children: [
+                    text: TextSpan(
+                      style: const TextStyle(color: Colors.black87),
+                      children: [
                         TextSpan(
                             text:
                                 ' ${Localization.sell.tr}: ${currencyRate.rateSell} ',
                             style: GoogleFonts.roboto(
                                 textStyle: TextStyles.black14w600)),
-                      ])),
+                      ],
+                    ),
+                  ),
                   const Icon(Icons.arrow_forward_rounded),
                 ],
               ),
@@ -182,7 +215,7 @@ class CurrencyRatesView extends GetView<HomeController> {
         SizedBox(
           height: 45,
           child: TextField(
-            controller: controller.currencyNameFilter,
+            // controller: controller.currencyNameFilter,
             onChanged: (value) {
               controller.currencyFilterSearch = value;
             },
@@ -283,5 +316,4 @@ class CurrencyRatesView extends GetView<HomeController> {
       itemCount: currencyRates.length,
     );
   }
-
 }

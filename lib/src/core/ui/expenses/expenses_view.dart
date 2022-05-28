@@ -2,92 +2,89 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:mono_management/resources/localization.dart';
+import 'package:mono_management/src/core/ui/common/botnavbar.dart';
+import 'package:mono_management/src/core/ui/common/navigation_drawer.dart';
+import 'package:mono_management/src/core/ui/expenses/expenses_controller.dart';
 import 'package:mono_management/src/core/ui/expenses/expenses_filter_page.dart';
 import 'package:mono_management/src/core/ui/home/home_controller.dart';
 import 'package:mono_management/src/data/model/statement.dart';
 import 'package:mono_management/src/util/currencies.dart';
 import 'package:mono_management/src/util/mcc.dart';
 
-class ExpensesView extends GetView<HomeController> {
+class ExpensesView extends GetView<ExpensesController> {
   const ExpensesView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return controller.progress
-        ? const Center(
-            child: CircularProgressIndicator(),
-          )
-        : Padding(
-            padding: const EdgeInsets.all(20),
-            child: controller.showStatementFilter
-                ? ExpensesFilterPage(
-                    controller: controller,
-                  )
-                : Column(
-                    children: [
-                      Expanded(
-                        child: _buildStatementList(
-                          controller.getFilteredStatements(),
-                        ),
-                      ),
-                      Column(
+    return GetBuilder<ExpensesController>(
+      builder: (controller) => Scaffold(
+        appBar: AppBar(
+          title: Text(
+            controller.getCurrentTitle(),
+          ),
+          backgroundColor: Colors.black,
+        ),
+        drawer: NavigationDrawer(
+          userInfo: controller.userInfo,
+        ),
+        body: controller.progress
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Padding(
+                padding: const EdgeInsets.all(20),
+                child: controller.showStatementFilter
+                    ? ExpensesFilterPage(
+                        controller: controller,
+                      )
+                    : Column(
                         children: [
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                            height: 45,
-                            child: TextField(
-                              controller: controller.currencyNameFilter,
-                              onChanged: (value) {
-                                controller.currencyFilterSearch = value;
-                              },
-                              decoration: InputDecoration(
-                                border: const OutlineInputBorder(),
-                                labelText: Localization.descriptionSearch.tr,
-                              ),
+                          Expanded(
+                            child: _buildStatementList(
+                              controller.getFilteredStatements(),
                             ),
                           ),
-                          Row(
+                          Column(
                             children: [
-                              Expanded(
-                                child: OutlinedButton(
-                                  onPressed: () {
-                                    controller.showStatementFilter = true;
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
+                                height: 45,
+                                child: TextField(
+                                  controller: controller.currencyNameFilter,
+                                  onChanged: (value) {
+                                    //controller.currencyFilterSearch = value;
                                   },
-                                  child: Text(Localization.filter.tr),
+                                  decoration: InputDecoration(
+                                    border: const OutlineInputBorder(),
+                                    labelText:
+                                        Localization.descriptionSearch.tr,
+                                  ),
                                 ),
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: OutlinedButton(
+                                      onPressed: () {
+                                        controller.showStatementFilter = true;
+                                      },
+                                      child: Text(Localization.filter.tr),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                          // Container(
-                          //   decoration: const BoxDecoration(),
-                          //   padding: const EdgeInsets.all(10),
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.center,
-                          //     children: [
-                          //       RichText(
-                          //         text: TextSpan(
-                          //           children: [
-                          //             TextSpan(
-                          //               text: Localization.keyExpenses.tr,
-                          //             )
-                          //           ],
-                          //           style: const TextStyle(
-                          //             color: Colors.black,
-                          //             fontSize: 18,
-                          //             fontWeight: FontWeight.bold,
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
                         ],
                       ),
-                    ],
-                  ),
-          );
+              ),
+        bottomNavigationBar: const BotNavBar(
+          currentIndex: 2,
+        ),
+      ),
+    );
   }
 
   // List<DropdownMenuItem<String>> _getAccountDropDownItems() {

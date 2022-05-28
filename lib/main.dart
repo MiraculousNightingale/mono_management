@@ -7,8 +7,10 @@ import 'package:mono_management/resources/colors.dart';
 import 'package:mono_management/resources/constants.dart';
 import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/src/core/app_pages.dart';
+import 'package:mono_management/src/core/data/data_manager.dart';
 
 Future<void> main() async {
+  DataManager().initDataManager();
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }

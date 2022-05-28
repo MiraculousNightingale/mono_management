@@ -23,9 +23,10 @@ class NavigationDrawer extends StatelessWidget {
             textIconColor: Colors.black,
             tileColor: Colors.white,
             onTap: () {
-              Get.toNamed(Routes.homeRoute);
+              //TODO: change to last viewed navbar tab
+              Get.toNamed(Routes.userInfoRoute);
             },
-            pressed: Get.currentRoute == Routes.homeRoute,
+            pressed: Routes.bottomNavBarRoutes.contains(Get.currentRoute),
           ),
           _buildDrawerTile(
             text: Localization.lineChart.tr,

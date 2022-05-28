@@ -3,17 +3,18 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/src/core/app_pages.dart';
+import 'package:mono_management/src/core/ui/charts/chart_controller.dart';
 import 'package:mono_management/src/core/ui/common/navigation_drawer.dart';
 import 'package:mono_management/src/core/ui/home/home_controller.dart';
 import 'package:mono_management/src/data/model/statement.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class LineChartView extends GetView<HomeController>{
+class LineChartView extends GetView<ChartController>{
   const LineChartView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<HomeController>(
+    return GetBuilder<ChartController>(
       builder: (controller) => Scaffold(
         appBar: AppBar(
           title: Text(Localization.lineChart.tr),
