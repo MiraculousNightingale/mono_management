@@ -14,20 +14,19 @@ import 'package:mono_management/src/util/currencies.dart';
 class ChartController extends GetxController {
 
   @override
-  Future<void> onInit() async {
+  void onInit() {
     super.onInit();
-    //TODO: Remove async data load
-    _userInfo = await DataManager.getUserInfo();
-    _currencyRates = await DataManager.getCurrencyRates();
-    _statements = await DataManager.getStatements();
-    progress = false;
+    _userInfo =  DataManager.userInfo;
+    _currencyRates =  DataManager.currencyRates;
+    _statements =  DataManager.statements;
+    // progress = false;
   }
 
   UserInfo _userInfo = UserInfo();
   List<CurrencyRate> _currencyRates = <CurrencyRate>[];
   List<Statement> _statements = <Statement>[];
 
-  bool _progress = true;
+  bool _progress = false;
 
   set progress(bool value) {
     _progress = value;

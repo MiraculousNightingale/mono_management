@@ -11,15 +11,13 @@ import 'package:mono_management/src/data/model/user_info.dart';
 import 'package:mono_management/src/util/currencies.dart';
 
 class CurrencyRatesController extends GetxController {
-
   @override
-  Future<void> onInit() async {
+  void onInit() {
     super.onInit();
-    //TODO: Remove async data load
-    _userInfo = await DataManager.getUserInfo();
-    _currencyRates = await DataManager.getCurrencyRates();
+    _userInfo = DataManager.userInfo;
+    _currencyRates = DataManager.currencyRates;
     _currencyFilters = getCurrencyFilter(_currencyRates);
-    progress = false;
+    // progress = false;
   }
 
   UserInfo _userInfo = UserInfo();
@@ -71,18 +69,18 @@ class CurrencyRatesController extends GetxController {
     // filteredCurrencyRates = _currencyFilters.where((e) => e.show).map((e) => e.currencyRate).toList();
     return _currencyRates
         .where((currencyRate) => _currencyFilters.any((filter) =>
-    filter.currencyCode == currencyRate.currencyCodeA && filter.show))
+            filter.currencyCode == currencyRate.currencyCodeA && filter.show))
         .toList();
   }
 
   List<Statement> getFilteredStatements() {
     return _statements
         .where((statement) => _mccFilters
-        .any((filter) => filter.mcc == statement.mcc && filter.show))
+            .any((filter) => filter.mcc == statement.mcc && filter.show))
         .toList();
   }
 
-  bool _progress = true;
+  bool _progress = false;
 
   set progress(bool value) {
     _progress = value;
@@ -128,12 +126,12 @@ class CurrencyRatesController extends GetxController {
   List<CurrencyFilter> get currencyFilters {
     return _currencyFilters
         .where((element) =>
-    Currency.abbreviationFromCode(element.currencyCode)
-        .toLowerCase()
-        .contains(currencyFilterSearch.toLowerCase()) ||
-        Currency.nameFromCode(element.currencyCode)
-            .toLowerCase()
-            .contains(currencyFilterSearch.toLowerCase()))
+            Currency.abbreviationFromCode(element.currencyCode)
+                .toLowerCase()
+                .contains(currencyFilterSearch.toLowerCase()) ||
+            Currency.nameFromCode(element.currencyCode)
+                .toLowerCase()
+                .contains(currencyFilterSearch.toLowerCase()))
         .toList();
   }
 
@@ -142,8 +140,8 @@ class CurrencyRatesController extends GetxController {
     update();
   }
 
-  void setCurrencyFiltersVisibility(bool value){
-    for(final CurrencyFilter currencyFilter in currencyFilters){
+  void setCurrencyFiltersVisibility(bool value) {
+    for (final CurrencyFilter currencyFilter in currencyFilters) {
       currencyFilter.show = value;
     }
     update();

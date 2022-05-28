@@ -14,13 +14,12 @@ import 'package:mono_management/src/util/currencies.dart';
 class ExpensesController extends GetxController {
 
   @override
-  Future<void> onInit() async {
+  void onInit() {
     super.onInit();
-    //TODO: Remove async data load
-    _userInfo = await DataManager.getUserInfo();
-    _statements = await DataManager.getStatements();
+    _userInfo =  DataManager.userInfo;
+    _statements =  DataManager.statements;
     _mccFilters = getMccFilter(_statements);
-    progress = false;
+    // progress = false;
   }
 
   //List<CurrencyRate> _filteredCurrencyRates = <CurrencyRate>[];
@@ -103,7 +102,7 @@ class ExpensesController extends GetxController {
 
   final TextEditingController currencyNameFilter = TextEditingController();
 
-  bool _progress = true;
+  bool _progress = false;
 
   set progress(bool value) {
     _progress = value;

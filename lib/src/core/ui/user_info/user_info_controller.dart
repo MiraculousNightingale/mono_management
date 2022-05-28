@@ -14,12 +14,11 @@ import 'package:mono_management/src/util/currencies.dart';
 class UserInfoController extends GetxController {
 
   @override
-  Future<void> onInit() async {
+  void onInit()  {
     super.onInit();
-    //TODO: Remove async data load
-    _userInfo = await DataManager.getUserInfo();
-    _statements = await DataManager.getStatements();
-    progress = false;
+    _userInfo =  DataManager.userInfo;
+    _statements =  DataManager.statements;
+    // progress = false;
   }
 
   UserInfo _userInfo = UserInfo();
@@ -41,7 +40,7 @@ class UserInfoController extends GetxController {
     return titles[_tabIndex] ?? 'NaN';
   }
 
-  bool _progress = true;
+  bool _progress = false;
 
   set progress(bool value) {
     _progress = value;
