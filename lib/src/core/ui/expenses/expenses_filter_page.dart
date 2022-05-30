@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:mono_management/resources/localization.dart';
+import 'package:mono_management/resources/test_styles.dart';
 import 'package:mono_management/src/core/ui/expenses/expenses_controller.dart';
 import 'package:mono_management/src/core/ui/home/home_controller.dart';
 import 'package:mono_management/src/data/model/mcc_filter.dart';
@@ -48,7 +49,8 @@ class ExpensesFilterPage extends StatelessWidget {
                           Expanded(
                             flex: 2,
                             child: TextField(
-                              controller: controller.dateRangeController,
+                              controller:
+                                  controller.filterDateRangeTextController,
                               //onChanged: (value) {},
                               enabled: false,
                               decoration: InputDecoration(
@@ -93,53 +95,93 @@ class ExpensesFilterPage extends StatelessWidget {
                     ),
                     SizedBox(
                       height: 35,
-                      child: Row(
+                      child: ToggleButtons(
+                        isSelected: controller.filterToggleButtonsSelected,
                         children: [
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: () => {
-                                controller.filterStatementType =
-                                    StatementOperationType.deposit
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.green,
-                                textStyle: const TextStyle(fontSize: 12),
+                          SizedBox(
+                            width: 110,
+                            child: Center(
+                              child: Text(
+                                Localization.incomes.tr,
                               ),
-                              child: Text(Localization.incomes.tr),
                             ),
                           ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: () => {
-                                controller.filterStatementType =
-                                    StatementOperationType.withdrawal
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.red,
+                          SizedBox(
+                            width: 110,
+                            child: Center(
+                              child: Text(
+                                Localization.expenses.tr,
                               ),
-                              child: Text(Localization.expenses.tr),
                             ),
                           ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Expanded(
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.grey,
+                          SizedBox(
+                            width: 110,
+                            child: Center(
+                              child: Text(
+                                Localization.all.tr,
                               ),
-                              onPressed: () => {
-                                controller.filterStatementType =
-                                    StatementOperationType.all
-                              },
-                              child: Text(Localization.all.tr),
                             ),
                           ),
                         ],
+                        onPressed: (index) {
+                          //TODO: sensitive to Enum elements declaration order, change?
+                          //switch/if doesn't matter still the same
+                          //might change ToggleButtons to smth else
+                          controller.filterStatementType = StatementOperationType.values[index];
+                        },
                       ),
+                      // child: Row(
+                      //   children: [
+                      //     Expanded(
+                      //       child: ElevatedButton(
+                      //         onPressed: () => {
+                      //           controller.filterStatementType =
+                      //               StatementOperationType.deposit
+                      //         },
+                      //         style: controller.filterStatementType ==
+                      //                 StatementOperationType.deposit
+                      //             ? ButtonStyles.toggled
+                      //             : ButtonStyles.bgGreenTxWhite,
+                      //         child: Text(
+                      //           Localization.incomes.tr,
+                      //           textScaleFactor: 0.9,
+                      //         ),
+                      //       ),
+                      //     ),
+                      //     const SizedBox(
+                      //       width: 5,
+                      //     ),
+                      //     Expanded(
+                      //       child: ElevatedButton(
+                      //         onPressed: () => {
+                      //           controller.filterStatementType =
+                      //               StatementOperationType.withdrawal
+                      //         },
+                      //         style: controller.filterStatementType ==
+                      //                 StatementOperationType.withdrawal
+                      //             ? ButtonStyles.toggled
+                      //             : ButtonStyles.bgRedTxWhite,
+                      //         child: Text(Localization.expenses.tr),
+                      //       ),
+                      //     ),
+                      //     const SizedBox(
+                      //       width: 5,
+                      //     ),
+                      //     Expanded(
+                      //       child: ElevatedButton(
+                      //         style: controller.filterStatementType ==
+                      //                 StatementOperationType.all
+                      //             ? ButtonStyles.toggled
+                      //             : ButtonStyles.bgGreyTxWhite,
+                      //         onPressed: () => {
+                      //           controller.filterStatementType =
+                      //               StatementOperationType.all
+                      //         },
+                      //         child: Text(Localization.all.tr),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                     )
                   ],
                 ),
@@ -246,10 +288,11 @@ class ExpensesFilterPage extends StatelessWidget {
         Expanded(
           child: SfDateRangePicker(
             view: DateRangePickerView.year,
+            controller: controller.filterDateRangeController,
             onSelectionChanged: (DateRangePickerSelectionChangedArgs args) {
               final PickerDateRange value = args.value;
               controller.filterStatementDateRange = value;
-              controller.dateRangeController.text =
+              controller.filterDateRangeTextController.text =
                   '${Localization.from.tr} ${DateFormat.yMd().format(value.startDate!)} ${Localization.to.tr.toLowerCase()} ${DateFormat.yMd().format(value.endDate!)}';
             },
             selectionMode: DateRangePickerSelectionMode.range,

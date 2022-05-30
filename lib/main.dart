@@ -48,6 +48,7 @@ class MyApp extends StatelessWidget {
         //     // Notice that the counter didn't reset back to zero; the application
         //     // is not restarted.
         primaryColor: Colors.black,
+        primarySwatch: Colors.deepPurple,
         hoverColor: colorAccent,
         bannerTheme: MaterialBannerThemeData(
           backgroundColor: colorAccent,

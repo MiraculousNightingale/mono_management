@@ -34,14 +34,19 @@ class ExpensesController extends GetxController {
   String _searchStatementDesc = '';
   String _searchMccFilterName = '';
   PickerDateRange filterStatementDateRange = const PickerDateRange(null, null);
-  Enum _filterStatementType = StatementOperationType.all;
-  TextEditingController dateRangeController = TextEditingController();
+  StatementOperationType _filterStatementType = StatementOperationType.all;
+  TextEditingController filterDateRangeTextController = TextEditingController();
+  DateRangePickerController filterDateRangeController = DateRangePickerController();
 
-  Enum get filterStatementType => _filterStatementType;
+  StatementOperationType get filterStatementType => _filterStatementType;
 
-  set filterStatementType(Enum value) {
+  set filterStatementType(StatementOperationType value) {
     _filterStatementType = value;
     update();
+  }
+
+  List<bool> get filterToggleButtonsSelected {
+    return StatementOperationType.values.map((e) => e == filterStatementType).toList();
   }
 
   bool get showDatePickerDialog => _showDatePickerDialog;
@@ -83,7 +88,8 @@ class ExpensesController extends GetxController {
       if (searchStatementDesc.isNotEmpty) {
         descSearchPassed = statement.description
             .toLowerCase()
-            .contains(searchStatementDesc.toLowerCase());
+            .contains(searchStatementDesc.toLowerCase(),
+        );
       }
       //Date check
       bool dateCheckPassed = true;

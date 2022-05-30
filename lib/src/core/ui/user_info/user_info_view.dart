@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mono_management/resources/colors.dart';
 import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/src/core/app_pages.dart';
 import 'package:mono_management/src/core/ui/common/botnavbar.dart';
@@ -26,7 +27,7 @@ class UserInfoView extends GetView<UserInfoController> {
                 title: Text(
                   controller.getCurrentTitle(),
                 ),
-                backgroundColor: Colors.black,
+                backgroundColor: appBarColor,
               ),
               drawer: NavigationDrawer(
                 userInfo: controller.userInfo,

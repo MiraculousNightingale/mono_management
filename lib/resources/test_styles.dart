@@ -10,3 +10,29 @@ abstract class TextStyles {
     fontWeight: FontWeight.w400,
   );
 }
+
+abstract class ButtonStyles {
+  static final bgRedTxWhite = ElevatedButton.styleFrom(
+    primary: Colors.red,
+    textStyle: const TextStyle(
+      color: Colors.white,
+    ),
+  );
+  static final bgGreenTxWhite = ElevatedButton.styleFrom(
+    primary: Colors.green,
+    textStyle: const TextStyle(
+      color: Colors.white,
+    ),
+  );
+  static final bgGreyTxWhite = ElevatedButton.styleFrom(
+    primary: Colors.grey,
+    textStyle: const TextStyle(
+      color: Colors.white,
+    ),
+  );
+  static final toggled = ElevatedButton.styleFrom(
+    primary: Colors.white,
+    onPrimary: Colors.black,
+    side: const BorderSide(),
+  );
+}

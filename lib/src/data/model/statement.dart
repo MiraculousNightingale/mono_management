@@ -11,8 +11,8 @@ Statement statementFromJson(String str) => Statement.fromJson(json.decode(str));
 String statementToJson(Statement data) => json.encode(data.toJson());
 
 enum StatementOperationType {
-  withdrawal,
   deposit,
+  withdrawal,
   all,
 }
 

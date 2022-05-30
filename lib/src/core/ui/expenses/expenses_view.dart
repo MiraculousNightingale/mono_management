@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:mono_management/resources/colors.dart';
 import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/src/core/ui/common/botnavbar.dart';
 import 'package:mono_management/src/core/ui/common/navigation_drawer.dart';
@@ -22,7 +23,7 @@ class ExpensesView extends GetView<ExpensesController> {
           title: Text(
             controller.getCurrentTitle(),
           ),
-          backgroundColor: Colors.black,
+          backgroundColor: appBarColor,
         ),
         drawer: NavigationDrawer(
           userInfo: controller.userInfo,

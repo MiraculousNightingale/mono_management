@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mono_management/resources/colors.dart';
 import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/src/core/app_pages.dart';
 import 'package:mono_management/src/core/data/repositories/flutterfire/firebase_auth_repository.dart';
@@ -106,7 +107,7 @@ class NavigationDrawer extends StatelessWidget {
         text,
         style: TextStyle(color: pressed ? Colors.white : textIconColor),
       ),
-      tileColor: pressed ? Colors.blue : tileColor,
+      tileColor: pressed ? colorAccent : tileColor,
       onTap: onTap,
     );
   }

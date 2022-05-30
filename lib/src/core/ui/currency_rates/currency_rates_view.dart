@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mono_management/resources/colors.dart';
 import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/resources/test_styles.dart';
 import 'package:mono_management/src/core/app_pages.dart';
@@ -28,7 +29,7 @@ class CurrencyRatesView extends GetView<CurrencyRatesController> {
                 title: Text(
                   controller.getCurrentTitle(),
                 ),
-                backgroundColor: Colors.black,
+                backgroundColor: appBarColor,
               ),
               drawer: NavigationDrawer(
                 userInfo: controller.userInfo,
