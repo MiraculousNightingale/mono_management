@@ -41,7 +41,7 @@ class ExpensesView extends GetView<ExpensesController> {
                         children: [
                           Expanded(
                             child: _buildStatementList(
-                              controller.getFilteredStatements(),
+                              controller.filteredStatements,
                             ),
                           ),
                           Column(
@@ -54,7 +54,7 @@ class ExpensesView extends GetView<ExpensesController> {
                                 child: TextField(
                                   controller: controller.currencyNameFilter,
                                   onChanged: (value) {
-                                    //controller.currencyFilterSearch = value;
+                                    controller.searchStatementDesc = value;
                                   },
                                   decoration: InputDecoration(
                                     border: const OutlineInputBorder(),

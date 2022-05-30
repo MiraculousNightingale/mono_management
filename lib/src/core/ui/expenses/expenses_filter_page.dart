@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/src/core/ui/expenses/expenses_controller.dart';
 import 'package:mono_management/src/core/ui/home/home_controller.dart';
 import 'package:mono_management/src/data/model/mcc_filter.dart';
+import 'package:mono_management/src/data/model/statement.dart';
 import 'package:mono_management/src/util/mcc.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class ExpensesFilterPage extends StatelessWidget {
-  const ExpensesFilterPage({required this.controller, Key? key}) : super(key: key);
+  const ExpensesFilterPage({required this.controller, Key? key})
+      : super(key: key);
   final ExpensesController controller;
 
   @override
   Widget build(BuildContext context) {
-    return controller.showMccFilter
-        ? _buildMccFilterPage()
-        : Column(
+    if (controller.showMccFilter) {
+      return _buildMccFilterPage();
+    }
+    if (controller.showDatePickerDialog) {
+      return _buildDatePickerPage();
+    }
+    return Column(
       children: [
         Expanded(
           child: Row(
@@ -40,22 +48,17 @@ class ExpensesFilterPage extends StatelessWidget {
                           Expanded(
                             flex: 2,
                             child: TextField(
-                              // controller: controller.currencyNameFilter,
-                              onChanged: (value) {},
+                              controller: controller.dateRangeController,
+                              //onChanged: (value) {},
+                              enabled: false,
                               decoration: InputDecoration(
                                 border: const OutlineInputBorder(),
-                                labelText: Localization.from.tr,
+                                labelText: Localization.date.tr,
                               ),
                             ),
                           ),
                           const SizedBox(
                             width: 5,
-                          ),
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              child: Text(Localization.select.tr),
-                            ),
                           ),
                         ],
                       ),
@@ -63,35 +66,19 @@ class ExpensesFilterPage extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    SizedBox(
-                      height: 35,
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 2,
-                            child: TextField(
-                              // controller: controller.currencyNameFilter,
-                              onChanged: (value) {},
-                              decoration: InputDecoration(
-                                border: const OutlineInputBorder(),
-                                labelText: Localization.to.tr,
-                              ),
-                            ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () =>
+                                {controller.showDatePickerDialog = true},
+                            child: Text(Localization.select.tr),
                           ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              child: Text(Localization.select.tr),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     const SizedBox(
-                      height: 15,
+                      height: 10,
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 7),
@@ -110,7 +97,10 @@ class ExpensesFilterPage extends StatelessWidget {
                         children: [
                           Expanded(
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () => {
+                                controller.filterStatementType =
+                                    StatementOperationType.deposit
+                              },
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.green,
                                 textStyle: const TextStyle(fontSize: 12),
@@ -123,7 +113,10 @@ class ExpensesFilterPage extends StatelessWidget {
                           ),
                           Expanded(
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () => {
+                                controller.filterStatementType =
+                                    StatementOperationType.withdrawal
+                              },
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.red,
                               ),
@@ -138,7 +131,10 @@ class ExpensesFilterPage extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.grey,
                               ),
-                              onPressed: () {},
+                              onPressed: () => {
+                                controller.filterStatementType =
+                                    StatementOperationType.all
+                              },
                               child: Text(Localization.all.tr),
                             ),
                           ),
@@ -154,7 +150,7 @@ class ExpensesFilterPage extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: ElevatedButton (
+              child: ElevatedButton(
                   onPressed: () => {controller.showMccFilter = true},
                   child: Text(Localization.mccFilter.tr)),
             ),
@@ -164,8 +160,7 @@ class ExpensesFilterPage extends StatelessWidget {
           children: [
             Expanded(
               child: OutlinedButton(
-                  onPressed: () =>
-                  {controller.showStatementFilter = false},
+                  onPressed: () => {controller.showStatementFilter = false},
                   child: Text(Localization.back.tr)),
             ),
           ],
@@ -215,7 +210,7 @@ class ExpensesFilterPage extends StatelessWidget {
   Widget _buildMccFilterPage() {
     return Column(
       children: [
-        Expanded(child: _buildMccFilterList(controller.mccFilters)),
+        Expanded(child: _buildMccFilterList(controller.filteredMccFilters)),
         const SizedBox(
           height: 10,
         ),
@@ -224,7 +219,7 @@ class ExpensesFilterPage extends StatelessWidget {
           child: TextField(
             //controller: controller.currencyNameFilter,
             onChanged: (value) {
-              //controller.currencyFilterSearch = value;
+              controller.searchMccFilterName = value;
             },
             decoration: InputDecoration(
               border: const OutlineInputBorder(),
@@ -239,6 +234,38 @@ class ExpensesFilterPage extends StatelessWidget {
                   onPressed: () => {controller.showMccFilter = false},
                   child: Text(Localization.back.tr)),
             )
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDatePickerPage() {
+    return Column(
+      children: [
+        Expanded(
+          child: SfDateRangePicker(
+            view: DateRangePickerView.year,
+            onSelectionChanged: (DateRangePickerSelectionChangedArgs args) {
+              final PickerDateRange value = args.value;
+              controller.filterStatementDateRange = value;
+              controller.dateRangeController.text =
+                  '${Localization.from.tr} ${DateFormat.yMd().format(value.startDate!)} ${Localization.to.tr.toLowerCase()} ${DateFormat.yMd().format(value.endDate!)}';
+            },
+            selectionMode: DateRangePickerSelectionMode.range,
+            initialSelectedRange: PickerDateRange(
+                DateTime.now().subtract(const Duration(days: 4)),
+                DateTime.now().add(const Duration(days: 3))),
+          ),
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () => {controller.showDatePickerDialog = false},
+                child: Text(Localization.back.tr),
+              ),
+            ),
           ],
         ),
       ],
