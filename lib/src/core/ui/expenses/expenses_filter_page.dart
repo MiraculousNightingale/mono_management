@@ -259,7 +259,7 @@ class ExpensesFilterPage extends StatelessWidget {
         SizedBox(
           height: 45,
           child: TextField(
-            //controller: controller.currencyNameFilter,
+            controller: controller.filterMccFilterNameController,
             onChanged: (value) {
               controller.searchMccFilterName = value;
             },

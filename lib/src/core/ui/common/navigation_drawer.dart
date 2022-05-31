@@ -17,6 +17,7 @@ class NavigationDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           _buildDrawerHeader(userInfo),
+          // const Divider(height: 5, color: Colors.grey, thickness: 1),
           //TODO: add secondary color in params
           _buildDrawerTile(
             text: Localization.mainPage.tr,
@@ -29,6 +30,7 @@ class NavigationDrawer extends StatelessWidget {
             },
             pressed: Routes.bottomNavBarRoutes.contains(Get.currentRoute),
           ),
+          const Divider(height: 15, color: Colors.grey, thickness: 1),
           _buildDrawerTile(
             text: Localization.lineChart.tr,
             icon: Icons.show_chart,
@@ -58,6 +60,27 @@ class NavigationDrawer extends StatelessWidget {
               Get.toNamed(Routes.barChartRote);
             },
             pressed: Get.currentRoute == Routes.barChartRote,
+          ),
+          const Divider(height: 15, color: Colors.grey, thickness: 1),
+          _buildDrawerTile(
+            text: Localization.reminders.tr,
+            icon: Icons.doorbell_sharp,
+            textIconColor: Colors.black,
+            tileColor: Colors.white,
+            onTap: () {
+              Get.toNamed(Routes.barChartRote);
+            },
+            pressed: false,
+          ),
+          _buildDrawerTile(
+            text: Localization.notes.tr,
+            icon: Icons.note,
+            textIconColor: Colors.black,
+            tileColor: Colors.white,
+            onTap: () {
+              Get.toNamed(Routes.barChartRote);
+            },
+            pressed: false,
           ),
         ],
       ),

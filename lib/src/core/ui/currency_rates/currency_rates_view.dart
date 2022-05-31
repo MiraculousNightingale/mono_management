@@ -216,7 +216,7 @@ class CurrencyRatesView extends GetView<CurrencyRatesController> {
         SizedBox(
           height: 45,
           child: TextField(
-            // controller: controller.currencyNameFilter,
+            controller: controller.filterCurrencyNameController,
             onChanged: (value) {
               controller.currencyFilterSearch = value;
             },

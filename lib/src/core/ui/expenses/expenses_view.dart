@@ -53,7 +53,7 @@ class ExpensesView extends GetView<ExpensesController> {
                               SizedBox(
                                 height: 45,
                                 child: TextField(
-                                  controller: controller.currencyNameFilter,
+                                  controller: controller.filterStatementDescController,
                                   onChanged: (value) {
                                     controller.searchStatementDesc = value;
                                   },

@@ -1,6 +1,7 @@
 /// Placeholder for a future controller if it has to be implemented
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mono_management/src/core/data/data_manager.dart';
 import 'package:mono_management/src/data/model/currency_filter.dart';
@@ -23,6 +24,7 @@ class CurrencyRatesController extends GetxController {
   UserInfo _userInfo = UserInfo();
   List<CurrencyRate> _currencyRates = <CurrencyRate>[];
 
+  TextEditingController filterCurrencyNameController = TextEditingController();
   //List<CurrencyRate> _filteredCurrencyRates = <CurrencyRate>[];
   final List<Statement> _statements = <Statement>[];
   int _tabIndex = 0;

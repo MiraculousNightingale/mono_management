@@ -68,6 +68,8 @@ class Localization extends Translations {
   static const unexpectedError = 'unexpected error';
   static const error = 'error';
   static const ok = 'ok';
+  static const reminders = 'reminders';
+  static const notes = 'notes';
 
   @override
   Map<String, Map<String, String>> get keys => const {
@@ -136,6 +138,8 @@ class Localization extends Translations {
           unexpectedError: 'Unexpected error occurred',
           error: 'error',
           ok: 'Ok',
+          reminders: 'Reminders',
+          notes: 'Notes',
         },
         countryUA: {
           penis: 'Пісюн',
@@ -203,6 +207,8 @@ class Localization extends Translations {
           unexpectedError: 'Сталася неочікувана помилка',
           error: 'Помилка',
           ok: 'Ok',
+          reminders: 'Нагадування',
+          notes: 'Записки',
         }
       };
 }

@@ -35,8 +35,10 @@ class ExpensesController extends GetxController {
   String _searchMccFilterName = '';
   PickerDateRange filterStatementDateRange = const PickerDateRange(null, null);
   StatementOperationType _filterStatementType = StatementOperationType.all;
-  TextEditingController filterDateRangeTextController = TextEditingController();
-  DateRangePickerController filterDateRangeController = DateRangePickerController();
+  final TextEditingController filterStatementDescController = TextEditingController();
+  final TextEditingController filterDateRangeTextController = TextEditingController();
+  final TextEditingController filterMccFilterNameController = TextEditingController();
+  final DateRangePickerController filterDateRangeController = DateRangePickerController();
 
   StatementOperationType get filterStatementType => _filterStatementType;
 
@@ -165,8 +167,6 @@ class ExpensesController extends GetxController {
             .any((filter) => filter.mcc == statement.mcc && filter.show))
         .toList();
   }
-
-  final TextEditingController currencyNameFilter = TextEditingController();
 
   bool _progress = false;
 
