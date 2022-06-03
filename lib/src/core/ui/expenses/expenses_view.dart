@@ -11,6 +11,7 @@ import 'package:mono_management/src/core/ui/home/home_controller.dart';
 import 'package:mono_management/src/data/model/statement.dart';
 import 'package:mono_management/src/util/currencies.dart';
 import 'package:mono_management/src/util/mcc.dart';
+import 'package:sticky_grouped_list/sticky_grouped_list.dart';
 
 class ExpensesView extends GetView<ExpensesController> {
   const ExpensesView({Key? key}) : super(key: key);
@@ -33,7 +34,7 @@ class ExpensesView extends GetView<ExpensesController> {
                 child: CircularProgressIndicator(),
               )
             : Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: controller.showStatementFilter
                     ? ExpensesFilterPage(
                         controller: controller,
@@ -41,7 +42,7 @@ class ExpensesView extends GetView<ExpensesController> {
                     : Column(
                         children: [
                           Expanded(
-                            child: _buildStatementList(
+                            child: _buildGroupedStatementList(
                               controller.filteredStatements,
                             ),
                           ),
@@ -53,7 +54,8 @@ class ExpensesView extends GetView<ExpensesController> {
                               SizedBox(
                                 height: 45,
                                 child: TextField(
-                                  controller: controller.filterStatementDescController,
+                                  controller:
+                                      controller.filterStatementDescController,
                                   onChanged: (value) {
                                     controller.searchStatementDesc = value;
                                   },
@@ -103,6 +105,198 @@ class ExpensesView extends GetView<ExpensesController> {
   //   return items;
   // }
 
+  Widget _buildGroupedStatementList(List<Statement> statements) {
+    return StickyGroupedListView<Statement, DateTime>(
+      elements: statements,
+      groupBy: (Statement element) {
+        final DateTime originalDateTime = element.getDateInDateTime();
+        return DateTime(originalDateTime.year, originalDateTime.month,
+            originalDateTime.day);
+      },
+      floatingHeader: true,
+      groupSeparatorBuilder: (Statement element) => SizedBox(
+        height: 40,
+        child: Center(
+          child: Container(
+            margin: EdgeInsets.zero,
+            //padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                color: Colors.grey[900],
+                borderRadius: BorderRadius.all(const Radius.circular(20))),
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Text(
+                element.getDateInFormat(),
+                textAlign: TextAlign.center,
+                style:
+                    const TextStyle(color: Colors.white, fontWeight: FontWeight.bold,),
+              ),
+            ),
+          ),
+        ),
+      ),
+      itemBuilder: (BuildContext context, Statement element) => Container(
+        margin: const EdgeInsets.symmetric(vertical: 5),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(17), color: Colors.black12),
+        child: Column(
+          children: [
+            ListTile(
+              title: Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.all(5),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    RichText(
+                                      text: TextSpan(
+                                        style: const TextStyle(
+                                            color: Colors.black54,
+                                            fontSize: 14),
+                                        children: [
+                                          TextSpan(
+                                            text: Currency.abbreviationFromCode(
+                                                element.currencyCode),
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Column(
+                                  children: [
+                                    RichText(
+                                      text: TextSpan(
+                                        style: const TextStyle(
+                                            color: Colors.black87,
+                                            fontSize: 14),
+                                        children: [
+                                          TextSpan(
+                                            text: Mcc.getDescFromCode(
+                                                element.mcc),
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    RichText(
+                                      text: const WidgetSpan(
+                                        child: Icon(Icons.star_border),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(5),
+                        child: RichText(
+                          text: TextSpan(
+                            style: const TextStyle(
+                                color: Colors.black87, fontSize: 18),
+                            children: [
+                              TextSpan(
+                                  text: element.description,
+                                  style: const TextStyle()),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(5),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            children: [
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                      color: Colors.black54, fontSize: 18),
+                                  children: [
+                                    TextSpan(
+                                      text: (element.amount / 100).toString(),
+                                      style: TextStyle(
+                                        color: element.amount > 0
+                                            ? Colors.green
+                                            : Colors.red,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Expanded(
+                          // flex: 2,
+                          child: Icon(Icons.double_arrow_rounded),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                      color: Colors.black, fontSize: 18),
+                                  children: [
+                                    TextSpan(
+                                      text: (element.balance / 100).toString(),
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      itemComparator: (Statement elementA, Statement elementB) =>
+          elementA.time.compareTo(elementB.time),
+      order: StickyGroupedListOrder.DESC,
+    );
+  }
+
+  //TODO: Deprecated, remove later
   Widget _buildStatementList(List<Statement> statements) {
     return ListView.separated(
         itemBuilder: (context, index) {
