@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:mono_management/src/core/data/data_manager.dart';
+import 'package:mono_management/src/core/data/firestore_repository.dart';
 import 'package:mono_management/src/data/model/currency_filter.dart';
 import 'package:mono_management/src/data/model/currency_rate.dart';
 import 'package:mono_management/src/data/model/mcc_filter.dart';
@@ -16,10 +18,19 @@ class ExpensesController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _userInfo = DataManager.userInfo;
-    _statements = DataManager.statements;
-    _mccFilters = getMccFilter(_statements);
+    // _userInfo = FirestoreRepository.userInfo;
+    // _statements = FirestoreRepository.statements;
+    // _mccFilters = getMccFilter(_statements);
     // progress = false;
+  }
+
+  @override
+  Future<void> onReady() async {
+    super.onReady();
+    _userInfo = await FirestoreRepository.getUserInfo();
+    _statements = await FirestoreRepository.getStatements();
+    _mccFilters = getMccFilter(_statements);
+    progress = false;
   }
 
   //List<CurrencyRate> _filteredCurrencyRates = <CurrencyRate>[];
@@ -35,10 +46,14 @@ class ExpensesController extends GetxController {
   String _searchMccFilterName = '';
   PickerDateRange filterStatementDateRange = const PickerDateRange(null, null);
   StatementOperationType _filterStatementType = StatementOperationType.all;
-  final TextEditingController filterStatementDescController = TextEditingController();
-  final TextEditingController filterDateRangeTextController = TextEditingController();
-  final TextEditingController filterMccFilterNameController = TextEditingController();
-  final DateRangePickerController filterDateRangeController = DateRangePickerController();
+  final TextEditingController filterStatementDescController =
+      TextEditingController();
+  final TextEditingController filterDateRangeTextController =
+      TextEditingController();
+  final TextEditingController filterMccFilterNameController =
+      TextEditingController();
+  final DateRangePickerController filterDateRangeController =
+      DateRangePickerController();
 
   StatementOperationType get filterStatementType => _filterStatementType;
 
@@ -48,7 +63,9 @@ class ExpensesController extends GetxController {
   }
 
   List<bool> get filterToggleButtonsSelected {
-    return StatementOperationType.values.map((e) => e == filterStatementType).toList();
+    return StatementOperationType.values
+        .map((e) => e == filterStatementType)
+        .toList();
   }
 
   bool get showDatePickerDialog => _showDatePickerDialog;
@@ -88,10 +105,9 @@ class ExpensesController extends GetxController {
       //Desc search
       bool descSearchPassed = true;
       if (searchStatementDesc.isNotEmpty) {
-        descSearchPassed = statement.description
-            .toLowerCase()
-            .contains(searchStatementDesc.toLowerCase(),
-        );
+        descSearchPassed = statement.description.toLowerCase().contains(
+              searchStatementDesc.toLowerCase(),
+            );
       }
       //Date check
       bool dateCheckPassed = true;
@@ -121,8 +137,13 @@ class ExpensesController extends GetxController {
           break;
       }
       //Mcc check
-      final bool mccCheckPassed = _mccFilters.firstWhere((element) => element.mcc == statement.mcc).show;
-      if(descSearchPassed && dateCheckPassed && typeCheckPassed && mccCheckPassed){
+      final bool mccCheckPassed = _mccFilters
+          .firstWhere((element) => element.mcc == statement.mcc)
+          .show;
+      if (descSearchPassed &&
+          dateCheckPassed &&
+          typeCheckPassed &&
+          mccCheckPassed) {
         result.add(statement);
       }
     }
@@ -168,7 +189,7 @@ class ExpensesController extends GetxController {
         .toList();
   }
 
-  bool _progress = false;
+  bool _progress = true;
 
   set progress(bool value) {
     _progress = value;
@@ -216,5 +237,16 @@ class ExpensesController extends GetxController {
   set mccFilters(List<MccFilter> value) {
     _mccFilters = value;
     update();
+  }
+
+  void setStarredStatement(String statementId, bool isStarred) {
+    FirestoreRepository.setStarredStatement(statementId, isStarred)
+        .then((value) {
+      _statements
+          .where((element) => element.id == statementId)
+          .first
+          .isStarred = isStarred;
+      update();
+    });
   }
 }

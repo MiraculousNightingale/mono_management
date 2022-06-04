@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mono_management/src/core/data/data_manager.dart';
+import 'package:mono_management/src/core/data/firestore_repository.dart';
 import 'package:mono_management/src/data/model/currency_filter.dart';
 import 'package:mono_management/src/data/model/currency_rate.dart';
 import 'package:mono_management/src/data/model/mcc_filter.dart';
@@ -15,8 +15,8 @@ class CurrencyRatesController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _userInfo = DataManager.userInfo;
-    _currencyRates = DataManager.currencyRates;
+    _userInfo = FirestoreRepository.userInfo;
+    _currencyRates = FirestoreRepository.currencyRates;
     _currencyFilters = getCurrencyFilter(_currencyRates);
     // progress = false;
   }

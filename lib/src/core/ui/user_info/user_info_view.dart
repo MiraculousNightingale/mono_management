@@ -310,9 +310,9 @@ class UserInfoView extends GetView<UserInfoController> {
                   ),
                   const SizedBox(height: 10),
                 ],
-              ))
+              ),),
             ],
-          )),
+          ),),
     );
   }
 }

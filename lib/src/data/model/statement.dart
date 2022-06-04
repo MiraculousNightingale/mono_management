@@ -4,7 +4,10 @@
 
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:mono_management/src/core/data/firestore_repository.dart';
 
 Statement statementFromJson(String str) => Statement.fromJson(json.decode(str));
 
@@ -34,6 +37,7 @@ class Statement {
     this.receiptId = '',
     this.counterEdrpou = '',
     this.counterIban = '',
+    this.isStarred = false,
   });
 
   String id;
@@ -52,6 +56,7 @@ class Statement {
   String receiptId;
   String counterEdrpou;
   String counterIban;
+  bool isStarred;
 
   factory Statement.fromJson(Map<String, dynamic> json) => Statement(
         id: json["id"],
@@ -95,7 +100,9 @@ class Statement {
     return DateFormat.yMd()
         .format(DateTime.fromMillisecondsSinceEpoch(time * 1000));
   }
+
   DateTime getDateInDateTime() {
     return DateTime.fromMillisecondsSinceEpoch(time * 1000);
   }
+
 }

@@ -128,8 +128,10 @@ class ExpensesView extends GetView<ExpensesController> {
               child: Text(
                 element.getDateInFormat(),
                 textAlign: TextAlign.center,
-                style:
-                    const TextStyle(color: Colors.white, fontWeight: FontWeight.bold,),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
@@ -198,11 +200,13 @@ class ExpensesView extends GetView<ExpensesController> {
                               Expanded(
                                 child: Column(
                                   children: [
-                                    RichText(
-                                      text: const WidgetSpan(
-                                        child: Icon(Icons.star_border),
-                                      ),
-                                    ),
+                                    element.isStarred ? InkWell(
+                                      child: const Icon(Icons.star_outlined),
+                                      onTap: () => controller.setStarredStatement(element.id, false),
+                                    ) : InkWell(
+                                      child: const Icon(Icons.star_border),
+                                      onTap: () => controller.setStarredStatement(element.id, true),
+                                    ) ,
                                   ],
                                 ),
                               ),

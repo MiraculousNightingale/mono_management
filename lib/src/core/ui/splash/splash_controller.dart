@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mono_management/firebase_options.dart';
 import 'package:mono_management/src/core/app_pages.dart';
+import 'package:mono_management/src/core/data/firestore_repository.dart';
 import 'package:mono_management/src/core/data/repositories/flutterfire/firebase_auth_repository.dart';
 import 'package:mono_management/src/core/data/repositories/flutterfire/firebase_auth_repository_impl.dart';
 import 'package:mono_management/src/core/network/dio_manager.dart';
@@ -26,6 +27,7 @@ class SplashController extends GetxController {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+    FirestoreRepository.initDataManager();
     LicenseRegistry.addLicense(() async* {
       final license = await rootBundle.loadString('google_fonts/OFL.txt');
       yield LicenseEntryWithLineBreaks(['google_fonts'], license);
@@ -39,7 +41,7 @@ class SplashController extends GetxController {
 
   void _dependencies() {
     Get.lazyPut<FirebaseAuthRepository>(
-          () => FirebaseAuthRepositoryImpl(),
+      () => FirebaseAuthRepositoryImpl(),
       fenix: true,
     );
   }
