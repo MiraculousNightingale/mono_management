@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:mono_management/src/core/data/firestore_repository.dart';
+import 'package:mono_management/src/data/model/note.dart';
 
 Statement statementFromJson(String str) => Statement.fromJson(json.decode(str));
 
@@ -57,6 +58,7 @@ class Statement {
   String counterEdrpou;
   String counterIban;
   bool isStarred;
+  List<Note> notes = <Note>[];
 
   factory Statement.fromJson(Map<String, dynamic> json) => Statement(
         id: json["id"],

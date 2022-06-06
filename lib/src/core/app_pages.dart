@@ -13,6 +13,8 @@ import 'package:mono_management/src/core/ui/login/login/login_controller.dart';
 import 'package:mono_management/src/core/ui/login/login/login_view.dart';
 import 'package:mono_management/src/core/ui/login/register/registration_controller.dart';
 import 'package:mono_management/src/core/ui/login/register/registration_view.dart';
+import 'package:mono_management/src/core/ui/notes/notes_controller.dart';
+import 'package:mono_management/src/core/ui/notes/notes_view.dart';
 import 'package:mono_management/src/core/ui/splash/splash_controller.dart';
 import 'package:mono_management/src/core/ui/splash/splash_view.dart';
 import 'package:mono_management/src/core/ui/user_info/user_info_controller.dart';
@@ -57,7 +59,7 @@ class AppPages {
       name: Routes.userInfoRoute,
       page: () => const UserInfoView(),
       binding: BindingsBuilder.put(
-            () => UserInfoController(),
+        () => UserInfoController(),
       ),
       transitionDuration: Duration.zero,
     ),
@@ -73,7 +75,7 @@ class AppPages {
       name: Routes.statementsRoute,
       page: () => const ExpensesView(),
       binding: BindingsBuilder.put(
-            () => ExpensesController(),
+        () => ExpensesController(),
       ),
       transitionDuration: Duration.zero,
     ),
@@ -84,7 +86,6 @@ class AppPages {
         () => ChartController(),
       ),
     ),
-    // TODO: change to a separate controller
     GetPage(
       name: Routes.pieChartRoute,
       page: () => const PieChartView(),
@@ -92,7 +93,6 @@ class AppPages {
         () => ChartController(),
       ),
     ),
-    // TODO: change to a separate controller
     GetPage(
       name: Routes.barChartRote,
       page: () => const BarChartView(),
@@ -100,7 +100,13 @@ class AppPages {
         () => ChartController(),
       ),
     ),
-    // TODO: change to a separate controller
+    GetPage(
+      name: Routes.notesRoute,
+      page: () => const NotesView(),
+      binding: BindingsBuilder.put(
+        () => NotesController(),
+      ),
+    ),
     // GetPage(name: Routes.EXPENSES_FILTER, page: () => HomeView(), binding: BindingsBuilder.put(() => HomeController())),
     // GetPage(name: Routes.CURRENCY_RATES, page: () => CurrencyRatesView(), binding: BindingsBuilder.put(() => CurrencyRatesController())),
     // GetPage(name: Routes.SPLASH, page: () => SplashScreen(), binding: BindingsBuilder.put(() => SplashController())),

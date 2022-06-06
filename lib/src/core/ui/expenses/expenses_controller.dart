@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:mono_management/src/core/data/firestore_repository.dart';
+import 'package:mono_management/src/core/ui/notes/notes_controller.dart';
 import 'package:mono_management/src/data/model/currency_filter.dart';
 import 'package:mono_management/src/data/model/currency_rate.dart';
 import 'package:mono_management/src/data/model/mcc_filter.dart';
@@ -18,19 +19,19 @@ class ExpensesController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // _userInfo = FirestoreRepository.userInfo;
-    // _statements = FirestoreRepository.statements;
-    // _mccFilters = getMccFilter(_statements);
+    _userInfo = FirestoreRepository.userInfo;
+    _statements = FirestoreRepository.statements;
+    _mccFilters = getMccFilter(_statements);
     // progress = false;
   }
 
   @override
   Future<void> onReady() async {
     super.onReady();
-    _userInfo = await FirestoreRepository.getUserInfo();
-    _statements = await FirestoreRepository.getStatements();
-    _mccFilters = getMccFilter(_statements);
-    progress = false;
+    // _userInfo = await FirestoreRepository.getUserInfo();
+    // _statements = await FirestoreRepository.getStatements();
+    // _mccFilters = getMccFilter(_statements);
+    // progress = false;
   }
 
   //List<CurrencyRate> _filteredCurrencyRates = <CurrencyRate>[];
@@ -189,7 +190,8 @@ class ExpensesController extends GetxController {
         .toList();
   }
 
-  bool _progress = true;
+  // bool _progress = true;
+  bool _progress = false;
 
   set progress(bool value) {
     _progress = value;
@@ -247,6 +249,7 @@ class ExpensesController extends GetxController {
           .first
           .isStarred = isStarred;
       update();
+      // Get.find<NotesController>().update();
     });
   }
 }

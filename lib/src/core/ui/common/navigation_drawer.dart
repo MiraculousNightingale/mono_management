@@ -68,7 +68,7 @@ class NavigationDrawer extends StatelessWidget {
             textIconColor: Colors.black,
             tileColor: Colors.white,
             onTap: () {
-              Get.toNamed(Routes.barChartRote);
+              Get.toNamed(Routes.notesRoute);
             },
             pressed: false,
           ),
@@ -78,9 +78,9 @@ class NavigationDrawer extends StatelessWidget {
             textIconColor: Colors.black,
             tileColor: Colors.white,
             onTap: () {
-              Get.toNamed(Routes.barChartRote);
+              Get.toNamed(Routes.notesRoute);
             },
-            pressed: false,
+            pressed: Get.currentRoute == Routes.notesRoute,
           ),
         ],
       ),

@@ -12,6 +12,7 @@ abstract class Routes {
   static const currencyRatesRoute = '/currency_rates';
   static const statementsRoute = '/statements';
   static const expensesFilterRoute = '/expenses_filter';
+  static const notesRoute = '/notes';
 
   static const bottomNavBarRoutes = [
     userInfoRoute,

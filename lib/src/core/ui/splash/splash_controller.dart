@@ -27,7 +27,6 @@ class SplashController extends GetxController {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    FirestoreRepository.initDataManager();
     LicenseRegistry.addLicense(() async* {
       final license = await rootBundle.loadString('google_fonts/OFL.txt');
       yield LicenseEntryWithLineBreaks(['google_fonts'], license);
@@ -36,7 +35,10 @@ class SplashController extends GetxController {
     DioManager.configure();
     _dependencies();
     await Future.delayed(const Duration(seconds: 1));
+
+    await FirestoreRepository.initDataManager();
     return _checkUserIsLogged();
+
   }
 
   void _dependencies() {
