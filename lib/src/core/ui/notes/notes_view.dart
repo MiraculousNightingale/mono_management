@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:mono_management/resources/colors.dart';
 import 'package:mono_management/resources/localization.dart';
+import 'package:mono_management/src/core/app_pages.dart';
 import 'package:mono_management/src/core/ui/common/navigation_drawer.dart';
 import 'package:mono_management/src/core/ui/notes/notes_controller.dart';
 import 'package:mono_management/src/data/model/note.dart';
@@ -66,55 +67,59 @@ class NotesView extends GetView<NotesController> {
       elements: controller.notes,
       groupBy: (Note element) => element.statement.id,
       floatingHeader: true,
-      groupSeparatorBuilder: (Note element) => Container(
-        margin: const EdgeInsets.all(5),
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-        decoration: BoxDecoration(
-          color: Colors.grey[900],
-          borderRadius: BorderRadius.circular(20),
-        ),
-        height: 40,
-        child: Row(
-          children: [
-            Text(
-              (element.statement.amount / 100).round().toString(),
-              style: TextStyle(
-                color: element.statement.amount > 0 ? Colors.green : Colors.red,
-                fontWeight: FontWeight.bold,
-                fontSize: 15,
+      groupSeparatorBuilder: (Note element) => InkWell(
+        onTap: () => Get.toNamed(Routes.statementNotesRoute,
+            arguments: {'statement': element.statement}),
+        child: Container(
+          margin: const EdgeInsets.all(5),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+          decoration: BoxDecoration(
+            color: Colors.grey[900],
+            borderRadius: BorderRadius.circular(20),
+          ),
+          height: 40,
+          child: Row(
+            children: [
+              Text(
+                (element.statement.amount / 100).round().toString(),
+                style: TextStyle(
+                  color: element.statement.amount > 0 ? Colors.green : Colors.red,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
               ),
-            ),
-            Icon(
-              Icons.double_arrow,
-              color: Colors.grey[200],
-            ),
-            Text(
-              (element.statement.balance / 100).round().toString(),
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 15,
+              Icon(
+                Icons.double_arrow,
                 color: Colors.grey[200],
               ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Expanded(
-                child: Text(
-              element.statement.description,
-              style: TextStyle(
-                color: Colors.grey[200],
+              Text(
+                (element.statement.balance / 100).round().toString(),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  color: Colors.grey[200],
+                ),
               ),
-            )),
-            Text(
-              element.statement.getDateInFormat(),
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 15,
-                color: Colors.grey[200],
+              const SizedBox(
+                width: 10,
               ),
-            ),
-          ],
+              Expanded(
+                  child: Text(
+                element.statement.description,
+                style: TextStyle(
+                  color: Colors.grey[200],
+                ),
+              )),
+              Text(
+                element.statement.getDateInFormat(),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                  color: Colors.grey[200],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       itemBuilder: (BuildContext context, Note element) => Container(
@@ -268,15 +273,33 @@ class NotesView extends GetView<NotesController> {
                                 ),
                               ),
                               Expanded(
-                                child: Column(
+                                child: Row(
                                   children: [
-                                    element.isStarred ? InkWell(
-                                      child: const Icon(Icons.star_outlined),
-                                      onTap: () => controller.setStarredStatement(element.id, false),
-                                    ) : InkWell(
-                                      child: const Icon(Icons.star_border),
-                                      onTap: () => controller.setStarredStatement(element.id, true),
+                                    InkWell(
+                                      child: const Icon(Icons.list_alt),
+                                      onTap: () {
+                                        Get.toNamed(Routes.statementNotesRoute,
+                                            arguments: {'statement': element});
+                                      },
                                     ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    element.isStarred
+                                        ? InkWell(
+                                            child:
+                                                const Icon(Icons.star_outlined),
+                                            onTap: () =>
+                                                controller.setStarredStatement(
+                                                    element.id, false),
+                                          )
+                                        : InkWell(
+                                            child:
+                                                const Icon(Icons.star_border),
+                                            onTap: () =>
+                                                controller.setStarredStatement(
+                                                    element.id, true),
+                                          ),
                                   ],
                                 ),
                               ),

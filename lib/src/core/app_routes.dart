@@ -13,6 +13,8 @@ abstract class Routes {
   static const statementsRoute = '/statements';
   static const expensesFilterRoute = '/expenses_filter';
   static const notesRoute = '/notes';
+  static const statementNotesRoute = '/statement_notes';
+  static const noteFormRoute = '/note_form';
 
   static const bottomNavBarRoutes = [
     userInfoRoute,

@@ -13,8 +13,12 @@ import 'package:mono_management/src/core/ui/login/login/login_controller.dart';
 import 'package:mono_management/src/core/ui/login/login/login_view.dart';
 import 'package:mono_management/src/core/ui/login/register/registration_controller.dart';
 import 'package:mono_management/src/core/ui/login/register/registration_view.dart';
+import 'package:mono_management/src/core/ui/notes/note_form_controller.dart';
+import 'package:mono_management/src/core/ui/notes/note_form_view.dart';
 import 'package:mono_management/src/core/ui/notes/notes_controller.dart';
 import 'package:mono_management/src/core/ui/notes/notes_view.dart';
+import 'package:mono_management/src/core/ui/notes/statement_notes_controller.dart';
+import 'package:mono_management/src/core/ui/notes/statement_notes_view.dart';
 import 'package:mono_management/src/core/ui/splash/splash_controller.dart';
 import 'package:mono_management/src/core/ui/splash/splash_view.dart';
 import 'package:mono_management/src/core/ui/user_info/user_info_controller.dart';
@@ -105,6 +109,20 @@ class AppPages {
       page: () => const NotesView(),
       binding: BindingsBuilder.put(
         () => NotesController(),
+      ),
+    ),
+    GetPage(
+      name: Routes.statementNotesRoute,
+      page: () => const StatementNotesView(),
+      binding: BindingsBuilder.put(
+        () => StatementNotesController(),
+      ),
+    ),
+    GetPage(
+      name: Routes.noteFormRoute,
+      page: () => const NoteFormView(),
+      binding: BindingsBuilder.put(
+            () => NoteFormController(),
       ),
     ),
     // GetPage(name: Routes.EXPENSES_FILTER, page: () => HomeView(), binding: BindingsBuilder.put(() => HomeController())),

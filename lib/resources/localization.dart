@@ -70,6 +70,8 @@ class Localization extends Translations {
   static const ok = 'ok';
   static const reminders = 'reminders';
   static const notes = 'notes';
+  static const editing = 'editing';
+  static const note = 'note';
 
   @override
   Map<String, Map<String, String>> get keys => const {
@@ -140,6 +142,8 @@ class Localization extends Translations {
           ok: 'Ok',
           reminders: 'Reminders',
           notes: 'Notes',
+          editing: 'Editing',
+          note: 'Note',
         },
         countryUA: {
           penis: 'Пісюн',
@@ -209,6 +213,8 @@ class Localization extends Translations {
           ok: 'Ok',
           reminders: 'Нагадування',
           notes: 'Записки',
+          editing: 'Редагування',
+          note: 'Записка',
         }
       };
 }
