@@ -4,10 +4,11 @@ import 'package:mono_management/resources/colors.dart';
 import 'package:mono_management/resources/localization.dart';
 import 'package:mono_management/src/core/app_pages.dart';
 import 'package:mono_management/src/core/data/repositories/flutterfire/firebase_auth_repository.dart';
+import 'package:mono_management/src/core/ui/notifications/notifications_view.dart';
 import 'package:mono_management/src/data/model/user_info.dart';
 
 class NavigationDrawer extends StatelessWidget {
-  const NavigationDrawer({required this.userInfo,  Key? key}) : super(key: key);
+  const NavigationDrawer({required this.userInfo, Key? key}) : super(key: key);
   final UserInfo userInfo;
 
   @override
@@ -68,7 +69,7 @@ class NavigationDrawer extends StatelessWidget {
             textIconColor: Colors.black,
             tileColor: Colors.white,
             onTap: () {
-              Get.toNamed(Routes.notesRoute);
+              Get.toNamed(Routes.notificationsRoute);
             },
             pressed: false,
           ),
@@ -99,6 +100,17 @@ class NavigationDrawer extends StatelessWidget {
           currentAccountPicture: const CircleAvatar(
             child: Text('БП'),
             // backgroundColor: Colors.blue,
+          ),
+        ),
+        Positioned(
+          right: 40,
+          top: 20,
+          child: IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
           ),
         ),
         Positioned(

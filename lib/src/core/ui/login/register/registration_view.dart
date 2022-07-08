@@ -89,6 +89,25 @@ class RegistrationView extends GetView<RegistrationController> {
                       onChanged: controller.onPasswordChanged,
                     ),
                     const SizedBox(
+                      height: 5,
+                    ),
+                    TextFieldNameWidget(name: 'АРІ ключ'),
+                    TextFormField(
+                      controller: controller.emailTEC,
+                      validator: Utils.emailValidator,
+                      style: GoogleFonts.roboto(),
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        border: UiUtils.loginTextFieldInputBorder,
+                        focusedBorder: UiUtils.loginTextFieldFocusedBorder,
+                        enabledBorder: UiUtils.loginTextFieldInputBorder,
+                        errorBorder: UiUtils.loginTextFieldErrorBorder,
+                        fillColor: colorAccent,
+                        focusColor: colorAccent,
+                        hintText: 'Введіть АРІ ключ',
+                      ),
+                    ),
+                    const SizedBox(
                       height: 10,
                     ),
                     ElevatedButton(

@@ -19,6 +19,10 @@ import 'package:mono_management/src/core/ui/notes/notes_controller.dart';
 import 'package:mono_management/src/core/ui/notes/notes_view.dart';
 import 'package:mono_management/src/core/ui/notes/statement_notes_controller.dart';
 import 'package:mono_management/src/core/ui/notes/statement_notes_view.dart';
+import 'package:mono_management/src/core/ui/notifications/notifications_controller.dart';
+import 'package:mono_management/src/core/ui/notifications/notifications_form_controller.dart';
+import 'package:mono_management/src/core/ui/notifications/notifications_form_view.dart';
+import 'package:mono_management/src/core/ui/notifications/notifications_view.dart';
 import 'package:mono_management/src/core/ui/splash/splash_controller.dart';
 import 'package:mono_management/src/core/ui/splash/splash_view.dart';
 import 'package:mono_management/src/core/ui/user_info/user_info_controller.dart';
@@ -123,6 +127,20 @@ class AppPages {
       page: () => const NoteFormView(),
       binding: BindingsBuilder.put(
             () => NoteFormController(),
+      ),
+    ),
+    GetPage(
+      name: Routes.notificationsRoute,
+      page: () => const NotificationsView(),
+      binding: BindingsBuilder.put(
+            () => NotificationsController(),
+      ),
+    ),
+    GetPage(
+      name: Routes.notificationsFormRoute,
+      page: () => const NotificationFormView(),
+      binding: BindingsBuilder.put(
+            () => NotificationsFormController(),
       ),
     ),
     // GetPage(name: Routes.EXPENSES_FILTER, page: () => HomeView(), binding: BindingsBuilder.put(() => HomeController())),

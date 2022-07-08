@@ -63,9 +63,9 @@ class NotesView extends GetView<NotesController> {
 
   Widget _buildNoteList() {
     //Sticky category list of notes, statement is a category
-    return StickyGroupedListView<Note, String>(
+    return StickyGroupedListView<Note, int>(
       elements: controller.notes,
-      groupBy: (Note element) => element.statement.id,
+      groupBy: (Note element) => element.statement.time,
       floatingHeader: true,
       groupSeparatorBuilder: (Note element) => InkWell(
         onTap: () => Get.toNamed(Routes.statementNotesRoute,
@@ -213,7 +213,7 @@ class NotesView extends GetView<NotesController> {
         ),
       ),
       itemBuilder: (BuildContext context, Statement element) => Container(
-        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 11),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(17), color: Colors.black12),
         child: Column(
@@ -283,7 +283,7 @@ class NotesView extends GetView<NotesController> {
                                       },
                                     ),
                                     const SizedBox(
-                                      width: 10,
+                                      width: 5,
                                     ),
                                     element.isStarred
                                         ? InkWell(
@@ -300,6 +300,15 @@ class NotesView extends GetView<NotesController> {
                                                 controller.setStarredStatement(
                                                     element.id, true),
                                           ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    InkWell(
+                                      child: const Icon(Icons.delete_outline),
+                                      onTap: () {
+                                        print('cock');
+                                      },
+                                    ),
                                   ],
                                 ),
                               ),

@@ -27,7 +27,7 @@ class CurrencyRatesView extends GetView<CurrencyRatesController> {
           : Scaffold(
               appBar: AppBar(
                 title: Text(
-                  controller.getCurrentTitle(),
+                  'Курси валют',
                 ),
                 backgroundColor: appBarColor,
               ),

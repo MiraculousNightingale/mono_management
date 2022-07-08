@@ -110,6 +110,29 @@ class BarChartView extends GetView<ChartController> {
                   // },
                 ),
               ),
+              SizedBox(
+                height: 35,
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: TextField(
+                        controller:
+                        controller.filterDateRangeTextController,
+                        //onChanged: (value) {},
+                        enabled: false,
+                        decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
+                          labelText: Localization.date.tr,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
               Row(
                 children: [
                   Expanded(

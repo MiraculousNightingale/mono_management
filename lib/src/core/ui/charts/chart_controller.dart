@@ -20,6 +20,9 @@ class ChartController extends GetxController {
     _currencyRates =  FirestoreRepository.currencyRates;
     _statements =  FirestoreRepository.statements;
     // progress = false;
+    // filterDateRangeTextController.text = 'Від 4/4/2021 до 8/27/2021';
+    filterDateRangeTextController.text = '    Травень    ';
+
   }
 
   UserInfo _userInfo = UserInfo();
@@ -58,5 +61,8 @@ class ChartController extends GetxController {
     sortedResult.sort((a, b) => b.amount.compareTo(a.amount));
     return sortedResult;
   }
+
+
+ TextEditingController filterDateRangeTextController = TextEditingController();
 
 }

@@ -22,7 +22,7 @@ class ExpensesView extends GetView<ExpensesController> {
       builder: (controller) => Scaffold(
         appBar: AppBar(
           title: Text(
-            controller.getCurrentTitle(),
+            'Виписки',
           ),
           backgroundColor: appBarColor,
         ),

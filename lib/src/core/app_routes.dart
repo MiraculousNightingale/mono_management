@@ -15,6 +15,8 @@ abstract class Routes {
   static const notesRoute = '/notes';
   static const statementNotesRoute = '/statement_notes';
   static const noteFormRoute = '/note_form';
+  static const notificationsRoute = '/notifications';
+  static const notificationsFormRoute = '/notifications_form';
 
   static const bottomNavBarRoutes = [
     userInfoRoute,
