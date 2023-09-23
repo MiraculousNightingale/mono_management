@@ -6,6 +6,8 @@ Intended to be an expense management application integrated with MonoBank initia
 
 At it's core it is basically an API reader which processes user's transaction data in a useful way and presents it in a form of text, graphs and user configured notifications.
 
+Developed with the use of GetX state management library.
+
 ## Demo Screenshots
 ### Auth and card selection, per-card statements
 <details>
