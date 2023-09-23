@@ -9,37 +9,37 @@ At it's core it is basically an API reader which processes user's transaction da
 ## Demo Screenshots
 ### Auth and card selection, per-card statements
 <details>
-  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/7afe8336-63f1-47ab-bcfb-eab75d750981" width="200">
-  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/5426db78-8f87-4531-a880-cf9444f08c9e" width="200">
-  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/1ab5f9dc-dee8-41ed-8497-407e0fe33bd6" width="200">
-  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/b91d4ea1-b3a8-4a8e-b2be-0150666972d7" width="200">
-  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/97b870d9-07ef-4312-b99f-07b9e9fb2edf" width="200">
-  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/907a834d-7aa4-4f19-94ff-220fa7cfaf9d" width="200">
-  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/83c399be-1eab-44b5-ac0f-73fa9d1dcd5c" width="200">
+  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/263530a9-baa6-493f-b9c9-d311c21b0fe3" width="200">
+  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/988a1750-f885-4bf5-be64-2f8e0a2d5779" width="200">
+  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/d69b18a0-044f-44e7-b2dd-ab78e23e602a" width="200">
+  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/b372cea3-790f-4ad9-be29-0b099385038c" width="200">
+  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/47fa858c-8c64-42de-a122-be08228719a1" width="200">
+  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/6ee9136e-919d-4485-a512-b4cb0c32a4b3" width="200">
+  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/94b36417-3d2f-46f7-802d-83f61f689d84" width="200">
 </details>
 
 ### Notes
 <details>
-  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/d559a81d-3ce8-436e-baea-9a6ff39fbac0" width="200">
-  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/94976d43-1271-4cd0-a815-9dfe38bc2e25" width="200">
-  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/4b5a8f32-304d-4695-8125-efa67d7ffe3e" width="200">
-  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/f9aa1c35-6e88-4c38-bf67-4a62c9a26502" width="200">
-</details>
+  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/4566d9c5-dc26-4609-b0ae-3d088e5f7432" width="200">
+  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/90ecb98a-8022-42e4-8806-cd2220d6ad3b" width="200">
+  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/c7c4d2c5-ebc6-45f9-b6aa-24b63cfc2ac3" width="200">
+  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/f080cd17-2560-4dbb-b1a0-7037547f96cc" width="200">
+  </details>
 
 ### Notifications
 <details>
-  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/fffeebf1-f6cd-4b0e-87d9-a2864ecf0e61" width="200">
-  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/ddda48fc-5e37-4a2c-83c8-a84c142cb445" width="200">
-  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/32274f09-116c-4e92-a9f8-9fbe34093d9c" width="200">
+  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/f38a556a-f3a1-4ce7-96ae-31032888ff0a" width="200">
+  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/ecb6a5f5-70d6-481a-a33d-f47dd3b54a7b" width="200">
+  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/2dc95c76-8119-406a-9d0f-cf6a34f07c35" width="200">
 </details>
 
 ### Charts
 <details>
-  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/b535aeb0-913a-492c-9fdd-4adf538e16d2" width="190">
-  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/78d2bfa2-6247-4926-b73b-2c36acb0bb1b" width="190">
-  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/0d60bbcd-f9d9-49fe-bc7e-f68bf6dca4e6" width="190">
-  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/d8cb6304-243c-442f-b5c4-7f614f166e61" width="190">
-  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/9c619cf4-83bd-4ca2-95f2-3b292216f57b" width="190">
+  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/6ee868e5-cc1f-4247-984b-7fac2910fcea" width="190">
+  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/fefa5449-0bde-4eb5-9bdf-7442d5fccab5" width="190">
+  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/7a2cd9af-ebcc-4e50-b7a5-d6a877a06702" width="190">
+  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/12530173-4794-4198-941f-e0264ff74c94" width="190">
+  <img src="https://github.com/MiraculousNightingale/mono_management/assets/34477181/83bc915f-b3c6-4e77-959b-7df46ff687ed" width="190">
 </details>
 
 <!-- ## Getting Started
